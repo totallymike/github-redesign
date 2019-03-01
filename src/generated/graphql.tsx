@@ -2022,23 +2022,21 @@ export type X509Certificate = any;
 // Documents
 // ====================================================
 
-export namespace Header {
-  export type Variables = {};
+export type HeaderVariables = {};
 
-  export type Query = {
-    __typename?: "Query";
+export type HeaderQuery = {
+  __typename?: "Query";
 
-    viewer: Viewer;
-  };
+  viewer: HeaderViewer;
+};
 
-  export type Viewer = {
-    __typename?: "User";
+export type HeaderViewer = {
+  __typename?: "User";
 
-    avatarUrl: Uri;
+  avatarUrl: Uri;
 
-    login: string;
-  };
-}
+  login: string;
+};
 
 import gql from "graphql-tag";
 import * as React from "react";
@@ -2048,46 +2046,46 @@ import * as ReactApollo from "react-apollo";
 // Components
 // ====================================================
 
-export namespace Header {
-  export const Document = gql`
-    query Header {
-      viewer {
-        avatarUrl
-        login
-      }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.QueryProps<Query, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Query<Query, Variables>
-          query={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
+export const HeaderDocument = gql`
+  query Header {
+    viewer {
+      avatarUrl(size: 50)
+      login
     }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.DataProps<Query, Variables>
-  > &
-    TChildProps;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Query,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class HeaderComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<HeaderQuery, HeaderVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<HeaderQuery, HeaderVariables>
+        query={HeaderDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
+}
+export type HeaderProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<HeaderQuery, HeaderVariables>
+> &
+  TChildProps;
+export function HeaderHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        HeaderQuery,
+        HeaderVariables,
+        HeaderProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    HeaderQuery,
+    HeaderVariables,
+    HeaderProps<TChildProps>
+  >(HeaderDocument, operationOptions);
 }
 
 export interface IntrospectionResultData {

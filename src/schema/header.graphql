@@ -1,6 +1,6 @@
 query Header {
   viewer {
-    avatarUrl
+    avatarUrl(size: 50)
     login
   }
 }

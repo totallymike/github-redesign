@@ -3,6 +3,8 @@ schema: schema.public.graphql
 documents: "src/schema/*.graphql"
 generates:
   src/generated/graphql.tsx:
+    config:
+      noNamespaces: true
     plugins:
       - "typescript-common"
       - "typescript-client"
