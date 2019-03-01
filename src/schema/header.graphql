@@ -1,0 +1,6 @@
+query Header {
+  viewer {
+    avatarUrl
+    login
+  }
+}

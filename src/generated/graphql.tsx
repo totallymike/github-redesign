@@ -2018,6 +2018,78 @@ export type Date = any;
 /** A valid x509 certificate string */
 export type X509Certificate = any;
 
+// ====================================================
+// Documents
+// ====================================================
+
+export namespace Header {
+  export type Variables = {};
+
+  export type Query = {
+    __typename?: "Query";
+
+    viewer: Viewer;
+  };
+
+  export type Viewer = {
+    __typename?: "User";
+
+    avatarUrl: Uri;
+
+    login: string;
+  };
+}
+
+import gql from "graphql-tag";
+import * as React from "react";
+import * as ReactApollo from "react-apollo";
+
+// ====================================================
+// Components
+// ====================================================
+
+export namespace Header {
+  export const Document = gql`
+    query Header {
+      viewer {
+        avatarUrl
+        login
+      }
+    }
+  `;
+  export class Component extends React.Component<
+    Partial<ReactApollo.QueryProps<Query, Variables>>
+  > {
+    render() {
+      return (
+        <ReactApollo.Query<Query, Variables>
+          query={Document}
+          {...(this as any)["props"] as any}
+        />
+      );
+    }
+  }
+  export type Props<TChildProps = any> = Partial<
+    ReactApollo.DataProps<Query, Variables>
+  > &
+    TChildProps;
+  export function HOC<TProps, TChildProps = any>(
+    operationOptions:
+      | ReactApollo.OperationOption<
+          TProps,
+          Query,
+          Variables,
+          Props<TChildProps>
+        >
+      | undefined
+  ) {
+    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
+      Document,
+      operationOptions
+    );
+  }
+}
+
 export interface IntrospectionResultData {
   __schema: {
     types: {
