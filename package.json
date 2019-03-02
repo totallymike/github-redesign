@@ -9,6 +9,7 @@
     "@types/react-dom": "16.8.2",
     "apollo-boost": "^0.3.1",
     "apollo-client": "^2.5.1",
+    "classnames": "^2.2.6",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "jss-preset-default": "10.0.0-alpha.12",
@@ -36,6 +37,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/classnames": "^2.2.7",
     "@types/dotenv": "^6.1.0",
     "dotenv": "^6.2.0",
     "graphql-code-generator": "^0.18.0",
@@ -44,6 +46,13 @@
     "graphql-codegen-typescript-client": "0.18.0",
     "graphql-codegen-typescript-common": "0.18.0",
     "graphql-codegen-typescript-react-apollo": "0.18.0",
-    "ts-node": "^8.0.2"
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-microsoft-contrib": "^6.0.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0"
   }
 }

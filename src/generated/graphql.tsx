@@ -2049,7 +2049,7 @@ import * as ReactApollo from "react-apollo";
 export const HeaderDocument = gql`
   query Header {
     viewer {
-      avatarUrl(size: 50)
+      avatarUrl(size: 40)
       login
     }
   }
