@@ -12,6 +12,7 @@
     "classnames": "^2.2.6",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
+    "jss": "^10.0.0-alpha.12",
     "jss-preset-default": "10.0.0-alpha.12",
     "react": "^16.8.3",
     "react-apollo": "^2.5.1",

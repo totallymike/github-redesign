@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
 import { create as createJss } from 'jss';
 import preset from 'jss-preset-default';
+import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
-import logo from './logo.svg';
-import { client } from './client';
-import './App.css';
 import { JssProvider, ThemeProvider } from 'react-jss';
-import { theme } from './styles/theme';
+import './App.css';
+import { client } from './client';
 import { Header } from './components/Header';
+import { theme } from './styles/theme';
 
 const jss = createJss()
 jss.setup(preset());
@@ -19,8 +18,7 @@ class App extends Component {
         <JssProvider jss={jss}>
           <ThemeProvider theme={theme}>
             <Header />
-            <div className="App">
-            </div>
+            <div className="App" />
           </ThemeProvider>
         </JssProvider>
       </ApolloProvider>

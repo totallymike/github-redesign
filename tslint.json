@@ -18,7 +18,12 @@
     "ban": [true, ["alert"]],
     "block-spacing": true,
     "brace-style": [true, "1tbs", {"allowSingleLine": true}],
-    "trailing-comma": [true, "never"],
+    "trailing-comma": [true, { "esSpecCompliant": true, "multiline": {
+      "objects": "always",
+      "arrays": "always",
+      "functions": "never",
+      "typeLiterals": "ignore"
+    }}],
     "ter-computed-property-spacing": true,
     "curly": true,
     "eofline": true,
