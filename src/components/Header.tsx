@@ -58,9 +58,9 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
         return (
           <div className="d-flex flex-justify-between px-3">
             <div className="d-flex flex-justify-between">
-              <a className="header-logo-invertocat">
+              <div className="header-logo-invertocat">
                 <Logo className="octicon octicon-mark-github" />
-              </a>
+              </div>
             </div>
             <div className="d-flex flex-justify-between flex-auto">
               <ul className="d-flex px-2 flex-items-center text-bold list-style-none">
