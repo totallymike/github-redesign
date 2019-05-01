@@ -1,9 +1,12 @@
 overwrite: true
-schema: schema.public.graphql
-documents: "src/schema/*.graphql"
+schema:
+  - schema.public.graphql
+  - src/schema/local.schema.graphql
+documents: "src/graphql/*.graphql"
 generates:
   src/generated/graphql.tsx:
     config:
+      gqlImport: graphql.macro#gql
       noNamespaces: true
     plugins:
       - "add": '/* eslint-disable */'

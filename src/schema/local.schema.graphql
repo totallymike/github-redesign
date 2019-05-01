@@ -1,0 +1,4 @@
+extend type Query {
+  isLoggedIn: Boolean!
+  token: String
+}

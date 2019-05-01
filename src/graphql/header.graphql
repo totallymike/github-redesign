@@ -3,4 +3,6 @@ query Header {
     avatarUrl(size: 40)
     login
   }
+
+  isLoggedIn @client
 }

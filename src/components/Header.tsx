@@ -1,4 +1,4 @@
-import cn from 'classnames';
+// import cn from 'classnames';
 import React from 'react';
 import withStyles, { WithStyles } from 'react-jss';
 import { HeaderComponent } from '../generated/graphql';
@@ -49,6 +49,7 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
   <header className={classes.header} role="banner">
     <HeaderComponent>
       {({ data, loading, error }) => {
+        console.log(data);
         if (loading || error) {
           return <p>{(loading && `loading: ${loading}`) || `error: ${error}`}</p>;
         }
@@ -58,7 +59,7 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
         return (
           <div className="d-flex flex-justify-between px-3">
             <div className="d-flex flex-justify-between">
-              <div className="header-logo-invertocat">
+              <div className={classes.headerLogoInvertocat}>
                 <Logo className="octicon octicon-mark-github" />
               </div>
             </div>

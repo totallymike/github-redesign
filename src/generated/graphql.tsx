@@ -7885,6 +7885,8 @@ export type Query = {
   user?: Maybe<User>;
   /** The currently authenticated user. */
   viewer: User;
+  isLoggedIn: Scalars['Boolean'];
+  token?: Maybe<Scalars['String']>;
 };
 
 /** The query root of GitHub's GraphQL interface. */
@@ -12122,13 +12124,13 @@ export type ViewerHovercardContext = HovercardContext & {
 
 export type HeaderQueryVariables = {};
 
-export type HeaderQuery = { __typename?: 'Query' } & {
-  viewer: { __typename?: 'User' } & Pick<User, 'avatarUrl' | 'login'>;
-};
+export type HeaderQuery = { __typename?: 'Query' } & Pick<Query, 'isLoggedIn'> & {
+    viewer: { __typename?: 'User' } & Pick<User, 'avatarUrl' | 'login'>;
+  };
 export type HeaderVariables = HeaderQueryVariables;
 export type HeaderViewer = HeaderQuery['viewer'];
 export const HeaderHOC = withHeader;
-import gql from 'graphql-tag';
+import { gql } from 'graphql.macro';
 import * as React from 'react';
 import * as ReactApollo from 'react-apollo';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -12139,6 +12141,7 @@ export const HeaderDocument = gql`
       avatarUrl(size: 40)
       login
     }
+    isLoggedIn @client
   }
 `;
 
