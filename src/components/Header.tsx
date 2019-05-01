@@ -50,7 +50,7 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
     <HeaderComponent>
       {({ data, loading, error }) => {
         if (loading || error) {
-          return <p>{loading || error}</p>;
+          return <p>{(loading && `loading: ${loading}`) || `error: ${error}`}</p>;
         }
         if (!data) {
           return 'No data!';
@@ -58,8 +58,8 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
         return (
           <div className="d-flex flex-justify-between px-3">
             <div className="d-flex flex-justify-between">
-              <a className={classes.headerLogoInvertocat}>
-                <Logo className={classes.octiconMarkGithub} />
+              <a className="header-logo-invertocat">
+                <Logo className="octicon octicon-mark-github" />
               </a>
             </div>
             <div className="d-flex flex-justify-between flex-auto">
@@ -88,16 +88,17 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
             </div>
             <div className="d-flex">
               <ul className="d-flex flex-items-center list-style-none">
-                <li className={classes.dropdown}>
-                  <details className="d-flex pl-2 flex-items-center">
-                    <summary className={classes.headerNavLink}>
+                <li className="dropdown">
+                  <details className="details-overlay details-reset d-flex pl-2 flex-items-center">
+                    <summary className="headerComponent-headerNavLink-0-2-5 px-2">
                       <img
-                        className={cn(classes.avatar, 'mr-1', 'float-left')}
+                        className="headerComponent-avatar-0-2-7 mr-1 float-left"
                         src={data.viewer.avatarUrl}
                         alt={`@${data.viewer.login}`}
                         width="20px"
                         height="20px"
                       />
+                      <span className="dropdown-caret" />
                     </summary>
                   </details>
                 </li>
