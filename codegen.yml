@@ -15,6 +15,15 @@ generates:
       - "typescript-compatibility"
       - "typescript-react-apollo"
       - "fragment-matcher"
+  # For now this must be a new file.
+  # See https://github.com/dotansimha/graphql-code-generator/issues/1800
+  src/generated/resolvers.tsx:
+    config:
+      contextType: ../client/index#AppContext
+    plugins:
+      - add: '/* eslint-disable */'
+      - typescript
+      - typescript-resolvers
   ./graphql.schema.json:
     plugins:
       - "introspection"

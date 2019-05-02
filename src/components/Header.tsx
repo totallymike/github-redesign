@@ -49,7 +49,6 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
   <header className={classes.header} role="banner">
     <HeaderComponent>
       {({ data, loading, error }) => {
-        console.log(data);
         if (loading || error) {
           return <p>{(loading && `loading: ${loading}`) || `error: ${error}`}</p>;
         }

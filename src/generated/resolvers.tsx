@@ -12122,1471 +12122,8215 @@ export type ViewerHovercardContext = HovercardContext & {
   viewer: User;
 };
 
-export type HeaderQueryVariables = {};
+import { AppContext } from '../client/index';
 
-export type HeaderQuery = { __typename: 'Query' } & Pick<Query, 'isLoggedIn'> & {
-    viewer: { __typename?: 'User' } & Pick<User, 'avatarUrl' | 'login'>;
-  };
-export type HeaderVariables = HeaderQueryVariables;
-export type HeaderViewer = HeaderQuery['viewer'];
-export const HeaderHOC = withHeader;
-import { gql } from 'graphql.macro';
-import * as React from 'react';
-import * as ReactApollo from 'react-apollo';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export const HeaderDocument = gql`
-  query Header {
-    viewer {
-      avatarUrl(size: 40)
-      login
-    }
-    isLoggedIn @client
-    __typename
-  }
-`;
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
 
-export const HeaderComponent = (
-  props: Omit<Omit<ReactApollo.QueryProps<HeaderQuery, HeaderQueryVariables>, 'query'>, 'variables'> & {
-    variables?: HeaderQueryVariables;
-  }
-) => <ReactApollo.Query<HeaderQuery, HeaderQueryVariables> query={HeaderDocument} {...props} />;
-
-export type HeaderProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<HeaderQuery, HeaderQueryVariables>
-> &
-  TChildProps;
-export function withHeader<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    HeaderQuery,
-    HeaderQueryVariables,
-    HeaderProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<TProps, HeaderQuery, HeaderQueryVariables, HeaderProps<TChildProps>>(
-    HeaderDocument,
-    {
-      alias: 'withHeader',
-      ...operationOptions,
-    }
-  );
-}
-export interface IntrospectionResultData {
-  __schema: {
-    types: {
-      kind: string;
-      name: string;
-      possibleTypes: {
-        name: string;
-      }[];
-    }[];
-  };
-}
-
-const result: IntrospectionResultData = {
-  __schema: {
-    types: [
-      {
-        kind: 'INTERFACE',
-        name: 'Node',
-        possibleTypes: [
-          {
-            name: 'Business',
-          },
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'UserStatus',
-          },
-          {
-            name: 'User',
-          },
-          {
-            name: 'Project',
-          },
-          {
-            name: 'ProjectColumn',
-          },
-          {
-            name: 'ProjectCard',
-          },
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'UserContentEdit',
-          },
-          {
-            name: 'Label',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'Reaction',
-          },
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'License',
-          },
-          {
-            name: 'BranchProtectionRule',
-          },
-          {
-            name: 'Ref',
-          },
-          {
-            name: 'PushAllowance',
-          },
-          {
-            name: 'Team',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'OrganizationInvitation',
-          },
-          {
-            name: 'ReviewDismissalAllowance',
-          },
-          {
-            name: 'CodeOfConduct',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'CheckSuite',
-          },
-          {
-            name: 'App',
-          },
-          {
-            name: 'CheckRun',
-          },
-          {
-            name: 'Push',
-          },
-          {
-            name: 'Deployment',
-          },
-          {
-            name: 'DeploymentStatus',
-          },
-          {
-            name: 'Status',
-          },
-          {
-            name: 'StatusContext',
-          },
-          {
-            name: 'Tree',
-          },
-          {
-            name: 'DependencyGraphManifest',
-          },
-          {
-            name: 'DeployKey',
-          },
-          {
-            name: 'Language',
-          },
-          {
-            name: 'Milestone',
-          },
-          {
-            name: 'PinnedIssue',
-          },
-          {
-            name: 'ProtectedBranch',
-          },
-          {
-            name: 'Release',
-          },
-          {
-            name: 'ReleaseAsset',
-          },
-          {
-            name: 'RepositoryTopic',
-          },
-          {
-            name: 'Topic',
-          },
-          {
-            name: 'RepositoryVulnerabilityAlert',
-          },
-          {
-            name: 'SecurityAdvisory',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestCommit',
-          },
-          {
-            name: 'ReviewRequest',
-          },
-          {
-            name: 'PullRequestReviewThread',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'AssignedEvent',
-          },
-          {
-            name: 'BaseRefForcePushedEvent',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'CommitCommentThread',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'DemilestonedEvent',
-          },
-          {
-            name: 'DeployedEvent',
-          },
-          {
-            name: 'DeploymentEnvironmentChangedEvent',
-          },
-          {
-            name: 'HeadRefDeletedEvent',
-          },
-          {
-            name: 'HeadRefForcePushedEvent',
-          },
-          {
-            name: 'HeadRefRestoredEvent',
-          },
-          {
-            name: 'LabeledEvent',
-          },
-          {
-            name: 'LockedEvent',
-          },
-          {
-            name: 'MergedEvent',
-          },
-          {
-            name: 'MilestonedEvent',
-          },
-          {
-            name: 'ReferencedEvent',
-          },
-          {
-            name: 'RenamedTitleEvent',
-          },
-          {
-            name: 'ReopenedEvent',
-          },
-          {
-            name: 'ReviewDismissedEvent',
-          },
-          {
-            name: 'ReviewRequestRemovedEvent',
-          },
-          {
-            name: 'ReviewRequestedEvent',
-          },
-          {
-            name: 'SubscribedEvent',
-          },
-          {
-            name: 'UnassignedEvent',
-          },
-          {
-            name: 'UnlabeledEvent',
-          },
-          {
-            name: 'UnlockedEvent',
-          },
-          {
-            name: 'UnsubscribedEvent',
-          },
-          {
-            name: 'AddedToProjectEvent',
-          },
-          {
-            name: 'BaseRefChangedEvent',
-          },
-          {
-            name: 'CommentDeletedEvent',
-          },
-          {
-            name: 'ConvertedNoteToIssueEvent',
-          },
-          {
-            name: 'MentionedEvent',
-          },
-          {
-            name: 'MovedColumnsInProjectEvent',
-          },
-          {
-            name: 'PinnedEvent',
-          },
-          {
-            name: 'PullRequestCommitCommentThread',
-          },
-          {
-            name: 'RemovedFromProjectEvent',
-          },
-          {
-            name: 'TransferredEvent',
-          },
-          {
-            name: 'UnpinnedEvent',
-          },
-          {
-            name: 'Gist',
-          },
-          {
-            name: 'GistComment',
-          },
-          {
-            name: 'PublicKey',
-          },
-          {
-            name: 'OrganizationIdentityProvider',
-          },
-          {
-            name: 'ExternalIdentity',
-          },
-          {
-            name: 'BusinessMemberInvitation',
-          },
-          {
-            name: 'BusinessIdentityProvider',
-          },
-          {
-            name: 'MarketplaceCategory',
-          },
-          {
-            name: 'MarketplaceListing',
-          },
-          {
-            name: 'Blob',
-          },
-          {
-            name: 'Bot',
-          },
-          {
-            name: 'BusinessRepositoryInfo',
-          },
-          {
-            name: 'RepositoryInvitation',
-          },
-          {
-            name: 'Tag',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Actor',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-          {
-            name: 'Bot',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'MemberStatusable',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'Team',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'ProjectOwner',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-          {
-            name: 'Repository',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Closable',
-        possibleTypes: [
-          {
-            name: 'Project',
-          },
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'Milestone',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Updatable',
-        possibleTypes: [
-          {
-            name: 'Project',
-          },
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'GistComment',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'ProjectCardItem',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Assignable',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Comment',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'GistComment',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Labelable',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Lockable',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Reactable',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'RepositoryNode',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'RepositoryVulnerabilityAlert',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'CommitCommentThread',
-          },
-          {
-            name: 'PullRequestCommitCommentThread',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'RegistryPackageOwner',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-          {
-            name: 'Repository',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'RepositoryInfo',
-        possibleTypes: [
-          {
-            name: 'Repository',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'RepositoryOwner',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Starrable',
-        possibleTypes: [
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'Topic',
-          },
-          {
-            name: 'Gist',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Subscribable',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'Team',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'Commit',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'UniformResourceLocatable',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'CheckRun',
-          },
-          {
-            name: 'Milestone',
-          },
-          {
-            name: 'Release',
-          },
-          {
-            name: 'RepositoryTopic',
-          },
-          {
-            name: 'PullRequestCommit',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'MergedEvent',
-          },
-          {
-            name: 'ReviewDismissedEvent',
-          },
-          {
-            name: 'Bot',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'GitObject',
-        possibleTypes: [
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'Tree',
-          },
-          {
-            name: 'Blob',
-          },
-          {
-            name: 'Tag',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'PushAllowanceActor',
-        possibleTypes: [
-          {
-            name: 'Team',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Deletable',
-        possibleTypes: [
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'GistComment',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'UpdatableComment',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'TeamDiscussion',
-          },
-          {
-            name: 'TeamDiscussionComment',
-          },
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'GistComment',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'ReviewDismissalAllowanceActor',
-        possibleTypes: [
-          {
-            name: 'Team',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Minimizable',
-        possibleTypes: [
-          {
-            name: 'CommitComment',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'GistComment',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'GitSignature',
-        possibleTypes: [
-          {
-            name: 'GpgSignature',
-          },
-          {
-            name: 'SmimeSignature',
-          },
-          {
-            name: 'UnknownSignature',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'IssueOrPullRequest',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'HovercardContext',
-        possibleTypes: [
-          {
-            name: 'GenericHovercardContext',
-          },
-          {
-            name: 'OrganizationTeamsHovercardContext',
-          },
-          {
-            name: 'OrganizationsHovercardContext',
-          },
-          {
-            name: 'ReviewStatusHovercardContext',
-          },
-          {
-            name: 'ViewerHovercardContext',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'RequestedReviewer',
-        possibleTypes: [
-          {
-            name: 'Team',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'PullRequestTimelineItem',
-        possibleTypes: [
-          {
-            name: 'AssignedEvent',
-          },
-          {
-            name: 'BaseRefForcePushedEvent',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'CommitCommentThread',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'DemilestonedEvent',
-          },
-          {
-            name: 'DeployedEvent',
-          },
-          {
-            name: 'DeploymentEnvironmentChangedEvent',
-          },
-          {
-            name: 'HeadRefDeletedEvent',
-          },
-          {
-            name: 'HeadRefForcePushedEvent',
-          },
-          {
-            name: 'HeadRefRestoredEvent',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'LabeledEvent',
-          },
-          {
-            name: 'LockedEvent',
-          },
-          {
-            name: 'MergedEvent',
-          },
-          {
-            name: 'MilestonedEvent',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'PullRequestReviewComment',
-          },
-          {
-            name: 'PullRequestReviewThread',
-          },
-          {
-            name: 'ReferencedEvent',
-          },
-          {
-            name: 'RenamedTitleEvent',
-          },
-          {
-            name: 'ReopenedEvent',
-          },
-          {
-            name: 'ReviewDismissedEvent',
-          },
-          {
-            name: 'ReviewRequestRemovedEvent',
-          },
-          {
-            name: 'ReviewRequestedEvent',
-          },
-          {
-            name: 'SubscribedEvent',
-          },
-          {
-            name: 'UnassignedEvent',
-          },
-          {
-            name: 'UnlabeledEvent',
-          },
-          {
-            name: 'UnlockedEvent',
-          },
-          {
-            name: 'UnsubscribedEvent',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'Closer',
-        possibleTypes: [
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'ReferencedSubject',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'MilestoneItem',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'RenamedTitleSubject',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'PullRequest',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'PullRequestTimelineItems',
-        possibleTypes: [
-          {
-            name: 'AddedToProjectEvent',
-          },
-          {
-            name: 'AssignedEvent',
-          },
-          {
-            name: 'BaseRefChangedEvent',
-          },
-          {
-            name: 'BaseRefForcePushedEvent',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'CommentDeletedEvent',
-          },
-          {
-            name: 'ConvertedNoteToIssueEvent',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'DemilestonedEvent',
-          },
-          {
-            name: 'DeployedEvent',
-          },
-          {
-            name: 'DeploymentEnvironmentChangedEvent',
-          },
-          {
-            name: 'HeadRefDeletedEvent',
-          },
-          {
-            name: 'HeadRefForcePushedEvent',
-          },
-          {
-            name: 'HeadRefRestoredEvent',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'LabeledEvent',
-          },
-          {
-            name: 'LockedEvent',
-          },
-          {
-            name: 'MentionedEvent',
-          },
-          {
-            name: 'MergedEvent',
-          },
-          {
-            name: 'MilestonedEvent',
-          },
-          {
-            name: 'MovedColumnsInProjectEvent',
-          },
-          {
-            name: 'PinnedEvent',
-          },
-          {
-            name: 'PullRequestCommit',
-          },
-          {
-            name: 'PullRequestCommitCommentThread',
-          },
-          {
-            name: 'PullRequestReview',
-          },
-          {
-            name: 'PullRequestReviewThread',
-          },
-          {
-            name: 'PullRequestRevisionMarker',
-          },
-          {
-            name: 'ReferencedEvent',
-          },
-          {
-            name: 'RemovedFromProjectEvent',
-          },
-          {
-            name: 'RenamedTitleEvent',
-          },
-          {
-            name: 'ReopenedEvent',
-          },
-          {
-            name: 'ReviewDismissedEvent',
-          },
-          {
-            name: 'ReviewRequestRemovedEvent',
-          },
-          {
-            name: 'ReviewRequestedEvent',
-          },
-          {
-            name: 'SubscribedEvent',
-          },
-          {
-            name: 'TransferredEvent',
-          },
-          {
-            name: 'UnassignedEvent',
-          },
-          {
-            name: 'UnlabeledEvent',
-          },
-          {
-            name: 'UnlockedEvent',
-          },
-          {
-            name: 'UnpinnedEvent',
-          },
-          {
-            name: 'UnsubscribedEvent',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'IssueTimelineItem',
-        possibleTypes: [
-          {
-            name: 'AssignedEvent',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'Commit',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'DemilestonedEvent',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'LabeledEvent',
-          },
-          {
-            name: 'LockedEvent',
-          },
-          {
-            name: 'MilestonedEvent',
-          },
-          {
-            name: 'ReferencedEvent',
-          },
-          {
-            name: 'RenamedTitleEvent',
-          },
-          {
-            name: 'ReopenedEvent',
-          },
-          {
-            name: 'SubscribedEvent',
-          },
-          {
-            name: 'TransferredEvent',
-          },
-          {
-            name: 'UnassignedEvent',
-          },
-          {
-            name: 'UnlabeledEvent',
-          },
-          {
-            name: 'UnlockedEvent',
-          },
-          {
-            name: 'UnsubscribedEvent',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'IssueTimelineItems',
-        possibleTypes: [
-          {
-            name: 'AddedToProjectEvent',
-          },
-          {
-            name: 'AssignedEvent',
-          },
-          {
-            name: 'ClosedEvent',
-          },
-          {
-            name: 'CommentDeletedEvent',
-          },
-          {
-            name: 'ConvertedNoteToIssueEvent',
-          },
-          {
-            name: 'CrossReferencedEvent',
-          },
-          {
-            name: 'DemilestonedEvent',
-          },
-          {
-            name: 'IssueComment',
-          },
-          {
-            name: 'LabeledEvent',
-          },
-          {
-            name: 'LockedEvent',
-          },
-          {
-            name: 'MentionedEvent',
-          },
-          {
-            name: 'MilestonedEvent',
-          },
-          {
-            name: 'MovedColumnsInProjectEvent',
-          },
-          {
-            name: 'PinnedEvent',
-          },
-          {
-            name: 'ReferencedEvent',
-          },
-          {
-            name: 'RemovedFromProjectEvent',
-          },
-          {
-            name: 'RenamedTitleEvent',
-          },
-          {
-            name: 'ReopenedEvent',
-          },
-          {
-            name: 'SubscribedEvent',
-          },
-          {
-            name: 'TransferredEvent',
-          },
-          {
-            name: 'UnassignedEvent',
-          },
-          {
-            name: 'UnlabeledEvent',
-          },
-          {
-            name: 'UnlockedEvent',
-          },
-          {
-            name: 'UnpinnedEvent',
-          },
-          {
-            name: 'UnsubscribedEvent',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'RegistryPackageSearch',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'INTERFACE',
-        name: 'Contribution',
-        possibleTypes: [
-          {
-            name: 'CreatedCommitContribution',
-          },
-          {
-            name: 'CreatedIssueContribution',
-          },
-          {
-            name: 'RestrictedContribution',
-          },
-          {
-            name: 'CreatedPullRequestContribution',
-          },
-          {
-            name: 'CreatedRepositoryContribution',
-          },
-          {
-            name: 'JoinedGitHubContribution',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'CreatedIssueOrRestrictedContribution',
-        possibleTypes: [
-          {
-            name: 'CreatedIssueContribution',
-          },
-          {
-            name: 'RestrictedContribution',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'CreatedPullRequestOrRestrictedContribution',
-        possibleTypes: [
-          {
-            name: 'CreatedPullRequestContribution',
-          },
-          {
-            name: 'RestrictedContribution',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'CreatedRepositoryOrRestrictedContribution',
-        possibleTypes: [
-          {
-            name: 'CreatedRepositoryContribution',
-          },
-          {
-            name: 'RestrictedContribution',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'SearchResultItem',
-        possibleTypes: [
-          {
-            name: 'Issue',
-          },
-          {
-            name: 'MarketplaceListing',
-          },
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'PullRequest',
-          },
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-      {
-        kind: 'UNION',
-        name: 'CollectionItemContent',
-        possibleTypes: [
-          {
-            name: 'Organization',
-          },
-          {
-            name: 'Repository',
-          },
-          {
-            name: 'User',
-          },
-        ],
-      },
-    ],
-  },
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
 
-export default result;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, TParent, TContext, TArgs>;
+}
+
+export type SubscriptionResolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionResolverObject<TResult, TParent, TContext, TArgs>)
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Query: {};
+  String: Scalars['String'];
+  Business: Business;
+  Node: Node;
+  ID: Scalars['ID'];
+  BusinessAdminInfo: BusinessAdminInfo;
+  Int: Scalars['Int'];
+  OrganizationOrder: OrganizationOrder;
+  OrderDirection: OrderDirection;
+  OrganizationOrderField: OrganizationOrderField;
+  OrganizationConnection: OrganizationConnection;
+  OrganizationEdge: OrganizationEdge;
+  Organization: Organization;
+  Actor: Actor;
+  URI: Scalars['URI'];
+  MemberStatusable: MemberStatusable;
+  UserStatusOrder: UserStatusOrder;
+  UserStatusOrderField: UserStatusOrderField;
+  UserStatusConnection: UserStatusConnection;
+  UserStatusEdge: UserStatusEdge;
+  UserStatus: UserStatus;
+  DateTime: Scalars['DateTime'];
+  Boolean: Scalars['Boolean'];
+  User: User;
+  ProjectOwner: ProjectOwner;
+  Project: Project;
+  Closable: Closable;
+  Updatable: Updatable;
+  HTML: Scalars['HTML'];
+  ProjectColumnConnection: ProjectColumnConnection;
+  ProjectColumnEdge: ProjectColumnEdge;
+  ProjectColumn: ProjectColumn;
+  ProjectCardArchivedState: ProjectCardArchivedState;
+  ProjectCardConnection: ProjectCardConnection;
+  ProjectCardEdge: ProjectCardEdge;
+  ProjectCard: ProjectCard;
+  ProjectCardItem: ResolversTypes['Issue'] | ResolversTypes['PullRequest'];
+  Issue: Issue;
+  Assignable: Assignable;
+  UserConnection: UserConnection;
+  UserEdge: UserEdge;
+  PageInfo: PageInfo;
+  Comment: Comment;
+  CommentAuthorAssociation: CommentAuthorAssociation;
+  UserContentEditConnection: UserContentEditConnection;
+  UserContentEditEdge: UserContentEditEdge;
+  UserContentEdit: UserContentEdit;
+  Labelable: Labelable;
+  LabelConnection: LabelConnection;
+  LabelEdge: LabelEdge;
+  Label: Label;
+  IssueFilters: IssueFilters;
+  IssueState: IssueState;
+  IssueOrder: IssueOrder;
+  IssueOrderField: IssueOrderField;
+  IssueConnection: IssueConnection;
+  IssueEdge: IssueEdge;
+  PullRequestState: PullRequestState;
+  PullRequestConnection: PullRequestConnection;
+  PullRequestEdge: PullRequestEdge;
+  PullRequest: PullRequest;
+  Lockable: Lockable;
+  LockReason: LockReason;
+  Reactable: Reactable;
+  ReactionGroup: ReactionGroup;
+  ReactionContent: ReactionContent;
+  ReactingUserConnection: ReactingUserConnection;
+  ReactingUserEdge: ReactingUserEdge;
+  ReactionOrder: ReactionOrder;
+  ReactionOrderField: ReactionOrderField;
+  ReactionConnection: ReactionConnection;
+  ReactionEdge: ReactionEdge;
+  Reaction: Reaction;
+  RepositoryNode: RepositoryNode;
+  Repository: Repository;
+  RegistryPackageOwner: RegistryPackageOwner;
+  RepositoryInfo: RepositoryInfo;
+  License: License;
+  LicenseRule: LicenseRule;
+  RepositoryLockReason: RepositoryLockReason;
+  RepositoryOwner: RepositoryOwner;
+  RepositoryAffiliation: RepositoryAffiliation;
+  RepositoryOrder: RepositoryOrder;
+  RepositoryOrderField: RepositoryOrderField;
+  RepositoryPrivacy: RepositoryPrivacy;
+  RepositoryConnection: RepositoryConnection;
+  RepositoryEdge: RepositoryEdge;
+  Starrable: Starrable;
+  StarOrder: StarOrder;
+  StarOrderField: StarOrderField;
+  StargazerConnection: StargazerConnection;
+  StargazerEdge: StargazerEdge;
+  Subscribable: Subscribable;
+  SubscriptionState: SubscriptionState;
+  UniformResourceLocatable: UniformResourceLocatable;
+  BranchProtectionRuleConnection: BranchProtectionRuleConnection;
+  BranchProtectionRuleEdge: BranchProtectionRuleEdge;
+  BranchProtectionRule: BranchProtectionRule;
+  BranchProtectionRuleConflictConnection: BranchProtectionRuleConflictConnection;
+  BranchProtectionRuleConflictEdge: BranchProtectionRuleConflictEdge;
+  BranchProtectionRuleConflict: BranchProtectionRuleConflict;
+  Ref: Ref;
+  GitObject: GitObject;
+  GitObjectID: Scalars['GitObjectID'];
+  RefConnection: RefConnection;
+  RefEdge: RefEdge;
+  PushAllowanceConnection: PushAllowanceConnection;
+  PushAllowanceEdge: PushAllowanceEdge;
+  PushAllowance: PushAllowance;
+  PushAllowanceActor: ResolversTypes['Team'] | ResolversTypes['User'];
+  Team: Team;
+  TeamConnection: TeamConnection;
+  TeamEdge: TeamEdge;
+  TeamOrder: TeamOrder;
+  TeamOrderField: TeamOrderField;
+  TeamDiscussion: TeamDiscussion;
+  Deletable: Deletable;
+  UpdatableComment: UpdatableComment;
+  CommentCannotUpdateReason: CommentCannotUpdateReason;
+  TeamDiscussionCommentOrder: TeamDiscussionCommentOrder;
+  TeamDiscussionCommentOrderField: TeamDiscussionCommentOrderField;
+  TeamDiscussionCommentConnection: TeamDiscussionCommentConnection;
+  TeamDiscussionCommentEdge: TeamDiscussionCommentEdge;
+  TeamDiscussionComment: TeamDiscussionComment;
+  TeamDiscussionOrder: TeamDiscussionOrder;
+  TeamDiscussionOrderField: TeamDiscussionOrderField;
+  TeamDiscussionConnection: TeamDiscussionConnection;
+  TeamDiscussionEdge: TeamDiscussionEdge;
+  OrganizationInvitationConnection: OrganizationInvitationConnection;
+  OrganizationInvitationEdge: OrganizationInvitationEdge;
+  OrganizationInvitation: OrganizationInvitation;
+  OrganizationInvitationType: OrganizationInvitationType;
+  OrganizationInvitationRole: OrganizationInvitationRole;
+  TeamMembershipType: TeamMembershipType;
+  TeamMemberOrder: TeamMemberOrder;
+  TeamMemberOrderField: TeamMemberOrderField;
+  TeamMemberRole: TeamMemberRole;
+  TeamMemberConnection: TeamMemberConnection;
+  TeamMemberEdge: TeamMemberEdge;
+  TeamPrivacy: TeamPrivacy;
+  TeamRepositoryOrder: TeamRepositoryOrder;
+  TeamRepositoryOrderField: TeamRepositoryOrderField;
+  TeamRepositoryConnection: TeamRepositoryConnection;
+  TeamRepositoryEdge: TeamRepositoryEdge;
+  RepositoryPermission: RepositoryPermission;
+  ReviewDismissalAllowanceConnection: ReviewDismissalAllowanceConnection;
+  ReviewDismissalAllowanceEdge: ReviewDismissalAllowanceEdge;
+  ReviewDismissalAllowance: ReviewDismissalAllowance;
+  ReviewDismissalAllowanceActor: ResolversTypes['Team'] | ResolversTypes['User'];
+  CodeOfConduct: CodeOfConduct;
+  CollaboratorAffiliation: CollaboratorAffiliation;
+  RepositoryCollaboratorConnection: RepositoryCollaboratorConnection;
+  RepositoryCollaboratorEdge: RepositoryCollaboratorEdge;
+  CommitCommentConnection: CommitCommentConnection;
+  CommitCommentEdge: CommitCommentEdge;
+  CommitComment: CommitComment;
+  Minimizable: Minimizable;
+  Commit: Commit;
+  GitActor: GitActor;
+  GitTimestamp: Scalars['GitTimestamp'];
+  Blame: Blame;
+  BlameRange: BlameRange;
+  CheckSuiteFilter: CheckSuiteFilter;
+  CheckSuiteConnection: CheckSuiteConnection;
+  CheckSuiteEdge: CheckSuiteEdge;
+  CheckSuite: CheckSuite;
+  App: App;
+  CheckRunFilter: CheckRunFilter;
+  CheckRunType: CheckRunType;
+  CheckStatusState: CheckStatusState;
+  CheckRunConnection: CheckRunConnection;
+  CheckRunEdge: CheckRunEdge;
+  CheckRun: CheckRun;
+  CheckAnnotationConnection: CheckAnnotationConnection;
+  CheckAnnotationEdge: CheckAnnotationEdge;
+  CheckAnnotation: CheckAnnotation;
+  CheckAnnotationLevel: CheckAnnotationLevel;
+  CheckAnnotationSpan: CheckAnnotationSpan;
+  CheckAnnotationPosition: CheckAnnotationPosition;
+  CheckConclusionState: CheckConclusionState;
+  Push: Push;
+  DeploymentOrder: DeploymentOrder;
+  DeploymentOrderField: DeploymentOrderField;
+  DeploymentConnection: DeploymentConnection;
+  DeploymentEdge: DeploymentEdge;
+  Deployment: Deployment;
+  DeploymentStatus: DeploymentStatus;
+  DeploymentStatusState: DeploymentStatusState;
+  DeploymentState: DeploymentState;
+  DeploymentStatusConnection: DeploymentStatusConnection;
+  DeploymentStatusEdge: DeploymentStatusEdge;
+  CommitAuthor: CommitAuthor;
+  CommitHistoryConnection: CommitHistoryConnection;
+  CommitEdge: CommitEdge;
+  CommitConnection: CommitConnection;
+  GitSignature: GitSignature;
+  GitSignatureState: GitSignatureState;
+  Status: Status;
+  StatusContext: StatusContext;
+  StatusState: StatusState;
+  Tree: Tree;
+  TreeEntry: TreeEntry;
+  DependencyGraphManifestConnection: DependencyGraphManifestConnection;
+  DependencyGraphManifestEdge: DependencyGraphManifestEdge;
+  DependencyGraphManifest: DependencyGraphManifest;
+  DependencyGraphDependencyConnection: DependencyGraphDependencyConnection;
+  DependencyGraphDependencyEdge: DependencyGraphDependencyEdge;
+  DependencyGraphDependency: DependencyGraphDependency;
+  DeployKeyConnection: DeployKeyConnection;
+  DeployKeyEdge: DeployKeyEdge;
+  DeployKey: DeployKey;
+  IssueOrPullRequest: ResolversTypes['Issue'] | ResolversTypes['PullRequest'];
+  LanguageOrder: LanguageOrder;
+  LanguageOrderField: LanguageOrderField;
+  LanguageConnection: LanguageConnection;
+  LanguageEdge: LanguageEdge;
+  Language: Language;
+  Milestone: Milestone;
+  MilestoneState: MilestoneState;
+  MilestoneOrder: MilestoneOrder;
+  MilestoneOrderField: MilestoneOrderField;
+  MilestoneConnection: MilestoneConnection;
+  MilestoneEdge: MilestoneEdge;
+  PinnedIssueConnection: PinnedIssueConnection;
+  PinnedIssueEdge: PinnedIssueEdge;
+  PinnedIssue: PinnedIssue;
+  ProjectOrder: ProjectOrder;
+  ProjectOrderField: ProjectOrderField;
+  ProjectState: ProjectState;
+  ProjectConnection: ProjectConnection;
+  ProjectEdge: ProjectEdge;
+  ProtectedBranchConnection: ProtectedBranchConnection;
+  ProtectedBranchEdge: ProtectedBranchEdge;
+  ProtectedBranch: ProtectedBranch;
+  RefOrder: RefOrder;
+  RefOrderField: RefOrderField;
+  Release: Release;
+  ReleaseAssetConnection: ReleaseAssetConnection;
+  ReleaseAssetEdge: ReleaseAssetEdge;
+  ReleaseAsset: ReleaseAsset;
+  ReleaseOrder: ReleaseOrder;
+  ReleaseOrderField: ReleaseOrderField;
+  ReleaseConnection: ReleaseConnection;
+  ReleaseEdge: ReleaseEdge;
+  RepositoryTopicConnection: RepositoryTopicConnection;
+  RepositoryTopicEdge: RepositoryTopicEdge;
+  RepositoryTopic: RepositoryTopic;
+  Topic: Topic;
+  GitSSHRemote: Scalars['GitSSHRemote'];
+  RepositoryVulnerabilityAlertConnection: RepositoryVulnerabilityAlertConnection;
+  RepositoryVulnerabilityAlertEdge: RepositoryVulnerabilityAlertEdge;
+  RepositoryVulnerabilityAlert: RepositoryVulnerabilityAlert;
+  SecurityAdvisory: SecurityAdvisory;
+  SecurityAdvisoryIdentifier: SecurityAdvisoryIdentifier;
+  SecurityAdvisoryReference: SecurityAdvisoryReference;
+  SecurityAdvisorySeverity: SecurityAdvisorySeverity;
+  SecurityAdvisoryEcosystem: SecurityAdvisoryEcosystem;
+  SecurityVulnerabilityOrder: SecurityVulnerabilityOrder;
+  SecurityVulnerabilityOrderField: SecurityVulnerabilityOrderField;
+  SecurityVulnerabilityConnection: SecurityVulnerabilityConnection;
+  SecurityVulnerabilityEdge: SecurityVulnerabilityEdge;
+  SecurityVulnerability: SecurityVulnerability;
+  SecurityAdvisoryPackageVersion: SecurityAdvisoryPackageVersion;
+  SecurityAdvisoryPackage: SecurityAdvisoryPackage;
+  IssueCommentConnection: IssueCommentConnection;
+  IssueCommentEdge: IssueCommentEdge;
+  IssueComment: IssueComment;
+  PullRequestCommitConnection: PullRequestCommitConnection;
+  PullRequestCommitEdge: PullRequestCommitEdge;
+  PullRequestCommit: PullRequestCommit;
+  PullRequestChangedFileConnection: PullRequestChangedFileConnection;
+  PullRequestChangedFileEdge: PullRequestChangedFileEdge;
+  PullRequestChangedFile: PullRequestChangedFile;
+  Hovercard: Hovercard;
+  HovercardContext: HovercardContext;
+  MergeStateStatus: MergeStateStatus;
+  MergeableState: MergeableState;
+  ReviewRequestConnection: ReviewRequestConnection;
+  ReviewRequestEdge: ReviewRequestEdge;
+  ReviewRequest: ReviewRequest;
+  RequestedReviewer: ResolversTypes['Team'] | ResolversTypes['User'];
+  PullRequestReviewThreadConnection: PullRequestReviewThreadConnection;
+  PullRequestReviewThreadEdge: PullRequestReviewThreadEdge;
+  PullRequestReviewThread: PullRequestReviewThread;
+  PullRequestReviewCommentConnection: PullRequestReviewCommentConnection;
+  PullRequestReviewCommentEdge: PullRequestReviewCommentEdge;
+  PullRequestReviewComment: PullRequestReviewComment;
+  PullRequestReview: PullRequestReview;
+  PullRequestReviewState: PullRequestReviewState;
+  PullRequestReviewCommentState: PullRequestReviewCommentState;
+  PullRequestReviewConnection: PullRequestReviewConnection;
+  PullRequestReviewEdge: PullRequestReviewEdge;
+  SuggestedReviewer: SuggestedReviewer;
+  PullRequestTimelineConnection: PullRequestTimelineConnection;
+  PullRequestTimelineItemEdge: PullRequestTimelineItemEdge;
+  PullRequestTimelineItem:
+    | ResolversTypes['AssignedEvent']
+    | ResolversTypes['BaseRefForcePushedEvent']
+    | ResolversTypes['ClosedEvent']
+    | ResolversTypes['Commit']
+    | ResolversTypes['CommitCommentThread']
+    | ResolversTypes['CrossReferencedEvent']
+    | ResolversTypes['DemilestonedEvent']
+    | ResolversTypes['DeployedEvent']
+    | ResolversTypes['DeploymentEnvironmentChangedEvent']
+    | ResolversTypes['HeadRefDeletedEvent']
+    | ResolversTypes['HeadRefForcePushedEvent']
+    | ResolversTypes['HeadRefRestoredEvent']
+    | ResolversTypes['IssueComment']
+    | ResolversTypes['LabeledEvent']
+    | ResolversTypes['LockedEvent']
+    | ResolversTypes['MergedEvent']
+    | ResolversTypes['MilestonedEvent']
+    | ResolversTypes['PullRequestReview']
+    | ResolversTypes['PullRequestReviewComment']
+    | ResolversTypes['PullRequestReviewThread']
+    | ResolversTypes['ReferencedEvent']
+    | ResolversTypes['RenamedTitleEvent']
+    | ResolversTypes['ReopenedEvent']
+    | ResolversTypes['ReviewDismissedEvent']
+    | ResolversTypes['ReviewRequestRemovedEvent']
+    | ResolversTypes['ReviewRequestedEvent']
+    | ResolversTypes['SubscribedEvent']
+    | ResolversTypes['UnassignedEvent']
+    | ResolversTypes['UnlabeledEvent']
+    | ResolversTypes['UnlockedEvent']
+    | ResolversTypes['UnsubscribedEvent'];
+  AssignedEvent: AssignedEvent;
+  BaseRefForcePushedEvent: BaseRefForcePushedEvent;
+  ClosedEvent: ClosedEvent;
+  Closer: ResolversTypes['Commit'] | ResolversTypes['PullRequest'];
+  CommitCommentThread: CommitCommentThread;
+  CrossReferencedEvent: CrossReferencedEvent;
+  ReferencedSubject: ResolversTypes['Issue'] | ResolversTypes['PullRequest'];
+  DemilestonedEvent: DemilestonedEvent;
+  MilestoneItem: ResolversTypes['Issue'] | ResolversTypes['PullRequest'];
+  DeployedEvent: DeployedEvent;
+  DeploymentEnvironmentChangedEvent: DeploymentEnvironmentChangedEvent;
+  HeadRefDeletedEvent: HeadRefDeletedEvent;
+  HeadRefForcePushedEvent: HeadRefForcePushedEvent;
+  HeadRefRestoredEvent: HeadRefRestoredEvent;
+  LabeledEvent: LabeledEvent;
+  LockedEvent: LockedEvent;
+  MergedEvent: MergedEvent;
+  MilestonedEvent: MilestonedEvent;
+  ReferencedEvent: ReferencedEvent;
+  RenamedTitleEvent: RenamedTitleEvent;
+  RenamedTitleSubject: ResolversTypes['Issue'] | ResolversTypes['PullRequest'];
+  ReopenedEvent: ReopenedEvent;
+  ReviewDismissedEvent: ReviewDismissedEvent;
+  ReviewRequestRemovedEvent: ReviewRequestRemovedEvent;
+  ReviewRequestedEvent: ReviewRequestedEvent;
+  SubscribedEvent: SubscribedEvent;
+  UnassignedEvent: UnassignedEvent;
+  UnlabeledEvent: UnlabeledEvent;
+  UnlockedEvent: UnlockedEvent;
+  UnsubscribedEvent: UnsubscribedEvent;
+  PullRequestTimelineItemsItemType: PullRequestTimelineItemsItemType;
+  PullRequestTimelineItemsConnection: PullRequestTimelineItemsConnection;
+  PullRequestTimelineItemsEdge: PullRequestTimelineItemsEdge;
+  PullRequestTimelineItems:
+    | ResolversTypes['AddedToProjectEvent']
+    | ResolversTypes['AssignedEvent']
+    | ResolversTypes['BaseRefChangedEvent']
+    | ResolversTypes['BaseRefForcePushedEvent']
+    | ResolversTypes['ClosedEvent']
+    | ResolversTypes['CommentDeletedEvent']
+    | ResolversTypes['ConvertedNoteToIssueEvent']
+    | ResolversTypes['CrossReferencedEvent']
+    | ResolversTypes['DemilestonedEvent']
+    | ResolversTypes['DeployedEvent']
+    | ResolversTypes['DeploymentEnvironmentChangedEvent']
+    | ResolversTypes['HeadRefDeletedEvent']
+    | ResolversTypes['HeadRefForcePushedEvent']
+    | ResolversTypes['HeadRefRestoredEvent']
+    | ResolversTypes['IssueComment']
+    | ResolversTypes['LabeledEvent']
+    | ResolversTypes['LockedEvent']
+    | ResolversTypes['MentionedEvent']
+    | ResolversTypes['MergedEvent']
+    | ResolversTypes['MilestonedEvent']
+    | ResolversTypes['MovedColumnsInProjectEvent']
+    | ResolversTypes['PinnedEvent']
+    | ResolversTypes['PullRequestCommit']
+    | ResolversTypes['PullRequestCommitCommentThread']
+    | ResolversTypes['PullRequestReview']
+    | ResolversTypes['PullRequestReviewThread']
+    | ResolversTypes['PullRequestRevisionMarker']
+    | ResolversTypes['ReferencedEvent']
+    | ResolversTypes['RemovedFromProjectEvent']
+    | ResolversTypes['RenamedTitleEvent']
+    | ResolversTypes['ReopenedEvent']
+    | ResolversTypes['ReviewDismissedEvent']
+    | ResolversTypes['ReviewRequestRemovedEvent']
+    | ResolversTypes['ReviewRequestedEvent']
+    | ResolversTypes['SubscribedEvent']
+    | ResolversTypes['TransferredEvent']
+    | ResolversTypes['UnassignedEvent']
+    | ResolversTypes['UnlabeledEvent']
+    | ResolversTypes['UnlockedEvent']
+    | ResolversTypes['UnpinnedEvent']
+    | ResolversTypes['UnsubscribedEvent'];
+  AddedToProjectEvent: AddedToProjectEvent;
+  BaseRefChangedEvent: BaseRefChangedEvent;
+  CommentDeletedEvent: CommentDeletedEvent;
+  ConvertedNoteToIssueEvent: ConvertedNoteToIssueEvent;
+  MentionedEvent: MentionedEvent;
+  MovedColumnsInProjectEvent: MovedColumnsInProjectEvent;
+  PinnedEvent: PinnedEvent;
+  PullRequestCommitCommentThread: PullRequestCommitCommentThread;
+  PullRequestRevisionMarker: PullRequestRevisionMarker;
+  RemovedFromProjectEvent: RemovedFromProjectEvent;
+  TransferredEvent: TransferredEvent;
+  UnpinnedEvent: UnpinnedEvent;
+  IssueTimelineConnection: IssueTimelineConnection;
+  IssueTimelineItemEdge: IssueTimelineItemEdge;
+  IssueTimelineItem:
+    | ResolversTypes['AssignedEvent']
+    | ResolversTypes['ClosedEvent']
+    | ResolversTypes['Commit']
+    | ResolversTypes['CrossReferencedEvent']
+    | ResolversTypes['DemilestonedEvent']
+    | ResolversTypes['IssueComment']
+    | ResolversTypes['LabeledEvent']
+    | ResolversTypes['LockedEvent']
+    | ResolversTypes['MilestonedEvent']
+    | ResolversTypes['ReferencedEvent']
+    | ResolversTypes['RenamedTitleEvent']
+    | ResolversTypes['ReopenedEvent']
+    | ResolversTypes['SubscribedEvent']
+    | ResolversTypes['TransferredEvent']
+    | ResolversTypes['UnassignedEvent']
+    | ResolversTypes['UnlabeledEvent']
+    | ResolversTypes['UnlockedEvent']
+    | ResolversTypes['UnsubscribedEvent'];
+  IssueTimelineItemsItemType: IssueTimelineItemsItemType;
+  IssueTimelineItemsConnection: IssueTimelineItemsConnection;
+  IssueTimelineItemsEdge: IssueTimelineItemsEdge;
+  IssueTimelineItems:
+    | ResolversTypes['AddedToProjectEvent']
+    | ResolversTypes['AssignedEvent']
+    | ResolversTypes['ClosedEvent']
+    | ResolversTypes['CommentDeletedEvent']
+    | ResolversTypes['ConvertedNoteToIssueEvent']
+    | ResolversTypes['CrossReferencedEvent']
+    | ResolversTypes['DemilestonedEvent']
+    | ResolversTypes['IssueComment']
+    | ResolversTypes['LabeledEvent']
+    | ResolversTypes['LockedEvent']
+    | ResolversTypes['MentionedEvent']
+    | ResolversTypes['MilestonedEvent']
+    | ResolversTypes['MovedColumnsInProjectEvent']
+    | ResolversTypes['PinnedEvent']
+    | ResolversTypes['ReferencedEvent']
+    | ResolversTypes['RemovedFromProjectEvent']
+    | ResolversTypes['RenamedTitleEvent']
+    | ResolversTypes['ReopenedEvent']
+    | ResolversTypes['SubscribedEvent']
+    | ResolversTypes['TransferredEvent']
+    | ResolversTypes['UnassignedEvent']
+    | ResolversTypes['UnlabeledEvent']
+    | ResolversTypes['UnlockedEvent']
+    | ResolversTypes['UnpinnedEvent']
+    | ResolversTypes['UnsubscribedEvent'];
+  ProjectCardState: ProjectCardState;
+  ProjectColumnPurpose: ProjectColumnPurpose;
+  RegistryPackageSearch: RegistryPackageSearch;
+  ContributionsCollection: ContributionsCollection;
+  CommitContributionsByRepository: CommitContributionsByRepository;
+  CommitContributionOrder: CommitContributionOrder;
+  CommitContributionOrderField: CommitContributionOrderField;
+  CreatedCommitContributionConnection: CreatedCommitContributionConnection;
+  CreatedCommitContributionEdge: CreatedCommitContributionEdge;
+  CreatedCommitContribution: CreatedCommitContribution;
+  Contribution: Contribution;
+  ContributionCalendar: ContributionCalendar;
+  ContributionCalendarMonth: ContributionCalendarMonth;
+  Date: Scalars['Date'];
+  ContributionCalendarWeek: ContributionCalendarWeek;
+  ContributionCalendarDay: ContributionCalendarDay;
+  CreatedIssueOrRestrictedContribution:
+    | ResolversTypes['CreatedIssueContribution']
+    | ResolversTypes['RestrictedContribution'];
+  CreatedIssueContribution: CreatedIssueContribution;
+  RestrictedContribution: RestrictedContribution;
+  CreatedPullRequestOrRestrictedContribution:
+    | ResolversTypes['CreatedPullRequestContribution']
+    | ResolversTypes['RestrictedContribution'];
+  CreatedPullRequestContribution: CreatedPullRequestContribution;
+  CreatedRepositoryOrRestrictedContribution:
+    | ResolversTypes['CreatedRepositoryContribution']
+    | ResolversTypes['RestrictedContribution'];
+  CreatedRepositoryContribution: CreatedRepositoryContribution;
+  CreatedIssueContributionConnection: CreatedIssueContributionConnection;
+  CreatedIssueContributionEdge: CreatedIssueContributionEdge;
+  JoinedGitHubContribution: JoinedGitHubContribution;
+  ContributionOrder: ContributionOrder;
+  ContributionOrderField: ContributionOrderField;
+  CreatedPullRequestContributionConnection: CreatedPullRequestContributionConnection;
+  CreatedPullRequestContributionEdge: CreatedPullRequestContributionEdge;
+  FollowerConnection: FollowerConnection;
+  FollowingConnection: FollowingConnection;
+  Gist: Gist;
+  GistCommentConnection: GistCommentConnection;
+  GistCommentEdge: GistCommentEdge;
+  GistComment: GistComment;
+  GistFile: GistFile;
+  GistOrder: GistOrder;
+  GistOrderField: GistOrderField;
+  GistPrivacy: GistPrivacy;
+  GistConnection: GistConnection;
+  GistEdge: GistEdge;
+  PublicKeyConnection: PublicKeyConnection;
+  PublicKeyEdge: PublicKeyEdge;
+  PublicKey: PublicKey;
+  RepositoryContributionType: RepositoryContributionType;
+  StarredRepositoryConnection: StarredRepositoryConnection;
+  StarredRepositoryEdge: StarredRepositoryEdge;
+  OrganizationMemberConnection: OrganizationMemberConnection;
+  OrganizationMemberEdge: OrganizationMemberEdge;
+  OrganizationMemberRole: OrganizationMemberRole;
+  OrganizationIdentityProvider: OrganizationIdentityProvider;
+  ExternalIdentityConnection: ExternalIdentityConnection;
+  ExternalIdentityEdge: ExternalIdentityEdge;
+  ExternalIdentity: ExternalIdentity;
+  ExternalIdentitySamlAttributes: ExternalIdentitySamlAttributes;
+  ExternalIdentityScimAttributes: ExternalIdentityScimAttributes;
+  X509Certificate: Scalars['X509Certificate'];
+  TeamRole: TeamRole;
+  BusinessMemberOrder: BusinessMemberOrder;
+  BusinessMemberOrderField: BusinessMemberOrderField;
+  BusinessEnabledDisabledSettingValue: BusinessEnabledDisabledSettingValue;
+  BusinessDefaultRepositoryPermissionSettingValue: BusinessDefaultRepositoryPermissionSettingValue;
+  DefaultRepositoryPermissionField: DefaultRepositoryPermissionField;
+  BusinessMembersCanCreateRepositoriesSettingValue: BusinessMembersCanCreateRepositoriesSettingValue;
+  OrganizationMembersCanCreateRepositoriesSettingValue: OrganizationMembersCanCreateRepositoriesSettingValue;
+  BusinessMemberInvitationConnection: BusinessMemberInvitationConnection;
+  BusinessMemberInvitationEdge: BusinessMemberInvitationEdge;
+  BusinessMemberInvitation: BusinessMemberInvitation;
+  BusinessMemberInvitationRole: BusinessMemberInvitationRole;
+  BusinessPendingMemberInvitationConnection: BusinessPendingMemberInvitationConnection;
+  BusinessIdentityProvider: BusinessIdentityProvider;
+  SamlDigestAlgorithm: SamlDigestAlgorithm;
+  SamlSignatureAlgorithm: SamlSignatureAlgorithm;
+  IdentityProviderConfigurationState: IdentityProviderConfigurationState;
+  BusinessEnabledSettingValue: BusinessEnabledSettingValue;
+  BusinessBillingInfo: BusinessBillingInfo;
+  Float: Scalars['Float'];
+  MarketplaceCategory: MarketplaceCategory;
+  MarketplaceListing: MarketplaceListing;
+  MarketplaceListingConnection: MarketplaceListingConnection;
+  MarketplaceListingEdge: MarketplaceListingEdge;
+  GitHubMetadata: GitHubMetadata;
+  RateLimit: RateLimit;
+  SearchType: SearchType;
+  SearchResultItemConnection: SearchResultItemConnection;
+  SearchResultItemEdge: SearchResultItemEdge;
+  SearchResultItem:
+    | ResolversTypes['Issue']
+    | ResolversTypes['MarketplaceListing']
+    | ResolversTypes['Organization']
+    | ResolversTypes['PullRequest']
+    | ResolversTypes['Repository']
+    | ResolversTypes['User'];
+  TextMatch: TextMatch;
+  TextMatchHighlight: TextMatchHighlight;
+  SecurityAdvisoryIdentifierFilter: SecurityAdvisoryIdentifierFilter;
+  SecurityAdvisoryIdentifierType: SecurityAdvisoryIdentifierType;
+  SecurityAdvisoryOrder: SecurityAdvisoryOrder;
+  SecurityAdvisoryOrderField: SecurityAdvisoryOrderField;
+  SecurityAdvisoryConnection: SecurityAdvisoryConnection;
+  SecurityAdvisoryEdge: SecurityAdvisoryEdge;
+  Mutation: {};
+  AcceptBusinessMemberInvitationInput: AcceptBusinessMemberInvitationInput;
+  AcceptBusinessMemberInvitationPayload: AcceptBusinessMemberInvitationPayload;
+  AcceptTopicSuggestionInput: AcceptTopicSuggestionInput;
+  AcceptTopicSuggestionPayload: AcceptTopicSuggestionPayload;
+  AddAssigneesToAssignableInput: AddAssigneesToAssignableInput;
+  AddAssigneesToAssignablePayload: AddAssigneesToAssignablePayload;
+  AddCommentInput: AddCommentInput;
+  AddCommentPayload: AddCommentPayload;
+  AddLabelsToLabelableInput: AddLabelsToLabelableInput;
+  AddLabelsToLabelablePayload: AddLabelsToLabelablePayload;
+  AddProjectCardInput: AddProjectCardInput;
+  AddProjectCardPayload: AddProjectCardPayload;
+  AddProjectColumnInput: AddProjectColumnInput;
+  AddProjectColumnPayload: AddProjectColumnPayload;
+  AddPullRequestReviewInput: AddPullRequestReviewInput;
+  DraftPullRequestReviewComment: DraftPullRequestReviewComment;
+  PullRequestReviewEvent: PullRequestReviewEvent;
+  AddPullRequestReviewPayload: AddPullRequestReviewPayload;
+  AddPullRequestReviewCommentInput: AddPullRequestReviewCommentInput;
+  AddPullRequestReviewCommentPayload: AddPullRequestReviewCommentPayload;
+  AddReactionInput: AddReactionInput;
+  AddReactionPayload: AddReactionPayload;
+  AddStarInput: AddStarInput;
+  AddStarPayload: AddStarPayload;
+  CancelBusinessAdminInvitationInput: CancelBusinessAdminInvitationInput;
+  CancelBusinessAdminInvitationPayload: CancelBusinessAdminInvitationPayload;
+  CancelBusinessBillingManagerInvitationInput: CancelBusinessBillingManagerInvitationInput;
+  CancelBusinessBillingManagerInvitationPayload: CancelBusinessBillingManagerInvitationPayload;
+  ChangeUserStatusInput: ChangeUserStatusInput;
+  ChangeUserStatusPayload: ChangeUserStatusPayload;
+  ClearLabelsFromLabelableInput: ClearLabelsFromLabelableInput;
+  ClearLabelsFromLabelablePayload: ClearLabelsFromLabelablePayload;
+  CloseIssueInput: CloseIssueInput;
+  CloseIssuePayload: CloseIssuePayload;
+  ClosePullRequestInput: ClosePullRequestInput;
+  ClosePullRequestPayload: ClosePullRequestPayload;
+  ConvertProjectCardNoteToIssueInput: ConvertProjectCardNoteToIssueInput;
+  ConvertProjectCardNoteToIssuePayload: ConvertProjectCardNoteToIssuePayload;
+  CreateBranchProtectionRuleInput: CreateBranchProtectionRuleInput;
+  CreateBranchProtectionRulePayload: CreateBranchProtectionRulePayload;
+  CreateCheckRunInput: CreateCheckRunInput;
+  CheckRunAction: CheckRunAction;
+  CheckRunOutput: CheckRunOutput;
+  CheckAnnotationData: CheckAnnotationData;
+  CheckAnnotationRange: CheckAnnotationRange;
+  CheckRunOutputImage: CheckRunOutputImage;
+  RequestableCheckStatusState: RequestableCheckStatusState;
+  CreateCheckRunPayload: CreateCheckRunPayload;
+  CreateCheckSuiteInput: CreateCheckSuiteInput;
+  CreateCheckSuitePayload: CreateCheckSuitePayload;
+  CreateContentAttachmentInput: CreateContentAttachmentInput;
+  CreateContentAttachmentPayload: CreateContentAttachmentPayload;
+  ContentAttachment: ContentAttachment;
+  ContentReference: ContentReference;
+  CreateDeploymentInput: CreateDeploymentInput;
+  CreateDeploymentPayload: CreateDeploymentPayload;
+  CreateDeploymentStatusInput: CreateDeploymentStatusInput;
+  CreateDeploymentStatusPayload: CreateDeploymentStatusPayload;
+  CreateIssueInput: CreateIssueInput;
+  CreateIssuePayload: CreateIssuePayload;
+  CreateLabelInput: CreateLabelInput;
+  CreateLabelPayload: CreateLabelPayload;
+  CreateProjectInput: CreateProjectInput;
+  CreateProjectPayload: CreateProjectPayload;
+  CreatePullRequestInput: CreatePullRequestInput;
+  CreatePullRequestPayload: CreatePullRequestPayload;
+  CreateTeamDiscussionInput: CreateTeamDiscussionInput;
+  CreateTeamDiscussionPayload: CreateTeamDiscussionPayload;
+  CreateTeamDiscussionCommentInput: CreateTeamDiscussionCommentInput;
+  CreateTeamDiscussionCommentPayload: CreateTeamDiscussionCommentPayload;
+  DeclineTopicSuggestionInput: DeclineTopicSuggestionInput;
+  TopicSuggestionDeclineReason: TopicSuggestionDeclineReason;
+  DeclineTopicSuggestionPayload: DeclineTopicSuggestionPayload;
+  DeleteBranchProtectionRuleInput: DeleteBranchProtectionRuleInput;
+  DeleteBranchProtectionRulePayload: DeleteBranchProtectionRulePayload;
+  DeleteIssueInput: DeleteIssueInput;
+  DeleteIssuePayload: DeleteIssuePayload;
+  DeleteIssueCommentInput: DeleteIssueCommentInput;
+  DeleteIssueCommentPayload: DeleteIssueCommentPayload;
+  DeleteLabelInput: DeleteLabelInput;
+  DeleteLabelPayload: DeleteLabelPayload;
+  DeleteProjectInput: DeleteProjectInput;
+  DeleteProjectPayload: DeleteProjectPayload;
+  DeleteProjectCardInput: DeleteProjectCardInput;
+  DeleteProjectCardPayload: DeleteProjectCardPayload;
+  DeleteProjectColumnInput: DeleteProjectColumnInput;
+  DeleteProjectColumnPayload: DeleteProjectColumnPayload;
+  DeletePullRequestReviewInput: DeletePullRequestReviewInput;
+  DeletePullRequestReviewPayload: DeletePullRequestReviewPayload;
+  DeletePullRequestReviewCommentInput: DeletePullRequestReviewCommentInput;
+  DeletePullRequestReviewCommentPayload: DeletePullRequestReviewCommentPayload;
+  DeleteTeamDiscussionInput: DeleteTeamDiscussionInput;
+  DeleteTeamDiscussionPayload: DeleteTeamDiscussionPayload;
+  DeleteTeamDiscussionCommentInput: DeleteTeamDiscussionCommentInput;
+  DeleteTeamDiscussionCommentPayload: DeleteTeamDiscussionCommentPayload;
+  DismissPullRequestReviewInput: DismissPullRequestReviewInput;
+  DismissPullRequestReviewPayload: DismissPullRequestReviewPayload;
+  ImportProjectInput: ImportProjectInput;
+  ProjectColumnImport: ProjectColumnImport;
+  ProjectCardImport: ProjectCardImport;
+  ImportProjectPayload: ImportProjectPayload;
+  InviteBusinessAdminInput: InviteBusinessAdminInput;
+  InviteBusinessAdminPayload: InviteBusinessAdminPayload;
+  InviteBusinessBillingManagerInput: InviteBusinessBillingManagerInput;
+  InviteBusinessBillingManagerPayload: InviteBusinessBillingManagerPayload;
+  LockLockableInput: LockLockableInput;
+  LockLockablePayload: LockLockablePayload;
+  MarkPullRequestReadyForReviewInput: MarkPullRequestReadyForReviewInput;
+  MarkPullRequestReadyForReviewPayload: MarkPullRequestReadyForReviewPayload;
+  MergePullRequestInput: MergePullRequestInput;
+  MergePullRequestPayload: MergePullRequestPayload;
+  MinimizeCommentInput: MinimizeCommentInput;
+  ReportedContentClassifiers: ReportedContentClassifiers;
+  MinimizeCommentPayload: MinimizeCommentPayload;
+  MoveProjectCardInput: MoveProjectCardInput;
+  MoveProjectCardPayload: MoveProjectCardPayload;
+  MoveProjectColumnInput: MoveProjectColumnInput;
+  MoveProjectColumnPayload: MoveProjectColumnPayload;
+  PinIssueInput: PinIssueInput;
+  PinIssuePayload: PinIssuePayload;
+  RegenerateBusinessIdentityProviderRecoveryCodesInput: RegenerateBusinessIdentityProviderRecoveryCodesInput;
+  RegenerateBusinessIdentityProviderRecoveryCodesPayload: RegenerateBusinessIdentityProviderRecoveryCodesPayload;
+  RemoveAssigneesFromAssignableInput: RemoveAssigneesFromAssignableInput;
+  RemoveAssigneesFromAssignablePayload: RemoveAssigneesFromAssignablePayload;
+  RemoveBusinessAdminInput: RemoveBusinessAdminInput;
+  RemoveBusinessAdminPayload: RemoveBusinessAdminPayload;
+  RemoveBusinessBillingManagerInput: RemoveBusinessBillingManagerInput;
+  RemoveBusinessBillingManagerPayload: RemoveBusinessBillingManagerPayload;
+  RemoveBusinessIdentityProviderInput: RemoveBusinessIdentityProviderInput;
+  RemoveBusinessIdentityProviderPayload: RemoveBusinessIdentityProviderPayload;
+  RemoveLabelsFromLabelableInput: RemoveLabelsFromLabelableInput;
+  RemoveLabelsFromLabelablePayload: RemoveLabelsFromLabelablePayload;
+  RemoveOutsideCollaboratorInput: RemoveOutsideCollaboratorInput;
+  RemoveOutsideCollaboratorPayload: RemoveOutsideCollaboratorPayload;
+  RemoveReactionInput: RemoveReactionInput;
+  RemoveReactionPayload: RemoveReactionPayload;
+  RemoveStarInput: RemoveStarInput;
+  RemoveStarPayload: RemoveStarPayload;
+  ReopenIssueInput: ReopenIssueInput;
+  ReopenIssuePayload: ReopenIssuePayload;
+  ReopenPullRequestInput: ReopenPullRequestInput;
+  ReopenPullRequestPayload: ReopenPullRequestPayload;
+  RequestReviewsInput: RequestReviewsInput;
+  RequestReviewsPayload: RequestReviewsPayload;
+  RerequestCheckSuiteInput: RerequestCheckSuiteInput;
+  RerequestCheckSuitePayload: RerequestCheckSuitePayload;
+  ResolveReviewThreadInput: ResolveReviewThreadInput;
+  ResolveReviewThreadPayload: ResolveReviewThreadPayload;
+  SetBusinessIdentityProviderInput: SetBusinessIdentityProviderInput;
+  SetBusinessIdentityProviderPayload: SetBusinessIdentityProviderPayload;
+  SubmitPullRequestReviewInput: SubmitPullRequestReviewInput;
+  SubmitPullRequestReviewPayload: SubmitPullRequestReviewPayload;
+  UnlockLockableInput: UnlockLockableInput;
+  UnlockLockablePayload: UnlockLockablePayload;
+  UnmarkIssueAsDuplicateInput: UnmarkIssueAsDuplicateInput;
+  UnmarkIssueAsDuplicatePayload: UnmarkIssueAsDuplicatePayload;
+  UnminimizeCommentInput: UnminimizeCommentInput;
+  UnminimizeCommentPayload: UnminimizeCommentPayload;
+  UnpinIssueInput: UnpinIssueInput;
+  UnpinIssuePayload: UnpinIssuePayload;
+  UnresolveReviewThreadInput: UnresolveReviewThreadInput;
+  UnresolveReviewThreadPayload: UnresolveReviewThreadPayload;
+  UpdateBranchProtectionRuleInput: UpdateBranchProtectionRuleInput;
+  UpdateBranchProtectionRulePayload: UpdateBranchProtectionRulePayload;
+  UpdateBusinessAllowPrivateRepositoryForkingSettingInput: UpdateBusinessAllowPrivateRepositoryForkingSettingInput;
+  UpdateBusinessAllowPrivateRepositoryForkingSettingPayload: UpdateBusinessAllowPrivateRepositoryForkingSettingPayload;
+  UpdateBusinessDefaultRepositoryPermissionSettingInput: UpdateBusinessDefaultRepositoryPermissionSettingInput;
+  UpdateBusinessDefaultRepositoryPermissionSettingPayload: UpdateBusinessDefaultRepositoryPermissionSettingPayload;
+  UpdateBusinessMembersCanChangeRepositoryVisibilitySettingInput: UpdateBusinessMembersCanChangeRepositoryVisibilitySettingInput;
+  UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayload: UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayload;
+  UpdateBusinessMembersCanCreateRepositoriesSettingInput: UpdateBusinessMembersCanCreateRepositoriesSettingInput;
+  UpdateBusinessMembersCanCreateRepositoriesSettingPayload: UpdateBusinessMembersCanCreateRepositoriesSettingPayload;
+  UpdateBusinessMembersCanDeleteIssuesSettingInput: UpdateBusinessMembersCanDeleteIssuesSettingInput;
+  UpdateBusinessMembersCanDeleteIssuesSettingPayload: UpdateBusinessMembersCanDeleteIssuesSettingPayload;
+  UpdateBusinessMembersCanDeleteRepositoriesSettingInput: UpdateBusinessMembersCanDeleteRepositoriesSettingInput;
+  UpdateBusinessMembersCanDeleteRepositoriesSettingPayload: UpdateBusinessMembersCanDeleteRepositoriesSettingPayload;
+  UpdateBusinessMembersCanInviteCollaboratorsSettingInput: UpdateBusinessMembersCanInviteCollaboratorsSettingInput;
+  UpdateBusinessMembersCanInviteCollaboratorsSettingPayload: UpdateBusinessMembersCanInviteCollaboratorsSettingPayload;
+  UpdateBusinessMembersCanUpdateProtectedBranchesSettingInput: UpdateBusinessMembersCanUpdateProtectedBranchesSettingInput;
+  UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayload: UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayload;
+  UpdateBusinessOrganizationProjectsSettingInput: UpdateBusinessOrganizationProjectsSettingInput;
+  UpdateBusinessOrganizationProjectsSettingPayload: UpdateBusinessOrganizationProjectsSettingPayload;
+  UpdateBusinessProfileInput: UpdateBusinessProfileInput;
+  UpdateBusinessProfilePayload: UpdateBusinessProfilePayload;
+  UpdateBusinessRepositoryProjectsSettingInput: UpdateBusinessRepositoryProjectsSettingInput;
+  UpdateBusinessRepositoryProjectsSettingPayload: UpdateBusinessRepositoryProjectsSettingPayload;
+  UpdateBusinessTeamDiscussionsSettingInput: UpdateBusinessTeamDiscussionsSettingInput;
+  UpdateBusinessTeamDiscussionsSettingPayload: UpdateBusinessTeamDiscussionsSettingPayload;
+  UpdateBusinessTwoFactorAuthenticationRequiredSettingInput: UpdateBusinessTwoFactorAuthenticationRequiredSettingInput;
+  UpdateBusinessTwoFactorAuthenticationRequiredSettingPayload: UpdateBusinessTwoFactorAuthenticationRequiredSettingPayload;
+  UpdateCheckRunInput: UpdateCheckRunInput;
+  UpdateCheckRunPayload: UpdateCheckRunPayload;
+  UpdateCheckSuitePreferencesInput: UpdateCheckSuitePreferencesInput;
+  CheckSuiteAutoTriggerPreference: CheckSuiteAutoTriggerPreference;
+  UpdateCheckSuitePreferencesPayload: UpdateCheckSuitePreferencesPayload;
+  UpdateIssueInput: UpdateIssueInput;
+  UpdateIssuePayload: UpdateIssuePayload;
+  UpdateIssueCommentInput: UpdateIssueCommentInput;
+  UpdateIssueCommentPayload: UpdateIssueCommentPayload;
+  UpdateLabelInput: UpdateLabelInput;
+  UpdateLabelPayload: UpdateLabelPayload;
+  UpdateProjectInput: UpdateProjectInput;
+  UpdateProjectPayload: UpdateProjectPayload;
+  UpdateProjectCardInput: UpdateProjectCardInput;
+  UpdateProjectCardPayload: UpdateProjectCardPayload;
+  UpdateProjectColumnInput: UpdateProjectColumnInput;
+  UpdateProjectColumnPayload: UpdateProjectColumnPayload;
+  UpdatePullRequestInput: UpdatePullRequestInput;
+  UpdatePullRequestPayload: UpdatePullRequestPayload;
+  UpdatePullRequestReviewInput: UpdatePullRequestReviewInput;
+  UpdatePullRequestReviewPayload: UpdatePullRequestReviewPayload;
+  UpdatePullRequestReviewCommentInput: UpdatePullRequestReviewCommentInput;
+  UpdatePullRequestReviewCommentPayload: UpdatePullRequestReviewCommentPayload;
+  UpdateSubscriptionInput: UpdateSubscriptionInput;
+  UpdateSubscriptionPayload: UpdateSubscriptionPayload;
+  UpdateTeamDiscussionInput: UpdateTeamDiscussionInput;
+  UpdateTeamDiscussionPayload: UpdateTeamDiscussionPayload;
+  UpdateTeamDiscussionCommentInput: UpdateTeamDiscussionCommentInput;
+  UpdateTeamDiscussionCommentPayload: UpdateTeamDiscussionCommentPayload;
+  UpdateTopicsInput: UpdateTopicsInput;
+  UpdateTopicsPayload: UpdateTopicsPayload;
+  Blob: Blob;
+  Bot: Bot;
+  BusinessRepositoryInfo: BusinessRepositoryInfo;
+  CollectionItemContent:
+    | ResolversTypes['Organization']
+    | ResolversTypes['Repository']
+    | ResolversTypes['User'];
+  GenericHovercardContext: GenericHovercardContext;
+  GpgSignature: GpgSignature;
+  OrganizationTeamsHovercardContext: OrganizationTeamsHovercardContext;
+  OrganizationsHovercardContext: OrganizationsHovercardContext;
+  PullRequestOrderField: PullRequestOrderField;
+  RepositoryInvitation: RepositoryInvitation;
+  ReviewStatusHovercardContext: ReviewStatusHovercardContext;
+  SmimeSignature: SmimeSignature;
+  Tag: Tag;
+  TopicConnection: TopicConnection;
+  TopicEdge: TopicEdge;
+  UnknownSignature: UnknownSignature;
+  ViewerHovercardContext: ViewerHovercardContext;
+};
+
+export type PossibleTypesDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = AppContext,
+  Args = { abstractType?: Maybe<Maybe<Scalars['String']>>; concreteTypes?: Maybe<Array<Scalars['String']>> }
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PreviewDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = AppContext,
+  Args = { toggledBy?: Maybe<Maybe<Scalars['String']>> }
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type AcceptBusinessMemberInvitationPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AcceptBusinessMemberInvitationPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invitation?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type AcceptTopicSuggestionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AcceptTopicSuggestionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  topic?: Resolver<Maybe<ResolversTypes['Topic']>, ParentType, ContextType>;
+};
+
+export type ActorResolvers<ContextType = AppContext, ParentType = ResolversTypes['Actor']> = {
+  __resolveType: TypeResolveFn<'Organization' | 'User' | 'Bot', ParentType, ContextType>;
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, ActorAvatarUrlArgs>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type AddAssigneesToAssignablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddAssigneesToAssignablePayload']
+> = {
+  assignable?: Resolver<Maybe<ResolversTypes['Assignable']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type AddCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  commentEdge?: Resolver<Maybe<ResolversTypes['IssueCommentEdge']>, ParentType, ContextType>;
+  subject?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType>;
+  timelineEdge?: Resolver<Maybe<ResolversTypes['IssueTimelineItemEdge']>, ParentType, ContextType>;
+};
+
+export type AddedToProjectEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddedToProjectEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+  projectCard?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+  projectColumnName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type AddLabelsToLabelablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddLabelsToLabelablePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  labelable?: Resolver<Maybe<ResolversTypes['Labelable']>, ParentType, ContextType>;
+};
+
+export type AddProjectCardPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddProjectCardPayload']
+> = {
+  cardEdge?: Resolver<Maybe<ResolversTypes['ProjectCardEdge']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  projectColumn?: Resolver<Maybe<ResolversTypes['ProjectColumn']>, ParentType, ContextType>;
+};
+
+export type AddProjectColumnPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddProjectColumnPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  columnEdge?: Resolver<Maybe<ResolversTypes['ProjectColumnEdge']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type AddPullRequestReviewCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddPullRequestReviewCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comment?: Resolver<Maybe<ResolversTypes['PullRequestReviewComment']>, ParentType, ContextType>;
+  commentEdge?: Resolver<Maybe<ResolversTypes['PullRequestReviewCommentEdge']>, ParentType, ContextType>;
+};
+
+export type AddPullRequestReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddPullRequestReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+  reviewEdge?: Resolver<Maybe<ResolversTypes['PullRequestReviewEdge']>, ParentType, ContextType>;
+};
+
+export type AddReactionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddReactionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reaction?: Resolver<Maybe<ResolversTypes['Reaction']>, ParentType, ContextType>;
+  subject?: Resolver<Maybe<ResolversTypes['Reactable']>, ParentType, ContextType>;
+};
+
+export type AddStarPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['AddStarPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  starrable?: Resolver<Maybe<ResolversTypes['Starrable']>, ParentType, ContextType>;
+};
+
+export type AppResolvers<ContextType = AppContext, ParentType = ResolversTypes['App']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  logoBackgroundColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  logoUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, AppLogoUrlArgs>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type AssignableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Assignable']> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+  assignees?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, AssignableAssigneesArgs>;
+};
+
+export type AssignedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['AssignedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  assignable?: Resolver<ResolversTypes['Assignable'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type BaseRefChangedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BaseRefChangedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type BaseRefForcePushedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BaseRefForcePushedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  afterCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  beforeCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+};
+
+export type BlameResolvers<ContextType = AppContext, ParentType = ResolversTypes['Blame']> = {
+  ranges?: Resolver<Array<ResolversTypes['BlameRange']>, ParentType, ContextType>;
+};
+
+export type BlameRangeResolvers<ContextType = AppContext, ParentType = ResolversTypes['BlameRange']> = {
+  age?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  endingLine?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  startingLine?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BlobResolvers<ContextType = AppContext, ParentType = ResolversTypes['Blob']> = {
+  abbreviatedOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  byteSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commitResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commitUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isBinary?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isTruncated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type BotResolvers<ContextType = AppContext, ParentType = ResolversTypes['Bot']> = {
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, BotAvatarUrlArgs>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type BranchProtectionRuleResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRule']
+> = {
+  branchProtectionRuleConflicts?: Resolver<
+    ResolversTypes['BranchProtectionRuleConflictConnection'],
+    ParentType,
+    ContextType,
+    BranchProtectionRuleBranchProtectionRuleConflictsArgs
+  >;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  dismissesStaleReviews?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isAdminEnforced?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  matchingRefs?: Resolver<
+    ResolversTypes['RefConnection'],
+    ParentType,
+    ContextType,
+    BranchProtectionRuleMatchingRefsArgs
+  >;
+  pattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pushAllowances?: Resolver<
+    ResolversTypes['PushAllowanceConnection'],
+    ParentType,
+    ContextType,
+    BranchProtectionRulePushAllowancesArgs
+  >;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+  requiredApprovingReviewCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  requiredStatusCheckContexts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['String']>>>,
+    ParentType,
+    ContextType
+  >;
+  requiresApprovingReviews?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  requiresCommitSignatures?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  requiresStatusChecks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  requiresStrictStatusChecks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  restrictsPushes?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  restrictsReviewDismissals?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  reviewDismissalAllowances?: Resolver<
+    ResolversTypes['ReviewDismissalAllowanceConnection'],
+    ParentType,
+    ContextType,
+    BranchProtectionRuleReviewDismissalAllowancesArgs
+  >;
+};
+
+export type BranchProtectionRuleConflictResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRuleConflict']
+> = {
+  branchProtectionRule?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+  conflictingBranchProtectionRule?: Resolver<
+    Maybe<ResolversTypes['BranchProtectionRule']>,
+    ParentType,
+    ContextType
+  >;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+};
+
+export type BranchProtectionRuleConflictConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRuleConflictConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['BranchProtectionRuleConflictEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['BranchProtectionRuleConflict']>>>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BranchProtectionRuleConflictEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRuleConflictEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['BranchProtectionRuleConflict']>, ParentType, ContextType>;
+};
+
+export type BranchProtectionRuleConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRuleConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['BranchProtectionRuleEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['BranchProtectionRule']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BranchProtectionRuleEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BranchProtectionRuleEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+};
+
+export type BusinessResolvers<ContextType = AppContext, ParentType = ResolversTypes['Business']> = {
+  adminInfo?: Resolver<Maybe<ResolversTypes['BusinessAdminInfo']>, ParentType, ContextType>;
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, BusinessAvatarUrlArgs>;
+  billingInfo?: Resolver<Maybe<ResolversTypes['BusinessBillingInfo']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  descriptionHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  organizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessOrganizationsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerIsAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  websiteUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type BusinessAdminInfoResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessAdminInfo']
+> = {
+  actionExecutionCapabilitySettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoActionExecutionCapabilitySettingOrganizationsArgs
+  >;
+  admins?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, BusinessAdminInfoAdminsArgs>;
+  affiliatedUsersWithTwoFactorDisabled?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoAffiliatedUsersWithTwoFactorDisabledArgs
+  >;
+  affiliatedUsersWithTwoFactorDisabledExist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allowPrivateRepositoryForkingSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  allowPrivateRepositoryForkingSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoAllowPrivateRepositoryForkingSettingOrganizationsArgs
+  >;
+  defaultRepositoryPermissionSetting?: Resolver<
+    ResolversTypes['BusinessDefaultRepositoryPermissionSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  defaultRepositoryPermissionSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoDefaultRepositoryPermissionSettingOrganizationsArgs
+  >;
+  isUpdatingDefaultRepositoryPermission?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isUpdatingTwoFactorRequirement?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  membersCanChangeRepositoryVisibilitySetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  membersCanChangeRepositoryVisibilitySettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoMembersCanChangeRepositoryVisibilitySettingOrganizationsArgs
+  >;
+  membersCanCreateRepositoriesSetting?: Resolver<
+    ResolversTypes['BusinessMembersCanCreateRepositoriesSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  membersCanCreateRepositoriesSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoMembersCanCreateRepositoriesSettingOrganizationsArgs
+  >;
+  membersCanDeleteIssuesSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  membersCanDeleteIssuesSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoMembersCanDeleteIssuesSettingOrganizationsArgs
+  >;
+  membersCanDeleteRepositoriesSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  membersCanDeleteRepositoriesSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoMembersCanDeleteRepositoriesSettingOrganizationsArgs
+  >;
+  membersCanInviteCollaboratorsSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  membersCanInviteCollaboratorsSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoMembersCanInviteCollaboratorsSettingOrganizationsArgs
+  >;
+  membersCanUpdateProtectedBranchesSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  organizationProjectsSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  organizationProjectsSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoOrganizationProjectsSettingOrganizationsArgs
+  >;
+  pendingAdminInvitations?: Resolver<
+    ResolversTypes['BusinessMemberInvitationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoPendingAdminInvitationsArgs
+  >;
+  pendingMemberInvitations?: Resolver<
+    ResolversTypes['BusinessPendingMemberInvitationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoPendingMemberInvitationsArgs
+  >;
+  repositoryProjectsSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  repositoryProjectsSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoRepositoryProjectsSettingOrganizationsArgs
+  >;
+  samlIdentityProvider?: Resolver<Maybe<ResolversTypes['BusinessIdentityProvider']>, ParentType, ContextType>;
+  samlIdentityProviderSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoSamlIdentityProviderSettingOrganizationsArgs
+  >;
+  teamDiscussionsSetting?: Resolver<
+    ResolversTypes['BusinessEnabledDisabledSettingValue'],
+    ParentType,
+    ContextType
+  >;
+  teamDiscussionsSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoTeamDiscussionsSettingOrganizationsArgs
+  >;
+  twoFactorRequiredSetting?: Resolver<ResolversTypes['BusinessEnabledSettingValue'], ParentType, ContextType>;
+  twoFactorRequiredSettingOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    BusinessAdminInfoTwoFactorRequiredSettingOrganizationsArgs
+  >;
+};
+
+export type BusinessBillingInfoResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessBillingInfo']
+> = {
+  assetPacks?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  availableSeats?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  bandwidthQuota?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  bandwidthUsage?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  bandwidthUsagePercentage?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  billingManagers?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    BusinessBillingInfoBillingManagersArgs
+  >;
+  pendingBillingManagerInvitations?: Resolver<
+    ResolversTypes['BusinessMemberInvitationConnection'],
+    ParentType,
+    ContextType,
+    BusinessBillingInfoPendingBillingManagerInvitationsArgs
+  >;
+  seats?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  storageQuota?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  storageUsage?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  storageUsagePercentage?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalBillableUsers?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  uniqueBillableUsersCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  uniqueBillableUsersPercent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BusinessIdentityProviderResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessIdentityProvider']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  digestMethod?: Resolver<Maybe<ResolversTypes['SamlDigestAlgorithm']>, ParentType, ContextType>;
+  externalIdentities?: Resolver<
+    ResolversTypes['ExternalIdentityConnection'],
+    ParentType,
+    ContextType,
+    BusinessIdentityProviderExternalIdentitiesArgs
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  idpCertificate?: Resolver<Maybe<ResolversTypes['X509Certificate']>, ParentType, ContextType>;
+  issuer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  recoveryCodes?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  signatureMethod?: Resolver<Maybe<ResolversTypes['SamlSignatureAlgorithm']>, ParentType, ContextType>;
+  ssoUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type BusinessMemberInvitationResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessMemberInvitation']
+> = {
+  business?: Resolver<ResolversTypes['Business'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  inviter?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['BusinessMemberInvitationRole'], ParentType, ContextType>;
+};
+
+export type BusinessMemberInvitationConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessMemberInvitationConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['BusinessMemberInvitationEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['BusinessMemberInvitation']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BusinessMemberInvitationEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessMemberInvitationEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+};
+
+export type BusinessPendingMemberInvitationConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessPendingMemberInvitationConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['OrganizationInvitationEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrganizationInvitation']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalUniqueUserCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type BusinessRepositoryInfoResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['BusinessRepositoryInfo']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nameWithOwner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type CancelBusinessAdminInvitationPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CancelBusinessAdminInvitationPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invitation?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type CancelBusinessBillingManagerInvitationPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CancelBusinessBillingManagerInvitationPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invitation?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type ChangeUserStatusPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ChangeUserStatusPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['UserStatus']>, ParentType, ContextType>;
+};
+
+export type CheckAnnotationResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckAnnotation']
+> = {
+  annotationLevel?: Resolver<Maybe<ResolversTypes['CheckAnnotationLevel']>, ParentType, ContextType>;
+  blobUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  location?: Resolver<ResolversTypes['CheckAnnotationSpan'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rawDetails?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type CheckAnnotationConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckAnnotationConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckAnnotationEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckAnnotation']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CheckAnnotationEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckAnnotationEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CheckAnnotation']>, ParentType, ContextType>;
+};
+
+export type CheckAnnotationPositionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckAnnotationPosition']
+> = {
+  column?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  line?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CheckAnnotationSpanResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckAnnotationSpan']
+> = {
+  end?: Resolver<ResolversTypes['CheckAnnotationPosition'], ParentType, ContextType>;
+  start?: Resolver<ResolversTypes['CheckAnnotationPosition'], ParentType, ContextType>;
+};
+
+export type CheckRunResolvers<ContextType = AppContext, ParentType = ResolversTypes['CheckRun']> = {
+  annotations?: Resolver<
+    Maybe<ResolversTypes['CheckAnnotationConnection']>,
+    ParentType,
+    ContextType,
+    CheckRunAnnotationsArgs
+  >;
+  checkSuite?: Resolver<ResolversTypes['CheckSuite'], ParentType, ContextType>;
+  completedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  conclusion?: Resolver<Maybe<ResolversTypes['CheckConclusionState']>, ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  detailsUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  externalId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  permalink?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  startedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['CheckStatusState'], ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type CheckRunConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckRunConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckRunEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckRun']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CheckRunEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['CheckRunEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CheckRun']>, ParentType, ContextType>;
+};
+
+export type CheckSuiteResolvers<ContextType = AppContext, ParentType = ResolversTypes['CheckSuite']> = {
+  app?: Resolver<Maybe<ResolversTypes['App']>, ParentType, ContextType>;
+  branch?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  checkRuns?: Resolver<
+    Maybe<ResolversTypes['CheckRunConnection']>,
+    ParentType,
+    ContextType,
+    CheckSuiteCheckRunsArgs
+  >;
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  conclusion?: Resolver<Maybe<ResolversTypes['CheckConclusionState']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  matchingPullRequests?: Resolver<
+    Maybe<ResolversTypes['PullRequestConnection']>,
+    ParentType,
+    ContextType,
+    CheckSuiteMatchingPullRequestsArgs
+  >;
+  push?: Resolver<Maybe<ResolversTypes['Push']>, ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['CheckStatusState'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type CheckSuiteConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckSuiteConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckSuiteEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CheckSuite']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CheckSuiteEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CheckSuiteEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CheckSuite']>, ParentType, ContextType>;
+};
+
+export type ClearLabelsFromLabelablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ClearLabelsFromLabelablePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  labelable?: Resolver<Maybe<ResolversTypes['Labelable']>, ParentType, ContextType>;
+};
+
+export type ClosableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Closable']> = {
+  __resolveType: TypeResolveFn<'Project' | 'Issue' | 'PullRequest' | 'Milestone', ParentType, ContextType>;
+  closed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  closedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+};
+
+export type ClosedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['ClosedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  closable?: Resolver<ResolversTypes['Closable'], ParentType, ContextType>;
+  closer?: Resolver<Maybe<ResolversTypes['Closer']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type CloseIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CloseIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type ClosePullRequestPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ClosePullRequestPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type CloserResolvers<ContextType = AppContext, ParentType = ResolversTypes['Closer']> = {
+  __resolveType: TypeResolveFn<'Commit' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type CodeOfConductResolvers<ContextType = AppContext, ParentType = ResolversTypes['CodeOfConduct']> = {
+  body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  resourcePath?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type CollectionItemContentResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CollectionItemContent']
+> = {
+  __resolveType: TypeResolveFn<'Organization' | 'Repository' | 'User', ParentType, ContextType>;
+};
+
+export type CommentResolvers<ContextType = AppContext, ParentType = ResolversTypes['Comment']> = {
+  __resolveType: TypeResolveFn<
+    | 'Issue'
+    | 'PullRequest'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'CommitComment'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'GistComment',
+    ParentType,
+    ContextType
+  >;
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    CommentUserContentEditsArgs
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type CommentDeletedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommentDeletedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type CommitResolvers<ContextType = AppContext, ParentType = ResolversTypes['Commit']> = {
+  abbreviatedOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  additions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['GitActor']>, ParentType, ContextType>;
+  authoredByCommitter?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  authoredDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  blame?: Resolver<ResolversTypes['Blame'], ParentType, ContextType, CommitBlameArgs>;
+  changedFiles?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  checkSuites?: Resolver<
+    Maybe<ResolversTypes['CheckSuiteConnection']>,
+    ParentType,
+    ContextType,
+    CommitCheckSuitesArgs
+  >;
+  comments?: Resolver<ResolversTypes['CommitCommentConnection'], ParentType, ContextType, CommitCommentsArgs>;
+  commitResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commitUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  committedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  committedViaWeb?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  committer?: Resolver<Maybe<ResolversTypes['GitActor']>, ParentType, ContextType>;
+  deletions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  deployments?: Resolver<
+    Maybe<ResolversTypes['DeploymentConnection']>,
+    ParentType,
+    ContextType,
+    CommitDeploymentsArgs
+  >;
+  history?: Resolver<ResolversTypes['CommitHistoryConnection'], ParentType, ContextType, CommitHistoryArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  messageBody?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  messageBodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  messageHeadline?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  messageHeadlineHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  parents?: Resolver<ResolversTypes['CommitConnection'], ParentType, ContextType, CommitParentsArgs>;
+  pushedDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  signature?: Resolver<Maybe<ResolversTypes['GitSignature']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
+  tarballUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  tree?: Resolver<ResolversTypes['Tree'], ParentType, ContextType>;
+  treeResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  treeUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+  zipballUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type CommitCommentResolvers<ContextType = AppContext, ParentType = ResolversTypes['CommitComment']> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMinimized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  minimizedReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    CommitCommentReactionsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    CommitCommentUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanMinimize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type CommitCommentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitCommentConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommitCommentEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommitComment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CommitCommentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitCommentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CommitComment']>, ParentType, ContextType>;
+};
+
+export type CommitCommentThreadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitCommentThread']
+> = {
+  comments?: Resolver<
+    ResolversTypes['CommitCommentConnection'],
+    ParentType,
+    ContextType,
+    CommitCommentThreadCommentsArgs
+  >;
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type CommitConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommitEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Commit']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CommitContributionsByRepositoryResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitContributionsByRepository']
+> = {
+  contributions?: Resolver<
+    ResolversTypes['CreatedCommitContributionConnection'],
+    ParentType,
+    ContextType,
+    CommitContributionsByRepositoryContributionsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type CommitEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['CommitEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+};
+
+export type CommitHistoryConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CommitHistoryConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommitEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Commit']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ContentAttachmentResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContentAttachment']
+> = {
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  contentReference?: Resolver<ResolversTypes['ContentReference'], ParentType, ContextType>;
+  databaseId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type ContentReferenceResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContentReference']
+> = {
+  databaseId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reference?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type ContributionResolvers<ContextType = AppContext, ParentType = ResolversTypes['Contribution']> = {
+  __resolveType: TypeResolveFn<
+    | 'CreatedCommitContribution'
+    | 'CreatedIssueContribution'
+    | 'RestrictedContribution'
+    | 'CreatedPullRequestContribution'
+    | 'CreatedRepositoryContribution'
+    | 'JoinedGitHubContribution',
+    ParentType,
+    ContextType
+  >;
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type ContributionCalendarResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContributionCalendar']
+> = {
+  colors?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  isHalloween?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  months?: Resolver<Array<ResolversTypes['ContributionCalendarMonth']>, ParentType, ContextType>;
+  totalContributions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  weeks?: Resolver<Array<ResolversTypes['ContributionCalendarWeek']>, ParentType, ContextType>;
+};
+
+export type ContributionCalendarDayResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContributionCalendarDay']
+> = {
+  color?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  weekday?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ContributionCalendarMonthResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContributionCalendarMonth']
+> = {
+  firstDay?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  totalWeeks?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ContributionCalendarWeekResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContributionCalendarWeek']
+> = {
+  contributionDays?: Resolver<Array<ResolversTypes['ContributionCalendarDay']>, ParentType, ContextType>;
+  firstDay?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+};
+
+export type ContributionsCollectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ContributionsCollection']
+> = {
+  commitContributionsByRepository?: Resolver<
+    Array<ResolversTypes['CommitContributionsByRepository']>,
+    ParentType,
+    ContextType,
+    ContributionsCollectionCommitContributionsByRepositoryArgs
+  >;
+  contributionCalendar?: Resolver<ResolversTypes['ContributionCalendar'], ParentType, ContextType>;
+  doesEndInCurrentMonth?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  earliestRestrictedContributionDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  endedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  firstIssueContribution?: Resolver<
+    Maybe<ResolversTypes['CreatedIssueOrRestrictedContribution']>,
+    ParentType,
+    ContextType,
+    ContributionsCollectionFirstIssueContributionArgs
+  >;
+  firstPullRequestContribution?: Resolver<
+    Maybe<ResolversTypes['CreatedPullRequestOrRestrictedContribution']>,
+    ParentType,
+    ContextType,
+    ContributionsCollectionFirstPullRequestContributionArgs
+  >;
+  firstRepositoryContribution?: Resolver<
+    Maybe<ResolversTypes['CreatedRepositoryOrRestrictedContribution']>,
+    ParentType,
+    ContextType,
+    ContributionsCollectionFirstRepositoryContributionArgs
+  >;
+  hasActivityInThePast?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasAnyContributions?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasAnyRestrictedContributions?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isSingleDay?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issueContributions?: Resolver<
+    ResolversTypes['CreatedIssueContributionConnection'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionIssueContributionsArgs
+  >;
+  joinedGitHubContribution?: Resolver<
+    Maybe<ResolversTypes['JoinedGitHubContribution']>,
+    ParentType,
+    ContextType,
+    ContributionsCollectionJoinedGitHubContributionArgs
+  >;
+  latestRestrictedContributionDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  mostRecentCollectionWithActivity?: Resolver<
+    Maybe<ResolversTypes['ContributionsCollection']>,
+    ParentType,
+    ContextType
+  >;
+  mostRecentCollectionWithoutActivity?: Resolver<
+    Maybe<ResolversTypes['ContributionsCollection']>,
+    ParentType,
+    ContextType
+  >;
+  popularIssueContribution?: Resolver<
+    Maybe<ResolversTypes['CreatedIssueContribution']>,
+    ParentType,
+    ContextType
+  >;
+  popularPullRequestContribution?: Resolver<
+    Maybe<ResolversTypes['CreatedPullRequestContribution']>,
+    ParentType,
+    ContextType
+  >;
+  pullRequestContributions?: Resolver<
+    ResolversTypes['CreatedPullRequestContributionConnection'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionPullRequestContributionsArgs
+  >;
+  restrictedContributionsCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  startedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  totalCommitContributions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalIssueContributions?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionTotalIssueContributionsArgs
+  >;
+  totalPullRequestContributions?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionTotalPullRequestContributionsArgs
+  >;
+  totalPullRequestReviewContributions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalRepositoriesWithContributedCommits?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalRepositoriesWithContributedIssues?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionTotalRepositoriesWithContributedIssuesArgs
+  >;
+  totalRepositoriesWithContributedPullRequestReviews?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  totalRepositoriesWithContributedPullRequests?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionTotalRepositoriesWithContributedPullRequestsArgs
+  >;
+  totalRepositoryContributions?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    ContributionsCollectionTotalRepositoryContributionsArgs
+  >;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type ConvertedNoteToIssueEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ConvertedNoteToIssueEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+  projectCard?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+  projectColumnName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type ConvertProjectCardNoteToIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ConvertProjectCardNoteToIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  projectCard?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+};
+
+export type CreateBranchProtectionRulePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateBranchProtectionRulePayload']
+> = {
+  branchProtectionRule?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type CreateCheckRunPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateCheckRunPayload']
+> = {
+  checkRun?: Resolver<Maybe<ResolversTypes['CheckRun']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type CreateCheckSuitePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateCheckSuitePayload']
+> = {
+  checkSuite?: Resolver<Maybe<ResolversTypes['CheckSuite']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type CreateContentAttachmentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateContentAttachmentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contentAttachment?: Resolver<Maybe<ResolversTypes['ContentAttachment']>, ParentType, ContextType>;
+};
+
+export type CreatedCommitContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedCommitContribution']
+> = {
+  commitCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type CreatedCommitContributionConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedCommitContributionConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['CreatedCommitContributionEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CreatedCommitContribution']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CreatedCommitContributionEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedCommitContributionEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CreatedCommitContribution']>, ParentType, ContextType>;
+};
+
+export type CreateDeploymentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateDeploymentPayload']
+> = {
+  autoMerged?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deployment?: Resolver<Maybe<ResolversTypes['Deployment']>, ParentType, ContextType>;
+};
+
+export type CreateDeploymentStatusPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateDeploymentStatusPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deploymentStatus?: Resolver<Maybe<ResolversTypes['DeploymentStatus']>, ParentType, ContextType>;
+};
+
+export type CreatedIssueContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedIssueContribution']
+> = {
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type CreatedIssueContributionConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedIssueContributionConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['CreatedIssueContributionEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CreatedIssueContribution']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CreatedIssueContributionEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedIssueContributionEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CreatedIssueContribution']>, ParentType, ContextType>;
+};
+
+export type CreatedIssueOrRestrictedContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedIssueOrRestrictedContribution']
+> = {
+  __resolveType: TypeResolveFn<
+    'CreatedIssueContribution' | 'RestrictedContribution',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type CreatedPullRequestContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedPullRequestContribution']
+> = {
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type CreatedPullRequestContributionConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedPullRequestContributionConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['CreatedPullRequestContributionEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['CreatedPullRequestContribution']>>>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type CreatedPullRequestContributionEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedPullRequestContributionEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['CreatedPullRequestContribution']>, ParentType, ContextType>;
+};
+
+export type CreatedPullRequestOrRestrictedContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedPullRequestOrRestrictedContribution']
+> = {
+  __resolveType: TypeResolveFn<
+    'CreatedPullRequestContribution' | 'RestrictedContribution',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type CreatedRepositoryContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedRepositoryContribution']
+> = {
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type CreatedRepositoryOrRestrictedContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatedRepositoryOrRestrictedContribution']
+> = {
+  __resolveType: TypeResolveFn<
+    'CreatedRepositoryContribution' | 'RestrictedContribution',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type CreateIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type CreateLabelPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateLabelPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
+};
+
+export type CreateProjectPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateProjectPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type CreatePullRequestPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreatePullRequestPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type CreateTeamDiscussionCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateTeamDiscussionCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamDiscussionComment?: Resolver<Maybe<ResolversTypes['TeamDiscussionComment']>, ParentType, ContextType>;
+};
+
+export type CreateTeamDiscussionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CreateTeamDiscussionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamDiscussion?: Resolver<Maybe<ResolversTypes['TeamDiscussion']>, ParentType, ContextType>;
+};
+
+export type CrossReferencedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['CrossReferencedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isCrossRepository?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  referencedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  source?: Resolver<ResolversTypes['ReferencedSubject'], ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['ReferencedSubject'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  willCloseTarget?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
+
+export type DeclineTopicSuggestionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeclineTopicSuggestionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  topic?: Resolver<Maybe<ResolversTypes['Topic']>, ParentType, ContextType>;
+};
+
+export type DeletableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Deletable']> = {
+  __resolveType: TypeResolveFn<
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'CommitComment'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'GistComment',
+    ParentType,
+    ContextType
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type DeleteBranchProtectionRulePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteBranchProtectionRulePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type DeleteIssueCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteIssueCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type DeleteIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+};
+
+export type DeleteLabelPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteLabelPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type DeleteProjectCardPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteProjectCardPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  column?: Resolver<Maybe<ResolversTypes['ProjectColumn']>, ParentType, ContextType>;
+  deletedCardId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+};
+
+export type DeleteProjectColumnPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteProjectColumnPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deletedColumnId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type DeleteProjectPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteProjectPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['ProjectOwner']>, ParentType, ContextType>;
+};
+
+export type DeletePullRequestReviewCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeletePullRequestReviewCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type DeletePullRequestReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeletePullRequestReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type DeleteTeamDiscussionCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteTeamDiscussionCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type DeleteTeamDiscussionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeleteTeamDiscussionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type DemilestonedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DemilestonedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  milestoneTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  subject?: Resolver<ResolversTypes['MilestoneItem'], ParentType, ContextType>;
+};
+
+export type DependencyGraphDependencyResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphDependency']
+> = {
+  hasDependencies?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  packageManager?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  packageName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+  requirements?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type DependencyGraphDependencyConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphDependencyConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['DependencyGraphDependencyEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['DependencyGraphDependency']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type DependencyGraphDependencyEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphDependencyEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['DependencyGraphDependency']>, ParentType, ContextType>;
+};
+
+export type DependencyGraphManifestResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphManifest']
+> = {
+  blobPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dependencies?: Resolver<
+    Maybe<ResolversTypes['DependencyGraphDependencyConnection']>,
+    ParentType,
+    ContextType,
+    DependencyGraphManifestDependenciesArgs
+  >;
+  dependenciesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  exceedsMaxSize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  parseable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type DependencyGraphManifestConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphManifestConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['DependencyGraphManifestEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['DependencyGraphManifest']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type DependencyGraphManifestEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DependencyGraphManifestEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['DependencyGraphManifest']>, ParentType, ContextType>;
+};
+
+export type DeployedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['DeployedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deployment?: Resolver<ResolversTypes['Deployment'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+};
+
+export type DeployKeyResolvers<ContextType = AppContext, ParentType = ResolversTypes['DeployKey']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  readOnly?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  verified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type DeployKeyConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeployKeyConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['DeployKeyEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['DeployKey']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type DeployKeyEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['DeployKeyEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['DeployKey']>, ParentType, ContextType>;
+};
+
+export type DeploymentResolvers<ContextType = AppContext, ParentType = ResolversTypes['Deployment']> = {
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  commitOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  environment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  latestStatus?: Resolver<Maybe<ResolversTypes['DeploymentStatus']>, ParentType, ContextType>;
+  payload?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['DeploymentState']>, ParentType, ContextType>;
+  statuses?: Resolver<
+    Maybe<ResolversTypes['DeploymentStatusConnection']>,
+    ParentType,
+    ContextType,
+    DeploymentStatusesArgs
+  >;
+  task?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type DeploymentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['DeploymentEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Deployment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type DeploymentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Deployment']>, ParentType, ContextType>;
+};
+
+export type DeploymentEnvironmentChangedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentEnvironmentChangedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deploymentStatus?: Resolver<ResolversTypes['DeploymentStatus'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+};
+
+export type DeploymentStatusResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentStatus']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  deployment?: Resolver<ResolversTypes['Deployment'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  environment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  environmentUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  logUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['DeploymentStatusState'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type DeploymentStatusConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentStatusConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['DeploymentStatusEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['DeploymentStatus']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type DeploymentStatusEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DeploymentStatusEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['DeploymentStatus']>, ParentType, ContextType>;
+};
+
+export type DismissPullRequestReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['DismissPullRequestReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type ExternalIdentityResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ExternalIdentity']
+> = {
+  guid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  organizationInvitation?: Resolver<Maybe<ResolversTypes['OrganizationInvitation']>, ParentType, ContextType>;
+  samlIdentity?: Resolver<Maybe<ResolversTypes['ExternalIdentitySamlAttributes']>, ParentType, ContextType>;
+  scimIdentity?: Resolver<Maybe<ResolversTypes['ExternalIdentityScimAttributes']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type ExternalIdentityConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ExternalIdentityConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ExternalIdentityEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ExternalIdentity']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ExternalIdentityEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ExternalIdentityEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ExternalIdentity']>, ParentType, ContextType>;
+};
+
+export type ExternalIdentitySamlAttributesResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ExternalIdentitySamlAttributes']
+> = {
+  nameId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type ExternalIdentityScimAttributesResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ExternalIdentityScimAttributes']
+> = {
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type FollowerConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['FollowerConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type FollowingConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['FollowingConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type GenericHovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['GenericHovercardContext']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type GistResolvers<ContextType = AppContext, ParentType = ResolversTypes['Gist']> = {
+  comments?: Resolver<ResolversTypes['GistCommentConnection'], ParentType, ContextType, GistCommentsArgs>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  files?: Resolver<Maybe<Array<Maybe<ResolversTypes['GistFile']>>>, ParentType, ContextType, GistFilesArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isFork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPublic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['RepositoryOwner']>, ParentType, ContextType>;
+  pushedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  stargazers?: Resolver<ResolversTypes['StargazerConnection'], ParentType, ContextType, GistStargazersArgs>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  viewerHasStarred?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type GistCommentResolvers<ContextType = AppContext, ParentType = ResolversTypes['GistComment']> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  gist?: Resolver<ResolversTypes['Gist'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMinimized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  minimizedReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    GistCommentUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanMinimize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type GistCommentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['GistCommentConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['GistCommentEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['GistComment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type GistCommentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['GistCommentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['GistComment']>, ParentType, ContextType>;
+};
+
+export type GistConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['GistConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['GistEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Gist']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type GistEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['GistEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Gist']>, ParentType, ContextType>;
+};
+
+export type GistFileResolvers<ContextType = AppContext, ParentType = ResolversTypes['GistFile']> = {
+  encodedName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  encoding?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extension?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isImage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isTruncated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  language?: Resolver<Maybe<ResolversTypes['Language']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, GistFileTextArgs>;
+};
+
+export type GitActorResolvers<ContextType = AppContext, ParentType = ResolversTypes['GitActor']> = {
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, GitActorAvatarUrlArgs>;
+  date?: Resolver<Maybe<ResolversTypes['GitTimestamp']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type GitHubMetadataResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['GitHubMetadata']
+> = {
+  gitHubServicesSha?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  gitIpAddresses?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  hookIpAddresses?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  importerIpAddresses?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  isPasswordAuthenticationVerifiable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  pagesIpAddresses?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+};
+
+export type GitObjectResolvers<ContextType = AppContext, ParentType = ResolversTypes['GitObject']> = {
+  __resolveType: TypeResolveFn<'Commit' | 'Tree' | 'Blob' | 'Tag', ParentType, ContextType>;
+  abbreviatedOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  commitResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commitUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export interface GitObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['GitObjectID'], any> {
+  name: 'GitObjectID';
+}
+
+export type GitSignatureResolvers<ContextType = AppContext, ParentType = ResolversTypes['GitSignature']> = {
+  __resolveType: TypeResolveFn<
+    'GpgSignature' | 'SmimeSignature' | 'UnknownSignature',
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isValid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  payload?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['GitSignatureState'], ParentType, ContextType>;
+  wasSignedByGitHub?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export interface GitSshRemoteScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['GitSSHRemote'], any> {
+  name: 'GitSSHRemote';
+}
+
+export interface GitTimestampScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['GitTimestamp'], any> {
+  name: 'GitTimestamp';
+}
+
+export type GpgSignatureResolvers<ContextType = AppContext, ParentType = ResolversTypes['GpgSignature']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isValid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  keyId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  payload?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['GitSignatureState'], ParentType, ContextType>;
+  wasSignedByGitHub?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type HeadRefDeletedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['HeadRefDeletedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  headRef?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  headRefName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+};
+
+export type HeadRefForcePushedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['HeadRefForcePushedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  afterCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  beforeCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+};
+
+export type HeadRefRestoredEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['HeadRefRestoredEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+};
+
+export type HovercardResolvers<ContextType = AppContext, ParentType = ResolversTypes['Hovercard']> = {
+  contexts?: Resolver<Array<ResolversTypes['HovercardContext']>, ParentType, ContextType>;
+};
+
+export type HovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['HovercardContext']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'GenericHovercardContext'
+    | 'OrganizationTeamsHovercardContext'
+    | 'OrganizationsHovercardContext'
+    | 'ReviewStatusHovercardContext'
+    | 'ViewerHovercardContext',
+    ParentType,
+    ContextType
+  >;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export interface HtmlScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['HTML'], any> {
+  name: 'HTML';
+}
+
+export type ImportProjectPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ImportProjectPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type InviteBusinessAdminPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['InviteBusinessAdminPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invitation?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+};
+
+export type InviteBusinessBillingManagerPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['InviteBusinessBillingManagerPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invitation?: Resolver<Maybe<ResolversTypes['BusinessMemberInvitation']>, ParentType, ContextType>;
+};
+
+export type IssueResolvers<ContextType = AppContext, ParentType = ResolversTypes['Issue']> = {
+  activeLockReason?: Resolver<Maybe<ResolversTypes['LockReason']>, ParentType, ContextType>;
+  assignees?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, IssueAssigneesArgs>;
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  closedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  comments?: Resolver<ResolversTypes['IssueCommentConnection'], ParentType, ContextType, IssueCommentsArgs>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  hovercard?: Resolver<ResolversTypes['Hovercard'], ParentType, ContextType, IssueHovercardArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  labels?: Resolver<Maybe<ResolversTypes['LabelConnection']>, ParentType, ContextType, IssueLabelsArgs>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  milestone?: Resolver<Maybe<ResolversTypes['Milestone']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  participants?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, IssueParticipantsArgs>;
+  projectCards?: Resolver<
+    ResolversTypes['ProjectCardConnection'],
+    ParentType,
+    ContextType,
+    IssueProjectCardsArgs
+  >;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<ResolversTypes['ReactionConnection'], ParentType, ContextType, IssueReactionsArgs>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['IssueState'], ParentType, ContextType>;
+  timeline?: Resolver<ResolversTypes['IssueTimelineConnection'], ParentType, ContextType, IssueTimelineArgs>;
+  timelineItems?: Resolver<
+    ResolversTypes['IssueTimelineItemsConnection'],
+    ParentType,
+    ContextType,
+    IssueTimelineItemsArgs
+  >;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    IssueUserContentEditsArgs
+  >;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+};
+
+export type IssueCommentResolvers<ContextType = AppContext, ParentType = ResolversTypes['IssueComment']> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMinimized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  minimizedReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    IssueCommentReactionsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    IssueCommentUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanMinimize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type IssueCommentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueCommentConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueCommentEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueComment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type IssueCommentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueCommentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['IssueComment']>, ParentType, ContextType>;
+};
+
+export type IssueConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Issue']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type IssueEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['IssueEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type IssueOrPullRequestResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueOrPullRequest']
+> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type IssueTimelineConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueTimelineItemEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueTimelineItem']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type IssueTimelineItemResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineItem']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'AssignedEvent'
+    | 'ClosedEvent'
+    | 'Commit'
+    | 'CrossReferencedEvent'
+    | 'DemilestonedEvent'
+    | 'IssueComment'
+    | 'LabeledEvent'
+    | 'LockedEvent'
+    | 'MilestonedEvent'
+    | 'ReferencedEvent'
+    | 'RenamedTitleEvent'
+    | 'ReopenedEvent'
+    | 'SubscribedEvent'
+    | 'TransferredEvent'
+    | 'UnassignedEvent'
+    | 'UnlabeledEvent'
+    | 'UnlockedEvent'
+    | 'UnsubscribedEvent',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type IssueTimelineItemEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineItemEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['IssueTimelineItem']>, ParentType, ContextType>;
+};
+
+export type IssueTimelineItemsResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineItems']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'AddedToProjectEvent'
+    | 'AssignedEvent'
+    | 'ClosedEvent'
+    | 'CommentDeletedEvent'
+    | 'ConvertedNoteToIssueEvent'
+    | 'CrossReferencedEvent'
+    | 'DemilestonedEvent'
+    | 'IssueComment'
+    | 'LabeledEvent'
+    | 'LockedEvent'
+    | 'MentionedEvent'
+    | 'MilestonedEvent'
+    | 'MovedColumnsInProjectEvent'
+    | 'PinnedEvent'
+    | 'ReferencedEvent'
+    | 'RemovedFromProjectEvent'
+    | 'RenamedTitleEvent'
+    | 'ReopenedEvent'
+    | 'SubscribedEvent'
+    | 'TransferredEvent'
+    | 'UnassignedEvent'
+    | 'UnlabeledEvent'
+    | 'UnlockedEvent'
+    | 'UnpinnedEvent'
+    | 'UnsubscribedEvent',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type IssueTimelineItemsConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineItemsConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueTimelineItemsEdge']>>>, ParentType, ContextType>;
+  filteredCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['IssueTimelineItems']>>>, ParentType, ContextType>;
+  pageCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type IssueTimelineItemsEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['IssueTimelineItemsEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['IssueTimelineItems']>, ParentType, ContextType>;
+};
+
+export type JoinedGitHubContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['JoinedGitHubContribution']
+> = {
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type LabelResolvers<ContextType = AppContext, ParentType = ResolversTypes['Label']> = {
+  color?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isDefault?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issues?: Resolver<ResolversTypes['IssueConnection'], ParentType, ContextType, LabelIssuesArgs>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pullRequests?: Resolver<
+    ResolversTypes['PullRequestConnection'],
+    ParentType,
+    ContextType,
+    LabelPullRequestsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type LabelableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Labelable']> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+  labels?: Resolver<Maybe<ResolversTypes['LabelConnection']>, ParentType, ContextType, LabelableLabelsArgs>;
+};
+
+export type LabelConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['LabelConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['LabelEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Label']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type LabeledEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['LabeledEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
+  labelable?: Resolver<ResolversTypes['Labelable'], ParentType, ContextType>;
+};
+
+export type LabelEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['LabelEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
+};
+
+export type LanguageResolvers<ContextType = AppContext, ParentType = ResolversTypes['Language']> = {
+  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type LanguageConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['LanguageConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['LanguageEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Language']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type LanguageEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['LanguageEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Language'], ParentType, ContextType>;
+  size?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type LicenseResolvers<ContextType = AppContext, ParentType = ResolversTypes['License']> = {
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  conditions?: Resolver<Array<Maybe<ResolversTypes['LicenseRule']>>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  featured?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  implementation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  limitations?: Resolver<Array<Maybe<ResolversTypes['LicenseRule']>>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nickname?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions?: Resolver<Array<Maybe<ResolversTypes['LicenseRule']>>, ParentType, ContextType>;
+  pseudoLicense?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  spdxId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type LicenseRuleResolvers<ContextType = AppContext, ParentType = ResolversTypes['LicenseRule']> = {
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type LockableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Lockable']> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+  activeLockReason?: Resolver<Maybe<ResolversTypes['LockReason']>, ParentType, ContextType>;
+  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type LockedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['LockedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lockReason?: Resolver<Maybe<ResolversTypes['LockReason']>, ParentType, ContextType>;
+  lockable?: Resolver<ResolversTypes['Lockable'], ParentType, ContextType>;
+};
+
+export type LockLockablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['LockLockablePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lockedRecord?: Resolver<Maybe<ResolversTypes['Lockable']>, ParentType, ContextType>;
+};
+
+export type MarketplaceCategoryResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MarketplaceCategory']
+> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  howItWorks?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  primaryListingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  secondaryListingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type MarketplaceListingResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MarketplaceListing']
+> = {
+  app?: Resolver<Maybe<ResolversTypes['App']>, ParentType, ContextType>;
+  companyUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  configurationResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  configurationUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  documentationUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  extendedDescription?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extendedDescriptionHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  fullDescription?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fullDescriptionHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  hasApprovalBeenRequested?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPublishedFreeTrialPlans?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasTermsOfService?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  howItWorks?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  howItWorksHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  installationUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  installedForViewer?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isApproved?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDelisted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDraft?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPaid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPublic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isRejected?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isUnverified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isUnverifiedPending?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVerificationPendingFromDraft?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVerificationPendingFromUnverified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVerified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  logoBackgroundColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  logoUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType, MarketplaceListingLogoUrlArgs>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  normalizedShortDescription?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pricingUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  primaryCategory?: Resolver<ResolversTypes['MarketplaceCategory'], ParentType, ContextType>;
+  privacyPolicyUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  screenshotUrls?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
+  secondaryCategory?: Resolver<Maybe<ResolversTypes['MarketplaceCategory']>, ParentType, ContextType>;
+  shortDescription?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  statusUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  supportEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  supportUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  termsOfServiceUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanAddPlans?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanApprove?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanDelist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanEditCategories?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanEditPlans?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanRedraft?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReject?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanRequestApproval?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerHasPurchased?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerHasPurchasedForAllOrganizations?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerIsListingAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type MarketplaceListingConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MarketplaceListingConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['MarketplaceListingEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['MarketplaceListing']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type MarketplaceListingEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MarketplaceListingEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['MarketplaceListing']>, ParentType, ContextType>;
+};
+
+export type MarkPullRequestReadyForReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MarkPullRequestReadyForReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type MemberStatusableResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MemberStatusable']
+> = {
+  __resolveType: TypeResolveFn<'Organization' | 'Team', ParentType, ContextType>;
+  memberStatuses?: Resolver<
+    ResolversTypes['UserStatusConnection'],
+    ParentType,
+    ContextType,
+    MemberStatusableMemberStatusesArgs
+  >;
+};
+
+export type MentionedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MentionedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type MergedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['MergedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  mergeRef?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  mergeRefName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type MergePullRequestPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MergePullRequestPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type MilestoneResolvers<ContextType = AppContext, ParentType = ResolversTypes['Milestone']> = {
+  closed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  closedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dueOn?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  issues?: Resolver<ResolversTypes['IssueConnection'], ParentType, ContextType, MilestoneIssuesArgs>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  pullRequests?: Resolver<
+    ResolversTypes['PullRequestConnection'],
+    ParentType,
+    ContextType,
+    MilestonePullRequestsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['MilestoneState'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type MilestoneConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MilestoneConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['MilestoneEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Milestone']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type MilestonedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MilestonedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  milestoneTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  subject?: Resolver<ResolversTypes['MilestoneItem'], ParentType, ContextType>;
+};
+
+export type MilestoneEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['MilestoneEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Milestone']>, ParentType, ContextType>;
+};
+
+export type MilestoneItemResolvers<ContextType = AppContext, ParentType = ResolversTypes['MilestoneItem']> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type MinimizableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Minimizable']> = {
+  __resolveType: TypeResolveFn<
+    'CommitComment' | 'IssueComment' | 'PullRequestReviewComment' | 'GistComment',
+    ParentType,
+    ContextType
+  >;
+  isMinimized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  minimizedReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  viewerCanMinimize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type MinimizeCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MinimizeCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimizedComment?: Resolver<Maybe<ResolversTypes['Minimizable']>, ParentType, ContextType>;
+};
+
+export type MovedColumnsInProjectEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MovedColumnsInProjectEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  previousProjectColumnName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+  projectCard?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+  projectColumnName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type MoveProjectCardPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MoveProjectCardPayload']
+> = {
+  cardEdge?: Resolver<Maybe<ResolversTypes['ProjectCardEdge']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type MoveProjectColumnPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['MoveProjectColumnPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  columnEdge?: Resolver<Maybe<ResolversTypes['ProjectColumnEdge']>, ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = AppContext, ParentType = ResolversTypes['Mutation']> = {
+  acceptBusinessMemberInvitation?: Resolver<
+    Maybe<ResolversTypes['AcceptBusinessMemberInvitationPayload']>,
+    ParentType,
+    ContextType,
+    MutationAcceptBusinessMemberInvitationArgs
+  >;
+  acceptTopicSuggestion?: Resolver<
+    Maybe<ResolversTypes['AcceptTopicSuggestionPayload']>,
+    ParentType,
+    ContextType,
+    MutationAcceptTopicSuggestionArgs
+  >;
+  addAssigneesToAssignable?: Resolver<
+    Maybe<ResolversTypes['AddAssigneesToAssignablePayload']>,
+    ParentType,
+    ContextType,
+    MutationAddAssigneesToAssignableArgs
+  >;
+  addComment?: Resolver<
+    Maybe<ResolversTypes['AddCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddCommentArgs
+  >;
+  addLabelsToLabelable?: Resolver<
+    Maybe<ResolversTypes['AddLabelsToLabelablePayload']>,
+    ParentType,
+    ContextType,
+    MutationAddLabelsToLabelableArgs
+  >;
+  addProjectCard?: Resolver<
+    Maybe<ResolversTypes['AddProjectCardPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddProjectCardArgs
+  >;
+  addProjectColumn?: Resolver<
+    Maybe<ResolversTypes['AddProjectColumnPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddProjectColumnArgs
+  >;
+  addPullRequestReview?: Resolver<
+    Maybe<ResolversTypes['AddPullRequestReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddPullRequestReviewArgs
+  >;
+  addPullRequestReviewComment?: Resolver<
+    Maybe<ResolversTypes['AddPullRequestReviewCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddPullRequestReviewCommentArgs
+  >;
+  addReaction?: Resolver<
+    Maybe<ResolversTypes['AddReactionPayload']>,
+    ParentType,
+    ContextType,
+    MutationAddReactionArgs
+  >;
+  addStar?: Resolver<Maybe<ResolversTypes['AddStarPayload']>, ParentType, ContextType, MutationAddStarArgs>;
+  cancelBusinessAdminInvitation?: Resolver<
+    Maybe<ResolversTypes['CancelBusinessAdminInvitationPayload']>,
+    ParentType,
+    ContextType,
+    MutationCancelBusinessAdminInvitationArgs
+  >;
+  cancelBusinessBillingManagerInvitation?: Resolver<
+    Maybe<ResolversTypes['CancelBusinessBillingManagerInvitationPayload']>,
+    ParentType,
+    ContextType,
+    MutationCancelBusinessBillingManagerInvitationArgs
+  >;
+  changeUserStatus?: Resolver<
+    Maybe<ResolversTypes['ChangeUserStatusPayload']>,
+    ParentType,
+    ContextType,
+    MutationChangeUserStatusArgs
+  >;
+  clearLabelsFromLabelable?: Resolver<
+    Maybe<ResolversTypes['ClearLabelsFromLabelablePayload']>,
+    ParentType,
+    ContextType,
+    MutationClearLabelsFromLabelableArgs
+  >;
+  closeIssue?: Resolver<
+    Maybe<ResolversTypes['CloseIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationCloseIssueArgs
+  >;
+  closePullRequest?: Resolver<
+    Maybe<ResolversTypes['ClosePullRequestPayload']>,
+    ParentType,
+    ContextType,
+    MutationClosePullRequestArgs
+  >;
+  convertProjectCardNoteToIssue?: Resolver<
+    Maybe<ResolversTypes['ConvertProjectCardNoteToIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationConvertProjectCardNoteToIssueArgs
+  >;
+  createBranchProtectionRule?: Resolver<
+    Maybe<ResolversTypes['CreateBranchProtectionRulePayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateBranchProtectionRuleArgs
+  >;
+  createCheckRun?: Resolver<
+    Maybe<ResolversTypes['CreateCheckRunPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateCheckRunArgs
+  >;
+  createCheckSuite?: Resolver<
+    Maybe<ResolversTypes['CreateCheckSuitePayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateCheckSuiteArgs
+  >;
+  createContentAttachment?: Resolver<
+    Maybe<ResolversTypes['CreateContentAttachmentPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateContentAttachmentArgs
+  >;
+  createDeployment?: Resolver<
+    Maybe<ResolversTypes['CreateDeploymentPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateDeploymentArgs
+  >;
+  createDeploymentStatus?: Resolver<
+    Maybe<ResolversTypes['CreateDeploymentStatusPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateDeploymentStatusArgs
+  >;
+  createIssue?: Resolver<
+    Maybe<ResolversTypes['CreateIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateIssueArgs
+  >;
+  createLabel?: Resolver<
+    Maybe<ResolversTypes['CreateLabelPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateLabelArgs
+  >;
+  createProject?: Resolver<
+    Maybe<ResolversTypes['CreateProjectPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateProjectArgs
+  >;
+  createPullRequest?: Resolver<
+    Maybe<ResolversTypes['CreatePullRequestPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreatePullRequestArgs
+  >;
+  createTeamDiscussion?: Resolver<
+    Maybe<ResolversTypes['CreateTeamDiscussionPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateTeamDiscussionArgs
+  >;
+  createTeamDiscussionComment?: Resolver<
+    Maybe<ResolversTypes['CreateTeamDiscussionCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationCreateTeamDiscussionCommentArgs
+  >;
+  declineTopicSuggestion?: Resolver<
+    Maybe<ResolversTypes['DeclineTopicSuggestionPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeclineTopicSuggestionArgs
+  >;
+  deleteBranchProtectionRule?: Resolver<
+    Maybe<ResolversTypes['DeleteBranchProtectionRulePayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteBranchProtectionRuleArgs
+  >;
+  deleteIssue?: Resolver<
+    Maybe<ResolversTypes['DeleteIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteIssueArgs
+  >;
+  deleteIssueComment?: Resolver<
+    Maybe<ResolversTypes['DeleteIssueCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteIssueCommentArgs
+  >;
+  deleteLabel?: Resolver<
+    Maybe<ResolversTypes['DeleteLabelPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteLabelArgs
+  >;
+  deleteProject?: Resolver<
+    Maybe<ResolversTypes['DeleteProjectPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteProjectArgs
+  >;
+  deleteProjectCard?: Resolver<
+    Maybe<ResolversTypes['DeleteProjectCardPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteProjectCardArgs
+  >;
+  deleteProjectColumn?: Resolver<
+    Maybe<ResolversTypes['DeleteProjectColumnPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteProjectColumnArgs
+  >;
+  deletePullRequestReview?: Resolver<
+    Maybe<ResolversTypes['DeletePullRequestReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeletePullRequestReviewArgs
+  >;
+  deletePullRequestReviewComment?: Resolver<
+    Maybe<ResolversTypes['DeletePullRequestReviewCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeletePullRequestReviewCommentArgs
+  >;
+  deleteTeamDiscussion?: Resolver<
+    Maybe<ResolversTypes['DeleteTeamDiscussionPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteTeamDiscussionArgs
+  >;
+  deleteTeamDiscussionComment?: Resolver<
+    Maybe<ResolversTypes['DeleteTeamDiscussionCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationDeleteTeamDiscussionCommentArgs
+  >;
+  dismissPullRequestReview?: Resolver<
+    Maybe<ResolversTypes['DismissPullRequestReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationDismissPullRequestReviewArgs
+  >;
+  importProject?: Resolver<
+    Maybe<ResolversTypes['ImportProjectPayload']>,
+    ParentType,
+    ContextType,
+    MutationImportProjectArgs
+  >;
+  inviteBusinessAdmin?: Resolver<
+    Maybe<ResolversTypes['InviteBusinessAdminPayload']>,
+    ParentType,
+    ContextType,
+    MutationInviteBusinessAdminArgs
+  >;
+  inviteBusinessBillingManager?: Resolver<
+    Maybe<ResolversTypes['InviteBusinessBillingManagerPayload']>,
+    ParentType,
+    ContextType,
+    MutationInviteBusinessBillingManagerArgs
+  >;
+  lockLockable?: Resolver<
+    Maybe<ResolversTypes['LockLockablePayload']>,
+    ParentType,
+    ContextType,
+    MutationLockLockableArgs
+  >;
+  markPullRequestReadyForReview?: Resolver<
+    Maybe<ResolversTypes['MarkPullRequestReadyForReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationMarkPullRequestReadyForReviewArgs
+  >;
+  mergePullRequest?: Resolver<
+    Maybe<ResolversTypes['MergePullRequestPayload']>,
+    ParentType,
+    ContextType,
+    MutationMergePullRequestArgs
+  >;
+  minimizeComment?: Resolver<
+    Maybe<ResolversTypes['MinimizeCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationMinimizeCommentArgs
+  >;
+  moveProjectCard?: Resolver<
+    Maybe<ResolversTypes['MoveProjectCardPayload']>,
+    ParentType,
+    ContextType,
+    MutationMoveProjectCardArgs
+  >;
+  moveProjectColumn?: Resolver<
+    Maybe<ResolversTypes['MoveProjectColumnPayload']>,
+    ParentType,
+    ContextType,
+    MutationMoveProjectColumnArgs
+  >;
+  pinIssue?: Resolver<
+    Maybe<ResolversTypes['PinIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationPinIssueArgs
+  >;
+  regenerateBusinessIdentityProviderRecoveryCodes?: Resolver<
+    Maybe<ResolversTypes['RegenerateBusinessIdentityProviderRecoveryCodesPayload']>,
+    ParentType,
+    ContextType,
+    MutationRegenerateBusinessIdentityProviderRecoveryCodesArgs
+  >;
+  removeAssigneesFromAssignable?: Resolver<
+    Maybe<ResolversTypes['RemoveAssigneesFromAssignablePayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveAssigneesFromAssignableArgs
+  >;
+  removeBusinessAdmin?: Resolver<
+    Maybe<ResolversTypes['RemoveBusinessAdminPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveBusinessAdminArgs
+  >;
+  removeBusinessBillingManager?: Resolver<
+    Maybe<ResolversTypes['RemoveBusinessBillingManagerPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveBusinessBillingManagerArgs
+  >;
+  removeBusinessIdentityProvider?: Resolver<
+    Maybe<ResolversTypes['RemoveBusinessIdentityProviderPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveBusinessIdentityProviderArgs
+  >;
+  removeLabelsFromLabelable?: Resolver<
+    Maybe<ResolversTypes['RemoveLabelsFromLabelablePayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveLabelsFromLabelableArgs
+  >;
+  removeOutsideCollaborator?: Resolver<
+    Maybe<ResolversTypes['RemoveOutsideCollaboratorPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveOutsideCollaboratorArgs
+  >;
+  removeReaction?: Resolver<
+    Maybe<ResolversTypes['RemoveReactionPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveReactionArgs
+  >;
+  removeStar?: Resolver<
+    Maybe<ResolversTypes['RemoveStarPayload']>,
+    ParentType,
+    ContextType,
+    MutationRemoveStarArgs
+  >;
+  reopenIssue?: Resolver<
+    Maybe<ResolversTypes['ReopenIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationReopenIssueArgs
+  >;
+  reopenPullRequest?: Resolver<
+    Maybe<ResolversTypes['ReopenPullRequestPayload']>,
+    ParentType,
+    ContextType,
+    MutationReopenPullRequestArgs
+  >;
+  requestReviews?: Resolver<
+    Maybe<ResolversTypes['RequestReviewsPayload']>,
+    ParentType,
+    ContextType,
+    MutationRequestReviewsArgs
+  >;
+  rerequestCheckSuite?: Resolver<
+    Maybe<ResolversTypes['RerequestCheckSuitePayload']>,
+    ParentType,
+    ContextType,
+    MutationRerequestCheckSuiteArgs
+  >;
+  resolveReviewThread?: Resolver<
+    Maybe<ResolversTypes['ResolveReviewThreadPayload']>,
+    ParentType,
+    ContextType,
+    MutationResolveReviewThreadArgs
+  >;
+  setBusinessIdentityProvider?: Resolver<
+    Maybe<ResolversTypes['SetBusinessIdentityProviderPayload']>,
+    ParentType,
+    ContextType,
+    MutationSetBusinessIdentityProviderArgs
+  >;
+  submitPullRequestReview?: Resolver<
+    Maybe<ResolversTypes['SubmitPullRequestReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationSubmitPullRequestReviewArgs
+  >;
+  unlockLockable?: Resolver<
+    Maybe<ResolversTypes['UnlockLockablePayload']>,
+    ParentType,
+    ContextType,
+    MutationUnlockLockableArgs
+  >;
+  unmarkIssueAsDuplicate?: Resolver<
+    Maybe<ResolversTypes['UnmarkIssueAsDuplicatePayload']>,
+    ParentType,
+    ContextType,
+    MutationUnmarkIssueAsDuplicateArgs
+  >;
+  unminimizeComment?: Resolver<
+    Maybe<ResolversTypes['UnminimizeCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationUnminimizeCommentArgs
+  >;
+  unpinIssue?: Resolver<
+    Maybe<ResolversTypes['UnpinIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationUnpinIssueArgs
+  >;
+  unresolveReviewThread?: Resolver<
+    Maybe<ResolversTypes['UnresolveReviewThreadPayload']>,
+    ParentType,
+    ContextType,
+    MutationUnresolveReviewThreadArgs
+  >;
+  updateBranchProtectionRule?: Resolver<
+    Maybe<ResolversTypes['UpdateBranchProtectionRulePayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBranchProtectionRuleArgs
+  >;
+  updateBusinessAllowPrivateRepositoryForkingSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessAllowPrivateRepositoryForkingSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessAllowPrivateRepositoryForkingSettingArgs
+  >;
+  updateBusinessDefaultRepositoryPermissionSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessDefaultRepositoryPermissionSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessDefaultRepositoryPermissionSettingArgs
+  >;
+  updateBusinessMembersCanChangeRepositoryVisibilitySetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanChangeRepositoryVisibilitySettingArgs
+  >;
+  updateBusinessMembersCanCreateRepositoriesSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanCreateRepositoriesSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanCreateRepositoriesSettingArgs
+  >;
+  updateBusinessMembersCanDeleteIssuesSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanDeleteIssuesSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanDeleteIssuesSettingArgs
+  >;
+  updateBusinessMembersCanDeleteRepositoriesSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanDeleteRepositoriesSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanDeleteRepositoriesSettingArgs
+  >;
+  updateBusinessMembersCanInviteCollaboratorsSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanInviteCollaboratorsSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanInviteCollaboratorsSettingArgs
+  >;
+  updateBusinessMembersCanUpdateProtectedBranchesSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessMembersCanUpdateProtectedBranchesSettingArgs
+  >;
+  updateBusinessOrganizationProjectsSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessOrganizationProjectsSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessOrganizationProjectsSettingArgs
+  >;
+  updateBusinessProfile?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessProfilePayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessProfileArgs
+  >;
+  updateBusinessRepositoryProjectsSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessRepositoryProjectsSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessRepositoryProjectsSettingArgs
+  >;
+  updateBusinessTeamDiscussionsSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessTeamDiscussionsSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessTeamDiscussionsSettingArgs
+  >;
+  updateBusinessTwoFactorAuthenticationRequiredSetting?: Resolver<
+    Maybe<ResolversTypes['UpdateBusinessTwoFactorAuthenticationRequiredSettingPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateBusinessTwoFactorAuthenticationRequiredSettingArgs
+  >;
+  updateCheckRun?: Resolver<
+    Maybe<ResolversTypes['UpdateCheckRunPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateCheckRunArgs
+  >;
+  updateCheckSuitePreferences?: Resolver<
+    Maybe<ResolversTypes['UpdateCheckSuitePreferencesPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateCheckSuitePreferencesArgs
+  >;
+  updateIssue?: Resolver<
+    Maybe<ResolversTypes['UpdateIssuePayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateIssueArgs
+  >;
+  updateIssueComment?: Resolver<
+    Maybe<ResolversTypes['UpdateIssueCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateIssueCommentArgs
+  >;
+  updateLabel?: Resolver<
+    Maybe<ResolversTypes['UpdateLabelPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateLabelArgs
+  >;
+  updateProject?: Resolver<
+    Maybe<ResolversTypes['UpdateProjectPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateProjectArgs
+  >;
+  updateProjectCard?: Resolver<
+    Maybe<ResolversTypes['UpdateProjectCardPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateProjectCardArgs
+  >;
+  updateProjectColumn?: Resolver<
+    Maybe<ResolversTypes['UpdateProjectColumnPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateProjectColumnArgs
+  >;
+  updatePullRequest?: Resolver<
+    Maybe<ResolversTypes['UpdatePullRequestPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdatePullRequestArgs
+  >;
+  updatePullRequestReview?: Resolver<
+    Maybe<ResolversTypes['UpdatePullRequestReviewPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdatePullRequestReviewArgs
+  >;
+  updatePullRequestReviewComment?: Resolver<
+    Maybe<ResolversTypes['UpdatePullRequestReviewCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdatePullRequestReviewCommentArgs
+  >;
+  updateSubscription?: Resolver<
+    Maybe<ResolversTypes['UpdateSubscriptionPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateSubscriptionArgs
+  >;
+  updateTeamDiscussion?: Resolver<
+    Maybe<ResolversTypes['UpdateTeamDiscussionPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateTeamDiscussionArgs
+  >;
+  updateTeamDiscussionComment?: Resolver<
+    Maybe<ResolversTypes['UpdateTeamDiscussionCommentPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateTeamDiscussionCommentArgs
+  >;
+  updateTopics?: Resolver<
+    Maybe<ResolversTypes['UpdateTopicsPayload']>,
+    ParentType,
+    ContextType,
+    MutationUpdateTopicsArgs
+  >;
+};
+
+export type NodeResolvers<ContextType = AppContext, ParentType = ResolversTypes['Node']> = {
+  __resolveType: TypeResolveFn<
+    | 'Business'
+    | 'Organization'
+    | 'UserStatus'
+    | 'User'
+    | 'Project'
+    | 'ProjectColumn'
+    | 'ProjectCard'
+    | 'Issue'
+    | 'UserContentEdit'
+    | 'Label'
+    | 'PullRequest'
+    | 'Reaction'
+    | 'Repository'
+    | 'License'
+    | 'BranchProtectionRule'
+    | 'Ref'
+    | 'PushAllowance'
+    | 'Team'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'OrganizationInvitation'
+    | 'ReviewDismissalAllowance'
+    | 'CodeOfConduct'
+    | 'CommitComment'
+    | 'Commit'
+    | 'CheckSuite'
+    | 'App'
+    | 'CheckRun'
+    | 'Push'
+    | 'Deployment'
+    | 'DeploymentStatus'
+    | 'Status'
+    | 'StatusContext'
+    | 'Tree'
+    | 'DependencyGraphManifest'
+    | 'DeployKey'
+    | 'Language'
+    | 'Milestone'
+    | 'PinnedIssue'
+    | 'ProtectedBranch'
+    | 'Release'
+    | 'ReleaseAsset'
+    | 'RepositoryTopic'
+    | 'Topic'
+    | 'RepositoryVulnerabilityAlert'
+    | 'SecurityAdvisory'
+    | 'IssueComment'
+    | 'PullRequestCommit'
+    | 'ReviewRequest'
+    | 'PullRequestReviewThread'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'AssignedEvent'
+    | 'BaseRefForcePushedEvent'
+    | 'ClosedEvent'
+    | 'CommitCommentThread'
+    | 'CrossReferencedEvent'
+    | 'DemilestonedEvent'
+    | 'DeployedEvent'
+    | 'DeploymentEnvironmentChangedEvent'
+    | 'HeadRefDeletedEvent'
+    | 'HeadRefForcePushedEvent'
+    | 'HeadRefRestoredEvent'
+    | 'LabeledEvent'
+    | 'LockedEvent'
+    | 'MergedEvent'
+    | 'MilestonedEvent'
+    | 'ReferencedEvent'
+    | 'RenamedTitleEvent'
+    | 'ReopenedEvent'
+    | 'ReviewDismissedEvent'
+    | 'ReviewRequestRemovedEvent'
+    | 'ReviewRequestedEvent'
+    | 'SubscribedEvent'
+    | 'UnassignedEvent'
+    | 'UnlabeledEvent'
+    | 'UnlockedEvent'
+    | 'UnsubscribedEvent'
+    | 'AddedToProjectEvent'
+    | 'BaseRefChangedEvent'
+    | 'CommentDeletedEvent'
+    | 'ConvertedNoteToIssueEvent'
+    | 'MentionedEvent'
+    | 'MovedColumnsInProjectEvent'
+    | 'PinnedEvent'
+    | 'PullRequestCommitCommentThread'
+    | 'RemovedFromProjectEvent'
+    | 'TransferredEvent'
+    | 'UnpinnedEvent'
+    | 'Gist'
+    | 'GistComment'
+    | 'PublicKey'
+    | 'OrganizationIdentityProvider'
+    | 'ExternalIdentity'
+    | 'BusinessMemberInvitation'
+    | 'BusinessIdentityProvider'
+    | 'MarketplaceCategory'
+    | 'MarketplaceListing'
+    | 'Blob'
+    | 'Bot'
+    | 'BusinessRepositoryInfo'
+    | 'RepositoryInvitation'
+    | 'Tag',
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type OrganizationResolvers<ContextType = AppContext, ParentType = ResolversTypes['Organization']> = {
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, OrganizationAvatarUrlArgs>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isVerified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  memberStatuses?: Resolver<
+    ResolversTypes['UserStatusConnection'],
+    ParentType,
+    ContextType,
+    OrganizationMemberStatusesArgs
+  >;
+  members?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, OrganizationMembersArgs>;
+  membersWithRole?: Resolver<
+    ResolversTypes['OrganizationMemberConnection'],
+    ParentType,
+    ContextType,
+    OrganizationMembersWithRoleArgs
+  >;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  newTeamResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  newTeamUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  organizationBillingEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pendingMembers?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    OrganizationPendingMembersArgs
+  >;
+  pinnedRepositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    OrganizationPinnedRepositoriesArgs
+  >;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, OrganizationProjectArgs>;
+  projects?: Resolver<ResolversTypes['ProjectConnection'], ParentType, ContextType, OrganizationProjectsArgs>;
+  projectsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  projectsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  repositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    OrganizationRepositoriesArgs
+  >;
+  repository?: Resolver<
+    Maybe<ResolversTypes['Repository']>,
+    ParentType,
+    ContextType,
+    OrganizationRepositoryArgs
+  >;
+  requiresTwoFactorAuthentication?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  samlIdentityProvider?: Resolver<
+    Maybe<ResolversTypes['OrganizationIdentityProvider']>,
+    ParentType,
+    ContextType
+  >;
+  team?: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType, OrganizationTeamArgs>;
+  teams?: Resolver<ResolversTypes['TeamConnection'], ParentType, ContextType, OrganizationTeamsArgs>;
+  teamsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  teamsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanAdminister?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanCreateProjects?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanCreateRepositories?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanCreateTeams?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerIsAMember?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  websiteUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type OrganizationConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrganizationEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Organization']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type OrganizationEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>;
+};
+
+export type OrganizationIdentityProviderResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationIdentityProvider']
+> = {
+  digestMethod?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  externalIdentities?: Resolver<
+    ResolversTypes['ExternalIdentityConnection'],
+    ParentType,
+    ContextType,
+    OrganizationIdentityProviderExternalIdentitiesArgs
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  idpCertificate?: Resolver<Maybe<ResolversTypes['X509Certificate']>, ParentType, ContextType>;
+  issuer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>;
+  signatureMethod?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  ssoUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type OrganizationInvitationResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationInvitation']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitationType?: Resolver<ResolversTypes['OrganizationInvitationType'], ParentType, ContextType>;
+  invitee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  inviter?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  organization?: Resolver<ResolversTypes['Organization'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['OrganizationInvitationRole'], ParentType, ContextType>;
+};
+
+export type OrganizationInvitationConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationInvitationConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['OrganizationInvitationEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrganizationInvitation']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type OrganizationInvitationEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationInvitationEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['OrganizationInvitation']>, ParentType, ContextType>;
+};
+
+export type OrganizationMemberConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationMemberConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['OrganizationMemberEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type OrganizationMemberEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationMemberEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  hasTwoFactorEnabled?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['OrganizationMemberRole']>, ParentType, ContextType>;
+};
+
+export type OrganizationsHovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationsHovercardContext']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  relevantOrganizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    OrganizationsHovercardContextRelevantOrganizationsArgs
+  >;
+  totalOrganizationCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type OrganizationTeamsHovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['OrganizationTeamsHovercardContext']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  relevantTeams?: Resolver<
+    ResolversTypes['TeamConnection'],
+    ParentType,
+    ContextType,
+    OrganizationTeamsHovercardContextRelevantTeamsArgs
+  >;
+  teamsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  teamsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  totalTeamCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PageInfoResolvers<ContextType = AppContext, ParentType = ResolversTypes['PageInfo']> = {
+  endCursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  startCursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type PinIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PinIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type PinnedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['PinnedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+};
+
+export type PinnedIssueResolvers<ContextType = AppContext, ParentType = ResolversTypes['PinnedIssue']> = {
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+  pinnedBy?: Resolver<ResolversTypes['Actor'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type PinnedIssueConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PinnedIssueConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PinnedIssueEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PinnedIssue']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PinnedIssueEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PinnedIssueEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PinnedIssue']>, ParentType, ContextType>;
+};
+
+export type ProjectResolvers<ContextType = AppContext, ParentType = ResolversTypes['Project']> = {
+  body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  closed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  closedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  columns?: Resolver<ResolversTypes['ProjectColumnConnection'], ParentType, ContextType, ProjectColumnsArgs>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['ProjectOwner'], ParentType, ContextType>;
+  pendingCards?: Resolver<
+    ResolversTypes['ProjectCardConnection'],
+    ParentType,
+    ContextType,
+    ProjectPendingCardsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['ProjectState'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type ProjectCardResolvers<ContextType = AppContext, ParentType = ResolversTypes['ProjectCard']> = {
+  column?: Resolver<Maybe<ResolversTypes['ProjectColumn']>, ParentType, ContextType>;
+  content?: Resolver<Maybe<ResolversTypes['ProjectCardItem']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isArchived?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['ProjectCardState']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type ProjectCardConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectCardConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectCardEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectCard']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ProjectCardEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectCardEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+};
+
+export type ProjectCardItemResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectCardItem']
+> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type ProjectColumnResolvers<ContextType = AppContext, ParentType = ResolversTypes['ProjectColumn']> = {
+  cards?: Resolver<ResolversTypes['ProjectCardConnection'], ParentType, ContextType, ProjectColumnCardsArgs>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  project?: Resolver<ResolversTypes['Project'], ParentType, ContextType>;
+  purpose?: Resolver<Maybe<ResolversTypes['ProjectColumnPurpose']>, ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type ProjectColumnConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectColumnConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectColumnEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectColumn']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ProjectColumnEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectColumnEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ProjectColumn']>, ParentType, ContextType>;
+};
+
+export type ProjectConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProjectConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProjectEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Project']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ProjectEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['ProjectEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type ProjectOwnerResolvers<ContextType = AppContext, ParentType = ResolversTypes['ProjectOwner']> = {
+  __resolveType: TypeResolveFn<'Organization' | 'User' | 'Repository', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, ProjectOwnerProjectArgs>;
+  projects?: Resolver<ResolversTypes['ProjectConnection'], ParentType, ContextType, ProjectOwnerProjectsArgs>;
+  projectsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  projectsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanCreateProjects?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type ProtectedBranchResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProtectedBranch']
+> = {
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  hasDismissableStaleReviews?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasRequiredReviews?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasRequiredSignatures?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasRequiredStatusChecks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasRestrictedPushes?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasRestrictedReviewDismissals?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasStrictRequiredStatusChecks?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isAdminEnforced?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pushAllowances?: Resolver<
+    ResolversTypes['PushAllowanceConnection'],
+    ParentType,
+    ContextType,
+    ProtectedBranchPushAllowancesArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  requiredApprovingReviewCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  requiredStatusCheckContexts?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['String']>>>,
+    ParentType,
+    ContextType
+  >;
+  reviewDismissalAllowances?: Resolver<
+    ResolversTypes['ReviewDismissalAllowanceConnection'],
+    ParentType,
+    ContextType,
+    ProtectedBranchReviewDismissalAllowancesArgs
+  >;
+};
+
+export type ProtectedBranchConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProtectedBranchConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProtectedBranchEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProtectedBranch']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ProtectedBranchEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ProtectedBranchEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ProtectedBranch']>, ParentType, ContextType>;
+};
+
+export type PublicKeyResolvers<ContextType = AppContext, ParentType = ResolversTypes['PublicKey']> = {
+  accessedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  fingerprint?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isReadOnly?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type PublicKeyConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PublicKeyConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PublicKeyEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PublicKey']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PublicKeyEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['PublicKeyEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PublicKey']>, ParentType, ContextType>;
+};
+
+export type PullRequestResolvers<ContextType = AppContext, ParentType = ResolversTypes['PullRequest']> = {
+  activeLockReason?: Resolver<Maybe<ResolversTypes['LockReason']>, ParentType, ContextType>;
+  additions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  assignees?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, PullRequestAssigneesArgs>;
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  baseRef?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  baseRefName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  baseRefOid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  canBeRebased?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  changedFiles?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  closed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  closedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  comments?: Resolver<
+    ResolversTypes['IssueCommentConnection'],
+    ParentType,
+    ContextType,
+    PullRequestCommentsArgs
+  >;
+  commits?: Resolver<
+    ResolversTypes['PullRequestCommitConnection'],
+    ParentType,
+    ContextType,
+    PullRequestCommitsArgs
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deletions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  files?: Resolver<
+    Maybe<ResolversTypes['PullRequestChangedFileConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestFilesArgs
+  >;
+  headRef?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  headRefName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  headRefOid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  headRepository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+  headRepositoryOwner?: Resolver<Maybe<ResolversTypes['RepositoryOwner']>, ParentType, ContextType>;
+  hovercard?: Resolver<ResolversTypes['Hovercard'], ParentType, ContextType, PullRequestHovercardArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isCrossRepository?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDraft?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  labels?: Resolver<Maybe<ResolversTypes['LabelConnection']>, ParentType, ContextType, PullRequestLabelsArgs>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  maintainerCanModify?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  mergeCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  mergeStateStatus?: Resolver<ResolversTypes['MergeStateStatus'], ParentType, ContextType>;
+  mergeable?: Resolver<ResolversTypes['MergeableState'], ParentType, ContextType>;
+  merged?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  mergedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  mergedBy?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  milestone?: Resolver<Maybe<ResolversTypes['Milestone']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  participants?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    PullRequestParticipantsArgs
+  >;
+  permalink?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  potentialMergeCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  projectCards?: Resolver<
+    ResolversTypes['ProjectCardConnection'],
+    ParentType,
+    ContextType,
+    PullRequestProjectCardsArgs
+  >;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReactionsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  revertResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  revertUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  reviewRequests?: Resolver<
+    Maybe<ResolversTypes['ReviewRequestConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestReviewRequestsArgs
+  >;
+  reviewThreads?: Resolver<
+    ResolversTypes['PullRequestReviewThreadConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewThreadsArgs
+  >;
+  reviews?: Resolver<
+    Maybe<ResolversTypes['PullRequestReviewConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestReviewsArgs
+  >;
+  state?: Resolver<ResolversTypes['PullRequestState'], ParentType, ContextType>;
+  suggestedReviewers?: Resolver<Array<Maybe<ResolversTypes['SuggestedReviewer']>>, ParentType, ContextType>;
+  timeline?: Resolver<
+    ResolversTypes['PullRequestTimelineConnection'],
+    ParentType,
+    ContextType,
+    PullRequestTimelineArgs
+  >;
+  timelineItems?: Resolver<
+    ResolversTypes['PullRequestTimelineItemsConnection'],
+    ParentType,
+    ContextType,
+    PullRequestTimelineItemsArgs
+  >;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestUserContentEditsArgs
+  >;
+  viewerCanApplySuggestion?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+};
+
+export type PullRequestChangedFileResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestChangedFile']
+> = {
+  additions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  deletions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type PullRequestChangedFileConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestChangedFileConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['PullRequestChangedFileEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestChangedFile']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestChangedFileEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestChangedFileEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestChangedFile']>, ParentType, ContextType>;
+};
+
+export type PullRequestCommitResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestCommit']
+> = {
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type PullRequestCommitCommentThreadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestCommitCommentThread']
+> = {
+  comments?: Resolver<
+    ResolversTypes['CommitCommentConnection'],
+    ParentType,
+    ContextType,
+    PullRequestCommitCommentThreadCommentsArgs
+  >;
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type PullRequestCommitConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestCommitConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestCommitEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestCommit']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestCommitEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestCommitEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestCommit']>, ParentType, ContextType>;
+};
+
+export type PullRequestConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequest']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type PullRequestReviewResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReview']
+> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  comments?: Resolver<
+    ResolversTypes['PullRequestReviewCommentConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewCommentsArgs
+  >;
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  onBehalfOf?: Resolver<
+    ResolversTypes['TeamConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewOnBehalfOfArgs
+  >;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewReactionsArgs
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['PullRequestReviewState'], ParentType, ContextType>;
+  submittedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestReviewUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewCommentResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewComment']
+> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  commit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  diffHunk?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  draftedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMinimized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  minimizedReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalCommit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  originalPosition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  outdated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewCommentReactionsArgs
+  >;
+  replyTo?: Resolver<Maybe<ResolversTypes['PullRequestReviewComment']>, ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['PullRequestReviewCommentState'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    PullRequestReviewCommentUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanMinimize?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewCommentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewCommentConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['PullRequestReviewCommentEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestReviewComment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewCommentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewCommentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestReviewComment']>, ParentType, ContextType>;
+};
+
+export type PullRequestReviewConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestReviewEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestReview']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type PullRequestReviewThreadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewThread']
+> = {
+  comments?: Resolver<
+    ResolversTypes['PullRequestReviewCommentConnection'],
+    ParentType,
+    ContextType,
+    PullRequestReviewThreadCommentsArgs
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isResolved?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  resolvedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  viewerCanResolve?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUnresolve?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewThreadConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewThreadConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['PullRequestReviewThreadEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestReviewThread']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestReviewThreadEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestReviewThreadEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestReviewThread']>, ParentType, ContextType>;
+};
+
+export type PullRequestRevisionMarkerResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestRevisionMarker']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  lastSeenCommit?: Resolver<ResolversTypes['Commit'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+};
+
+export type PullRequestTimelineConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['PullRequestTimelineItemEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestTimelineItem']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PullRequestTimelineItemResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineItem']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'AssignedEvent'
+    | 'BaseRefForcePushedEvent'
+    | 'ClosedEvent'
+    | 'Commit'
+    | 'CommitCommentThread'
+    | 'CrossReferencedEvent'
+    | 'DemilestonedEvent'
+    | 'DeployedEvent'
+    | 'DeploymentEnvironmentChangedEvent'
+    | 'HeadRefDeletedEvent'
+    | 'HeadRefForcePushedEvent'
+    | 'HeadRefRestoredEvent'
+    | 'IssueComment'
+    | 'LabeledEvent'
+    | 'LockedEvent'
+    | 'MergedEvent'
+    | 'MilestonedEvent'
+    | 'PullRequestReview'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReviewThread'
+    | 'ReferencedEvent'
+    | 'RenamedTitleEvent'
+    | 'ReopenedEvent'
+    | 'ReviewDismissedEvent'
+    | 'ReviewRequestRemovedEvent'
+    | 'ReviewRequestedEvent'
+    | 'SubscribedEvent'
+    | 'UnassignedEvent'
+    | 'UnlabeledEvent'
+    | 'UnlockedEvent'
+    | 'UnsubscribedEvent',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type PullRequestTimelineItemEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineItemEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestTimelineItem']>, ParentType, ContextType>;
+};
+
+export type PullRequestTimelineItemsResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineItems']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'AddedToProjectEvent'
+    | 'AssignedEvent'
+    | 'BaseRefChangedEvent'
+    | 'BaseRefForcePushedEvent'
+    | 'ClosedEvent'
+    | 'CommentDeletedEvent'
+    | 'ConvertedNoteToIssueEvent'
+    | 'CrossReferencedEvent'
+    | 'DemilestonedEvent'
+    | 'DeployedEvent'
+    | 'DeploymentEnvironmentChangedEvent'
+    | 'HeadRefDeletedEvent'
+    | 'HeadRefForcePushedEvent'
+    | 'HeadRefRestoredEvent'
+    | 'IssueComment'
+    | 'LabeledEvent'
+    | 'LockedEvent'
+    | 'MentionedEvent'
+    | 'MergedEvent'
+    | 'MilestonedEvent'
+    | 'MovedColumnsInProjectEvent'
+    | 'PinnedEvent'
+    | 'PullRequestCommit'
+    | 'PullRequestCommitCommentThread'
+    | 'PullRequestReview'
+    | 'PullRequestReviewThread'
+    | 'PullRequestRevisionMarker'
+    | 'ReferencedEvent'
+    | 'RemovedFromProjectEvent'
+    | 'RenamedTitleEvent'
+    | 'ReopenedEvent'
+    | 'ReviewDismissedEvent'
+    | 'ReviewRequestRemovedEvent'
+    | 'ReviewRequestedEvent'
+    | 'SubscribedEvent'
+    | 'TransferredEvent'
+    | 'UnassignedEvent'
+    | 'UnlabeledEvent'
+    | 'UnlockedEvent'
+    | 'UnpinnedEvent'
+    | 'UnsubscribedEvent',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type PullRequestTimelineItemsConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineItemsConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['PullRequestTimelineItemsEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  filteredCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PullRequestTimelineItems']>>>, ParentType, ContextType>;
+  pageCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type PullRequestTimelineItemsEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PullRequestTimelineItemsEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PullRequestTimelineItems']>, ParentType, ContextType>;
+};
+
+export type PushResolvers<ContextType = AppContext, ParentType = ResolversTypes['Push']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  nextSha?: Resolver<Maybe<ResolversTypes['GitObjectID']>, ParentType, ContextType>;
+  permalink?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  previousSha?: Resolver<Maybe<ResolversTypes['GitObjectID']>, ParentType, ContextType>;
+  pusher?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type PushAllowanceResolvers<ContextType = AppContext, ParentType = ResolversTypes['PushAllowance']> = {
+  actor?: Resolver<Maybe<ResolversTypes['PushAllowanceActor']>, ParentType, ContextType>;
+  branchProtectionRule?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type PushAllowanceActorResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PushAllowanceActor']
+> = {
+  __resolveType: TypeResolveFn<'Team' | 'User', ParentType, ContextType>;
+};
+
+export type PushAllowanceConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PushAllowanceConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['PushAllowanceEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['PushAllowance']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type PushAllowanceEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['PushAllowanceEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['PushAllowance']>, ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = AppContext, ParentType = ResolversTypes['Query']> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType, QueryBusinessArgs>;
+  businessMemberInvitation?: Resolver<
+    Maybe<ResolversTypes['BusinessMemberInvitation']>,
+    ParentType,
+    ContextType,
+    QueryBusinessMemberInvitationArgs
+  >;
+  businessMemberInvitationByToken?: Resolver<
+    Maybe<ResolversTypes['BusinessMemberInvitation']>,
+    ParentType,
+    ContextType,
+    QueryBusinessMemberInvitationByTokenArgs
+  >;
+  codeOfConduct?: Resolver<
+    Maybe<ResolversTypes['CodeOfConduct']>,
+    ParentType,
+    ContextType,
+    QueryCodeOfConductArgs
+  >;
+  codesOfConduct?: Resolver<Maybe<Array<Maybe<ResolversTypes['CodeOfConduct']>>>, ParentType, ContextType>;
+  license?: Resolver<Maybe<ResolversTypes['License']>, ParentType, ContextType, QueryLicenseArgs>;
+  licenses?: Resolver<Array<Maybe<ResolversTypes['License']>>, ParentType, ContextType>;
+  marketplaceCategories?: Resolver<
+    Array<ResolversTypes['MarketplaceCategory']>,
+    ParentType,
+    ContextType,
+    QueryMarketplaceCategoriesArgs
+  >;
+  marketplaceCategory?: Resolver<
+    Maybe<ResolversTypes['MarketplaceCategory']>,
+    ParentType,
+    ContextType,
+    QueryMarketplaceCategoryArgs
+  >;
+  marketplaceListing?: Resolver<
+    Maybe<ResolversTypes['MarketplaceListing']>,
+    ParentType,
+    ContextType,
+    QueryMarketplaceListingArgs
+  >;
+  marketplaceListings?: Resolver<
+    ResolversTypes['MarketplaceListingConnection'],
+    ParentType,
+    ContextType,
+    QueryMarketplaceListingsArgs
+  >;
+  meta?: Resolver<ResolversTypes['GitHubMetadata'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, QueryNodeArgs>;
+  nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, QueryNodesArgs>;
+  organization?: Resolver<
+    Maybe<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    QueryOrganizationArgs
+  >;
+  rateLimit?: Resolver<Maybe<ResolversTypes['RateLimit']>, ParentType, ContextType, QueryRateLimitArgs>;
+  relay?: Resolver<ResolversTypes['Query'], ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType, QueryRepositoryArgs>;
+  repositoryOwner?: Resolver<
+    Maybe<ResolversTypes['RepositoryOwner']>,
+    ParentType,
+    ContextType,
+    QueryRepositoryOwnerArgs
+  >;
+  resource?: Resolver<
+    Maybe<ResolversTypes['UniformResourceLocatable']>,
+    ParentType,
+    ContextType,
+    QueryResourceArgs
+  >;
+  search?: Resolver<ResolversTypes['SearchResultItemConnection'], ParentType, ContextType, QuerySearchArgs>;
+  securityAdvisories?: Resolver<
+    ResolversTypes['SecurityAdvisoryConnection'],
+    ParentType,
+    ContextType,
+    QuerySecurityAdvisoriesArgs
+  >;
+  securityAdvisory?: Resolver<
+    Maybe<ResolversTypes['SecurityAdvisory']>,
+    ParentType,
+    ContextType,
+    QuerySecurityAdvisoryArgs
+  >;
+  securityVulnerabilities?: Resolver<
+    ResolversTypes['SecurityVulnerabilityConnection'],
+    ParentType,
+    ContextType,
+    QuerySecurityVulnerabilitiesArgs
+  >;
+  topic?: Resolver<Maybe<ResolversTypes['Topic']>, ParentType, ContextType, QueryTopicArgs>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, QueryUserArgs>;
+  viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  isLoggedIn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type RateLimitResolvers<ContextType = AppContext, ParentType = ResolversTypes['RateLimit']> = {
+  cost?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  nodeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  remaining?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  resetAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type ReactableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Reactable']> = {
+  __resolveType: TypeResolveFn<
+    | 'Issue'
+    | 'PullRequest'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'CommitComment'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview',
+    ParentType,
+    ContextType
+  >;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<ResolversTypes['ReactionConnection'], ParentType, ContextType, ReactableReactionsArgs>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type ReactingUserConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReactingUserConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReactingUserEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ReactingUserEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReactingUserEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  reactedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type ReactionResolvers<ContextType = AppContext, ParentType = ResolversTypes['Reaction']> = {
+  content?: Resolver<ResolversTypes['ReactionContent'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reactable?: Resolver<ResolversTypes['Reactable'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type ReactionConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReactionConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReactionEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Reaction']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  viewerHasReacted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type ReactionEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReactionEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Reaction']>, ParentType, ContextType>;
+};
+
+export type ReactionGroupResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReactionGroup']> = {
+  content?: Resolver<ResolversTypes['ReactionContent'], ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  subject?: Resolver<ResolversTypes['Reactable'], ParentType, ContextType>;
+  users?: Resolver<ResolversTypes['ReactingUserConnection'], ParentType, ContextType, ReactionGroupUsersArgs>;
+  viewerHasReacted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type RefResolvers<ContextType = AppContext, ParentType = ResolversTypes['Ref']> = {
+  associatedPullRequests?: Resolver<
+    ResolversTypes['PullRequestConnection'],
+    ParentType,
+    ContextType,
+    RefAssociatedPullRequestsArgs
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  prefix?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['GitObject'], ParentType, ContextType>;
+};
+
+export type RefConnectionResolvers<ContextType = AppContext, ParentType = ResolversTypes['RefConnection']> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['RefEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Ref']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type RefEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['RefEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+};
+
+export type ReferencedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReferencedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  commitRepository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isCrossRepository?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDirectReference?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  subject?: Resolver<ResolversTypes['ReferencedSubject'], ParentType, ContextType>;
+};
+
+export type ReferencedSubjectResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReferencedSubject']
+> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type RegenerateBusinessIdentityProviderRecoveryCodesPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RegenerateBusinessIdentityProviderRecoveryCodesPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  identityProvider?: Resolver<Maybe<ResolversTypes['BusinessIdentityProvider']>, ParentType, ContextType>;
+};
+
+export type RegistryPackageOwnerResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RegistryPackageOwner']
+> = {
+  __resolveType: TypeResolveFn<'Organization' | 'User' | 'Repository', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type RegistryPackageSearchResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RegistryPackageSearch']
+> = {
+  __resolveType: TypeResolveFn<'Organization' | 'User', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type ReleaseResolvers<ContextType = AppContext, ParentType = ResolversTypes['Release']> = {
+  author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isDraft?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrerelease?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  releaseAssets?: Resolver<
+    ResolversTypes['ReleaseAssetConnection'],
+    ParentType,
+    ContextType,
+    ReleaseReleaseAssetsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  tag?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  tagName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type ReleaseAssetResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReleaseAsset']> = {
+  contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  downloadCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  downloadUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  release?: Resolver<Maybe<ResolversTypes['Release']>, ParentType, ContextType>;
+  size?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  uploadedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type ReleaseAssetConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReleaseAssetConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReleaseAssetEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReleaseAsset']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ReleaseAssetEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReleaseAssetEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ReleaseAsset']>, ParentType, ContextType>;
+};
+
+export type ReleaseConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReleaseConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReleaseEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Release']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ReleaseEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReleaseEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Release']>, ParentType, ContextType>;
+};
+
+export type RemoveAssigneesFromAssignablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveAssigneesFromAssignablePayload']
+> = {
+  assignable?: Resolver<Maybe<ResolversTypes['Assignable']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type RemoveBusinessAdminPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveBusinessAdminPayload']
+> = {
+  admin?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  viewer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type RemoveBusinessBillingManagerPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveBusinessBillingManagerPayload']
+> = {
+  billingManager?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  viewer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type RemoveBusinessIdentityProviderPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveBusinessIdentityProviderPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  identityProvider?: Resolver<Maybe<ResolversTypes['BusinessIdentityProvider']>, ParentType, ContextType>;
+};
+
+export type RemovedFromProjectEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemovedFromProjectEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+  projectColumnName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type RemoveLabelsFromLabelablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveLabelsFromLabelablePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  labelable?: Resolver<Maybe<ResolversTypes['Labelable']>, ParentType, ContextType>;
+};
+
+export type RemoveOutsideCollaboratorPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveOutsideCollaboratorPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  removedUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type RemoveReactionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveReactionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reaction?: Resolver<Maybe<ResolversTypes['Reaction']>, ParentType, ContextType>;
+  subject?: Resolver<Maybe<ResolversTypes['Reactable']>, ParentType, ContextType>;
+};
+
+export type RemoveStarPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RemoveStarPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  starrable?: Resolver<Maybe<ResolversTypes['Starrable']>, ParentType, ContextType>;
+};
+
+export type RenamedTitleEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RenamedTitleEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  currentTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  previousTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  subject?: Resolver<ResolversTypes['RenamedTitleSubject'], ParentType, ContextType>;
+};
+
+export type RenamedTitleSubjectResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RenamedTitleSubject']
+> = {
+  __resolveType: TypeResolveFn<'Issue' | 'PullRequest', ParentType, ContextType>;
+};
+
+export type ReopenedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReopenedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  closable?: Resolver<ResolversTypes['Closable'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type ReopenIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReopenIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type ReopenPullRequestPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReopenPullRequestPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type RepositoryResolvers<ContextType = AppContext, ParentType = ResolversTypes['Repository']> = {
+  assignableUsers?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    RepositoryAssignableUsersArgs
+  >;
+  branchProtectionRules?: Resolver<
+    ResolversTypes['BranchProtectionRuleConnection'],
+    ParentType,
+    ContextType,
+    RepositoryBranchProtectionRulesArgs
+  >;
+  codeOfConduct?: Resolver<Maybe<ResolversTypes['CodeOfConduct']>, ParentType, ContextType>;
+  collaborators?: Resolver<
+    Maybe<ResolversTypes['RepositoryCollaboratorConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryCollaboratorsArgs
+  >;
+  commitComments?: Resolver<
+    ResolversTypes['CommitCommentConnection'],
+    ParentType,
+    ContextType,
+    RepositoryCommitCommentsArgs
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  defaultBranchRef?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType>;
+  dependencyGraphManifests?: Resolver<
+    Maybe<ResolversTypes['DependencyGraphManifestConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryDependencyGraphManifestsArgs
+  >;
+  deployKeys?: Resolver<
+    ResolversTypes['DeployKeyConnection'],
+    ParentType,
+    ContextType,
+    RepositoryDeployKeysArgs
+  >;
+  deployments?: Resolver<
+    ResolversTypes['DeploymentConnection'],
+    ParentType,
+    ContextType,
+    RepositoryDeploymentsArgs
+  >;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  descriptionHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  diskUsage?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  forkCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  forks?: Resolver<ResolversTypes['RepositoryConnection'], ParentType, ContextType, RepositoryForksArgs>;
+  hasIssuesEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasWikiEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  homepageUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isArchived?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isFork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isLocked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMirror?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType, RepositoryIssueArgs>;
+  issueOrPullRequest?: Resolver<
+    Maybe<ResolversTypes['IssueOrPullRequest']>,
+    ParentType,
+    ContextType,
+    RepositoryIssueOrPullRequestArgs
+  >;
+  issues?: Resolver<ResolversTypes['IssueConnection'], ParentType, ContextType, RepositoryIssuesArgs>;
+  label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType, RepositoryLabelArgs>;
+  labels?: Resolver<Maybe<ResolversTypes['LabelConnection']>, ParentType, ContextType, RepositoryLabelsArgs>;
+  languages?: Resolver<
+    Maybe<ResolversTypes['LanguageConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryLanguagesArgs
+  >;
+  licenseInfo?: Resolver<Maybe<ResolversTypes['License']>, ParentType, ContextType>;
+  lockReason?: Resolver<Maybe<ResolversTypes['RepositoryLockReason']>, ParentType, ContextType>;
+  mentionableUsers?: Resolver<
+    ResolversTypes['UserConnection'],
+    ParentType,
+    ContextType,
+    RepositoryMentionableUsersArgs
+  >;
+  mergeCommitAllowed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  milestone?: Resolver<Maybe<ResolversTypes['Milestone']>, ParentType, ContextType, RepositoryMilestoneArgs>;
+  milestones?: Resolver<
+    Maybe<ResolversTypes['MilestoneConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryMilestonesArgs
+  >;
+  mirrorUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nameWithOwner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  object?: Resolver<Maybe<ResolversTypes['GitObject']>, ParentType, ContextType, RepositoryObjectArgs>;
+  owner?: Resolver<ResolversTypes['RepositoryOwner'], ParentType, ContextType>;
+  parent?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+  pinnedIssues?: Resolver<
+    Maybe<ResolversTypes['PinnedIssueConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryPinnedIssuesArgs
+  >;
+  primaryLanguage?: Resolver<Maybe<ResolversTypes['Language']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RepositoryProjectArgs>;
+  projects?: Resolver<ResolversTypes['ProjectConnection'], ParentType, ContextType, RepositoryProjectsArgs>;
+  projectsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  projectsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  protectedBranches?: Resolver<
+    ResolversTypes['ProtectedBranchConnection'],
+    ParentType,
+    ContextType,
+    RepositoryProtectedBranchesArgs
+  >;
+  pullRequest?: Resolver<
+    Maybe<ResolversTypes['PullRequest']>,
+    ParentType,
+    ContextType,
+    RepositoryPullRequestArgs
+  >;
+  pullRequests?: Resolver<
+    ResolversTypes['PullRequestConnection'],
+    ParentType,
+    ContextType,
+    RepositoryPullRequestsArgs
+  >;
+  pushedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  rebaseMergeAllowed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  ref?: Resolver<Maybe<ResolversTypes['Ref']>, ParentType, ContextType, RepositoryRefArgs>;
+  refs?: Resolver<Maybe<ResolversTypes['RefConnection']>, ParentType, ContextType, RepositoryRefsArgs>;
+  release?: Resolver<Maybe<ResolversTypes['Release']>, ParentType, ContextType, RepositoryReleaseArgs>;
+  releases?: Resolver<ResolversTypes['ReleaseConnection'], ParentType, ContextType, RepositoryReleasesArgs>;
+  repositoryTopics?: Resolver<
+    ResolversTypes['RepositoryTopicConnection'],
+    ParentType,
+    ContextType,
+    RepositoryRepositoryTopicsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  shortDescriptionHTML?: Resolver<
+    ResolversTypes['HTML'],
+    ParentType,
+    ContextType,
+    RepositoryShortDescriptionHtmlArgs
+  >;
+  squashMergeAllowed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  sshUrl?: Resolver<ResolversTypes['GitSSHRemote'], ParentType, ContextType>;
+  stargazers?: Resolver<
+    ResolversTypes['StargazerConnection'],
+    ParentType,
+    ContextType,
+    RepositoryStargazersArgs
+  >;
+  tempCloneToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanAdminister?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanCreateProjects?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdateTopics?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerHasStarred?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerPermission?: Resolver<Maybe<ResolversTypes['RepositoryPermission']>, ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+  vulnerabilityAlerts?: Resolver<
+    Maybe<ResolversTypes['RepositoryVulnerabilityAlertConnection']>,
+    ParentType,
+    ContextType,
+    RepositoryVulnerabilityAlertsArgs
+  >;
+  watchers?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RepositoryWatchersArgs>;
+};
+
+export type RepositoryCollaboratorConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryCollaboratorConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['RepositoryCollaboratorEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type RepositoryCollaboratorEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryCollaboratorEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  permission?: Resolver<ResolversTypes['RepositoryPermission'], ParentType, ContextType>;
+};
+
+export type RepositoryConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['RepositoryEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Repository']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalDiskUsage?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type RepositoryEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+};
+
+export type RepositoryInfoResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryInfo']
+> = {
+  __resolveType: TypeResolveFn<'Repository', ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  descriptionHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  forkCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  hasIssuesEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasWikiEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  homepageUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  isArchived?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isFork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isLocked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isMirror?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  licenseInfo?: Resolver<Maybe<ResolversTypes['License']>, ParentType, ContextType>;
+  lockReason?: Resolver<Maybe<ResolversTypes['RepositoryLockReason']>, ParentType, ContextType>;
+  mirrorUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nameWithOwner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['RepositoryOwner'], ParentType, ContextType>;
+  pushedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  shortDescriptionHTML?: Resolver<
+    ResolversTypes['HTML'],
+    ParentType,
+    ContextType,
+    RepositoryInfoShortDescriptionHtmlArgs
+  >;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type RepositoryInvitationResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryInvitation']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitee?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  inviter?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  permission?: Resolver<ResolversTypes['RepositoryPermission'], ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['RepositoryInfo']>, ParentType, ContextType>;
+};
+
+export type RepositoryNodeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryNode']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'Issue'
+    | 'PullRequest'
+    | 'CommitComment'
+    | 'RepositoryVulnerabilityAlert'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'CommitCommentThread'
+    | 'PullRequestCommitCommentThread',
+    ParentType,
+    ContextType
+  >;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type RepositoryOwnerResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryOwner']
+> = {
+  __resolveType: TypeResolveFn<'Organization' | 'User', ParentType, ContextType>;
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, RepositoryOwnerAvatarUrlArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pinnedRepositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    RepositoryOwnerPinnedRepositoriesArgs
+  >;
+  repositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    RepositoryOwnerRepositoriesArgs
+  >;
+  repository?: Resolver<
+    Maybe<ResolversTypes['Repository']>,
+    ParentType,
+    ContextType,
+    RepositoryOwnerRepositoryArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type RepositoryTopicResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryTopic']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  topic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type RepositoryTopicConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryTopicConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['RepositoryTopicEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['RepositoryTopic']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type RepositoryTopicEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryTopicEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['RepositoryTopic']>, ParentType, ContextType>;
+};
+
+export type RepositoryVulnerabilityAlertResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryVulnerabilityAlert']
+> = {
+  affectedRange?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dismissReason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dismissedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  dismisser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  externalIdentifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  externalReference?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fixedIn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  packageName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  securityAdvisory?: Resolver<Maybe<ResolversTypes['SecurityAdvisory']>, ParentType, ContextType>;
+  securityVulnerability?: Resolver<Maybe<ResolversTypes['SecurityVulnerability']>, ParentType, ContextType>;
+  vulnerableManifestFilename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vulnerableManifestPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vulnerableRequirements?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type RepositoryVulnerabilityAlertConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryVulnerabilityAlertConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['RepositoryVulnerabilityAlertEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['RepositoryVulnerabilityAlert']>>>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type RepositoryVulnerabilityAlertEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RepositoryVulnerabilityAlertEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['RepositoryVulnerabilityAlert']>, ParentType, ContextType>;
+};
+
+export type RequestedReviewerResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RequestedReviewer']
+> = {
+  __resolveType: TypeResolveFn<'Team' | 'User', ParentType, ContextType>;
+};
+
+export type RequestReviewsPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RequestReviewsPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+  requestedReviewersEdge?: Resolver<Maybe<ResolversTypes['UserEdge']>, ParentType, ContextType>;
+};
+
+export type RerequestCheckSuitePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RerequestCheckSuitePayload']
+> = {
+  checkSuite?: Resolver<Maybe<ResolversTypes['CheckSuite']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type ResolveReviewThreadPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ResolveReviewThreadPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thread?: Resolver<Maybe<ResolversTypes['PullRequestReviewThread']>, ParentType, ContextType>;
+};
+
+export type RestrictedContributionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['RestrictedContribution']
+> = {
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  occurredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type ReviewDismissalAllowanceResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewDismissalAllowance']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['ReviewDismissalAllowanceActor']>, ParentType, ContextType>;
+  branchProtectionRule?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+};
+
+export type ReviewDismissalAllowanceActorResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewDismissalAllowanceActor']
+> = {
+  __resolveType: TypeResolveFn<'Team' | 'User', ParentType, ContextType>;
+};
+
+export type ReviewDismissalAllowanceConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewDismissalAllowanceConnection']
+> = {
+  edges?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['ReviewDismissalAllowanceEdge']>>>,
+    ParentType,
+    ContextType
+  >;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReviewDismissalAllowance']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ReviewDismissalAllowanceEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewDismissalAllowanceEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ReviewDismissalAllowance']>, ParentType, ContextType>;
+};
+
+export type ReviewDismissedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewDismissedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  dismissalMessage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dismissalMessageHTML?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  messageHtml?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  previousReviewState?: Resolver<ResolversTypes['PullRequestReviewState'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  pullRequestCommit?: Resolver<Maybe<ResolversTypes['PullRequestCommit']>, ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  review?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type ReviewRequestResolvers<ContextType = AppContext, ParentType = ResolversTypes['ReviewRequest']> = {
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  requestedReviewer?: Resolver<Maybe<ResolversTypes['RequestedReviewer']>, ParentType, ContextType>;
+};
+
+export type ReviewRequestConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewRequestConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReviewRequestEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReviewRequest']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type ReviewRequestedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewRequestedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  requestedReviewer?: Resolver<Maybe<ResolversTypes['RequestedReviewer']>, ParentType, ContextType>;
+};
+
+export type ReviewRequestEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewRequestEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['ReviewRequest']>, ParentType, ContextType>;
+};
+
+export type ReviewRequestRemovedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewRequestRemovedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pullRequest?: Resolver<ResolversTypes['PullRequest'], ParentType, ContextType>;
+  requestedReviewer?: Resolver<Maybe<ResolversTypes['RequestedReviewer']>, ParentType, ContextType>;
+};
+
+export type ReviewStatusHovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ReviewStatusHovercardContext']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type SearchResultItemResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SearchResultItem']
+> = {
+  __resolveType: TypeResolveFn<
+    'Issue' | 'MarketplaceListing' | 'Organization' | 'PullRequest' | 'Repository' | 'User',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type SearchResultItemConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SearchResultItemConnection']
+> = {
+  codeCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['SearchResultItemEdge']>>>, ParentType, ContextType>;
+  issueCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['SearchResultItem']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  repositoryCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  userCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  wikiCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type SearchResultItemEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SearchResultItemEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['SearchResultItem']>, ParentType, ContextType>;
+  textMatches?: Resolver<Maybe<Array<Maybe<ResolversTypes['TextMatch']>>>, ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisory']
+> = {
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ghsaId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  identifiers?: Resolver<Array<ResolversTypes['SecurityAdvisoryIdentifier']>, ParentType, ContextType>;
+  publishedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  references?: Resolver<Array<ResolversTypes['SecurityAdvisoryReference']>, ParentType, ContextType>;
+  severity?: Resolver<ResolversTypes['SecurityAdvisorySeverity'], ParentType, ContextType>;
+  summary?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  vulnerabilities?: Resolver<
+    ResolversTypes['SecurityVulnerabilityConnection'],
+    ParentType,
+    ContextType,
+    SecurityAdvisoryVulnerabilitiesArgs
+  >;
+  withdrawnAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['SecurityAdvisoryEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['SecurityAdvisory']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['SecurityAdvisory']>, ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryIdentifierResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryIdentifier']
+> = {
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryPackageResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryPackage']
+> = {
+  ecosystem?: Resolver<ResolversTypes['SecurityAdvisoryEcosystem'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryPackageVersionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryPackageVersion']
+> = {
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type SecurityAdvisoryReferenceResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityAdvisoryReference']
+> = {
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type SecurityVulnerabilityResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityVulnerability']
+> = {
+  advisory?: Resolver<ResolversTypes['SecurityAdvisory'], ParentType, ContextType>;
+  firstPatchedVersion?: Resolver<
+    Maybe<ResolversTypes['SecurityAdvisoryPackageVersion']>,
+    ParentType,
+    ContextType
+  >;
+  package?: Resolver<ResolversTypes['SecurityAdvisoryPackage'], ParentType, ContextType>;
+  severity?: Resolver<ResolversTypes['SecurityAdvisorySeverity'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  vulnerableVersionRange?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type SecurityVulnerabilityConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityVulnerabilityConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['SecurityVulnerabilityEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['SecurityVulnerability']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type SecurityVulnerabilityEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SecurityVulnerabilityEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['SecurityVulnerability']>, ParentType, ContextType>;
+};
+
+export type SetBusinessIdentityProviderPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SetBusinessIdentityProviderPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  identityProvider?: Resolver<Maybe<ResolversTypes['BusinessIdentityProvider']>, ParentType, ContextType>;
+};
+
+export type SmimeSignatureResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SmimeSignature']
+> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isValid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  payload?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['GitSignatureState'], ParentType, ContextType>;
+  wasSignedByGitHub?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type StargazerConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['StargazerConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['StargazerEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type StargazerEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['StargazerEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  starredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type StarrableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Starrable']> = {
+  __resolveType: TypeResolveFn<'Repository' | 'Topic' | 'Gist', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  stargazers?: Resolver<
+    ResolversTypes['StargazerConnection'],
+    ParentType,
+    ContextType,
+    StarrableStargazersArgs
+  >;
+  viewerHasStarred?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type StarredRepositoryConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['StarredRepositoryConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['StarredRepositoryEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Repository']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type StarredRepositoryEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['StarredRepositoryEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  starredAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type StatusResolvers<ContextType = AppContext, ParentType = ResolversTypes['Status']> = {
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  context?: Resolver<Maybe<ResolversTypes['StatusContext']>, ParentType, ContextType, StatusContextArgs>;
+  contexts?: Resolver<Array<ResolversTypes['StatusContext']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['StatusState'], ParentType, ContextType>;
+};
+
+export type StatusContextResolvers<ContextType = AppContext, ParentType = ResolversTypes['StatusContext']> = {
+  commit?: Resolver<Maybe<ResolversTypes['Commit']>, ParentType, ContextType>;
+  context?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  creator?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['StatusState'], ParentType, ContextType>;
+  targetUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type SubmitPullRequestReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SubmitPullRequestReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type SubscribableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Subscribable']> = {
+  __resolveType: TypeResolveFn<
+    'Issue' | 'PullRequest' | 'Repository' | 'Team' | 'TeamDiscussion' | 'Commit',
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+};
+
+export type SubscribedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SubscribedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  subscribable?: Resolver<ResolversTypes['Subscribable'], ParentType, ContextType>;
+};
+
+export type SuggestedReviewerResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['SuggestedReviewer']
+> = {
+  isAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isCommenter?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  reviewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type TagResolvers<ContextType = AppContext, ParentType = ResolversTypes['Tag']> = {
+  abbreviatedOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  commitResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commitUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  tagger?: Resolver<Maybe<ResolversTypes['GitActor']>, ParentType, ContextType>;
+  target?: Resolver<ResolversTypes['GitObject'], ParentType, ContextType>;
+};
+
+export type TeamResolvers<ContextType = AppContext, ParentType = ResolversTypes['Team']> = {
+  ancestors?: Resolver<ResolversTypes['TeamConnection'], ParentType, ContextType, TeamAncestorsArgs>;
+  avatarUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType, TeamAvatarUrlArgs>;
+  childTeams?: Resolver<ResolversTypes['TeamConnection'], ParentType, ContextType, TeamChildTeamsArgs>;
+  combinedSlug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  discussion?: Resolver<Maybe<ResolversTypes['TeamDiscussion']>, ParentType, ContextType, TeamDiscussionArgs>;
+  discussions?: Resolver<
+    ResolversTypes['TeamDiscussionConnection'],
+    ParentType,
+    ContextType,
+    TeamDiscussionsArgs
+  >;
+  discussionsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  discussionsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  editTeamResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  editTeamUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  invitations?: Resolver<
+    Maybe<ResolversTypes['OrganizationInvitationConnection']>,
+    ParentType,
+    ContextType,
+    TeamInvitationsArgs
+  >;
+  memberStatuses?: Resolver<
+    ResolversTypes['UserStatusConnection'],
+    ParentType,
+    ContextType,
+    TeamMemberStatusesArgs
+  >;
+  members?: Resolver<ResolversTypes['TeamMemberConnection'], ParentType, ContextType, TeamMembersArgs>;
+  membersResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  membersUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  newTeamResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  newTeamUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  organization?: Resolver<ResolversTypes['Organization'], ParentType, ContextType>;
+  parentTeam?: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType>;
+  privacy?: Resolver<ResolversTypes['TeamPrivacy'], ParentType, ContextType>;
+  repositories?: Resolver<
+    ResolversTypes['TeamRepositoryConnection'],
+    ParentType,
+    ContextType,
+    TeamRepositoriesArgs
+  >;
+  repositoriesResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  repositoriesUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  teamsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  teamsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanAdminister?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+};
+
+export type TeamConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Team']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TeamDiscussionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussion']
+> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  comments?: Resolver<
+    ResolversTypes['TeamDiscussionCommentConnection'],
+    ParentType,
+    ContextType,
+    TeamDiscussionCommentsArgs
+  >;
+  commentsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commentsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPinned?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    TeamDiscussionReactionsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  team?: Resolver<ResolversTypes['Team'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    TeamDiscussionUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanPin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanSubscribe?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerSubscription?: Resolver<Maybe<ResolversTypes['SubscriptionState']>, ParentType, ContextType>;
+};
+
+export type TeamDiscussionCommentResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussionComment']
+> = {
+  author?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  authorAssociation?: Resolver<ResolversTypes['CommentAuthorAssociation'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  bodyText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  bodyVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdViaEmail?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  discussion?: Resolver<ResolversTypes['TeamDiscussion'], ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  includesCreatedEdit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lastEditedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  reactionGroups?: Resolver<Maybe<Array<ResolversTypes['ReactionGroup']>>, ParentType, ContextType>;
+  reactions?: Resolver<
+    ResolversTypes['ReactionConnection'],
+    ParentType,
+    ContextType,
+    TeamDiscussionCommentReactionsArgs
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  userContentEdits?: Resolver<
+    Maybe<ResolversTypes['UserContentEditConnection']>,
+    ParentType,
+    ContextType,
+    TeamDiscussionCommentUserContentEditsArgs
+  >;
+  viewerCanDelete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanReact?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+  viewerDidAuthor?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type TeamDiscussionCommentConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussionCommentConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamDiscussionCommentEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamDiscussionComment']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TeamDiscussionCommentEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussionCommentEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['TeamDiscussionComment']>, ParentType, ContextType>;
+};
+
+export type TeamDiscussionConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussionConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamDiscussionEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamDiscussion']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TeamDiscussionEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamDiscussionEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['TeamDiscussion']>, ParentType, ContextType>;
+};
+
+export type TeamEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['TeamEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType>;
+};
+
+export type TeamMemberConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamMemberConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamMemberEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TeamMemberEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamMemberEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  memberAccessResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  memberAccessUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['TeamMemberRole'], ParentType, ContextType>;
+};
+
+export type TeamRepositoryConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamRepositoryConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamRepositoryEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Repository']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TeamRepositoryEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TeamRepositoryEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  permission?: Resolver<ResolversTypes['RepositoryPermission'], ParentType, ContextType>;
+};
+
+export type TextMatchResolvers<ContextType = AppContext, ParentType = ResolversTypes['TextMatch']> = {
+  fragment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  highlights?: Resolver<Array<ResolversTypes['TextMatchHighlight']>, ParentType, ContextType>;
+  property?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type TextMatchHighlightResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TextMatchHighlight']
+> = {
+  beginIndice?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  endIndice?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type TopicResolvers<ContextType = AppContext, ParentType = ResolversTypes['Topic']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  relatedTopics?: Resolver<Array<ResolversTypes['Topic']>, ParentType, ContextType, TopicRelatedTopicsArgs>;
+  stargazers?: Resolver<ResolversTypes['StargazerConnection'], ParentType, ContextType, TopicStargazersArgs>;
+  viewerHasStarred?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type TopicConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TopicConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['TopicEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Topic']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TopicEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['TopicEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Topic']>, ParentType, ContextType>;
+};
+
+export type TransferredEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['TransferredEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  fromRepository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+};
+
+export type TreeResolvers<ContextType = AppContext, ParentType = ResolversTypes['Tree']> = {
+  abbreviatedOid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  commitResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  commitUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  entries?: Resolver<Maybe<Array<ResolversTypes['TreeEntry']>>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+};
+
+export type TreeEntryResolvers<ContextType = AppContext, ParentType = ResolversTypes['TreeEntry']> = {
+  mode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  object?: Resolver<Maybe<ResolversTypes['GitObject']>, ParentType, ContextType>;
+  oid?: Resolver<ResolversTypes['GitObjectID'], ParentType, ContextType>;
+  repository?: Resolver<ResolversTypes['Repository'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type UnassignedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnassignedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  assignable?: Resolver<ResolversTypes['Assignable'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type UniformResourceLocatableResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UniformResourceLocatable']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'Organization'
+    | 'User'
+    | 'Issue'
+    | 'PullRequest'
+    | 'Repository'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'Commit'
+    | 'CheckRun'
+    | 'Milestone'
+    | 'Release'
+    | 'RepositoryTopic'
+    | 'PullRequestCommit'
+    | 'ClosedEvent'
+    | 'CrossReferencedEvent'
+    | 'MergedEvent'
+    | 'ReviewDismissedEvent'
+    | 'Bot',
+    ParentType,
+    ContextType
+  >;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+};
+
+export type UnknownSignatureResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnknownSignature']
+> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isValid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  payload?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['GitSignatureState'], ParentType, ContextType>;
+  wasSignedByGitHub?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type UnlabeledEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnlabeledEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['Label'], ParentType, ContextType>;
+  labelable?: Resolver<ResolversTypes['Labelable'], ParentType, ContextType>;
+};
+
+export type UnlockedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['UnlockedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lockable?: Resolver<ResolversTypes['Lockable'], ParentType, ContextType>;
+};
+
+export type UnlockLockablePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnlockLockablePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unlockedRecord?: Resolver<Maybe<ResolversTypes['Lockable']>, ParentType, ContextType>;
+};
+
+export type UnmarkIssueAsDuplicatePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnmarkIssueAsDuplicatePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  duplicate?: Resolver<Maybe<ResolversTypes['IssueOrPullRequest']>, ParentType, ContextType>;
+};
+
+export type UnminimizeCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnminimizeCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unminimizedComment?: Resolver<Maybe<ResolversTypes['Minimizable']>, ParentType, ContextType>;
+};
+
+export type UnpinIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnpinIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type UnpinnedEventResolvers<ContextType = AppContext, ParentType = ResolversTypes['UnpinnedEvent']> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes['Issue'], ParentType, ContextType>;
+};
+
+export type UnresolveReviewThreadPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnresolveReviewThreadPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thread?: Resolver<Maybe<ResolversTypes['PullRequestReviewThread']>, ParentType, ContextType>;
+};
+
+export type UnsubscribedEventResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UnsubscribedEvent']
+> = {
+  actor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  subscribable?: Resolver<ResolversTypes['Subscribable'], ParentType, ContextType>;
+};
+
+export type UpdatableResolvers<ContextType = AppContext, ParentType = ResolversTypes['Updatable']> = {
+  __resolveType: TypeResolveFn<
+    | 'Project'
+    | 'Issue'
+    | 'PullRequest'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'CommitComment'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'GistComment',
+    ParentType,
+    ContextType
+  >;
+  viewerCanUpdate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
+export type UpdatableCommentResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdatableComment']
+> = {
+  __resolveType: TypeResolveFn<
+    | 'Issue'
+    | 'PullRequest'
+    | 'TeamDiscussion'
+    | 'TeamDiscussionComment'
+    | 'CommitComment'
+    | 'IssueComment'
+    | 'PullRequestReviewComment'
+    | 'PullRequestReview'
+    | 'GistComment',
+    ParentType,
+    ContextType
+  >;
+  viewerCannotUpdateReasons?: Resolver<
+    Array<ResolversTypes['CommentCannotUpdateReason']>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type UpdateBranchProtectionRulePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBranchProtectionRulePayload']
+> = {
+  branchProtectionRule?: Resolver<Maybe<ResolversTypes['BranchProtectionRule']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessAllowPrivateRepositoryForkingSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessAllowPrivateRepositoryForkingSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessDefaultRepositoryPermissionSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessDefaultRepositoryPermissionSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanCreateRepositoriesSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanCreateRepositoriesSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanDeleteIssuesSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanDeleteIssuesSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanDeleteRepositoriesSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanDeleteRepositoriesSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanInviteCollaboratorsSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanInviteCollaboratorsSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessOrganizationProjectsSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessOrganizationProjectsSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessProfilePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessProfilePayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessRepositoryProjectsSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessRepositoryProjectsSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessTeamDiscussionsSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessTeamDiscussionsSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateBusinessTwoFactorAuthenticationRequiredSettingPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateBusinessTwoFactorAuthenticationRequiredSettingPayload']
+> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateCheckRunPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateCheckRunPayload']
+> = {
+  checkRun?: Resolver<Maybe<ResolversTypes['CheckRun']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type UpdateCheckSuitePreferencesPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateCheckSuitePreferencesPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+};
+
+export type UpdateIssueCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateIssueCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issueComment?: Resolver<Maybe<ResolversTypes['IssueComment']>, ParentType, ContextType>;
+};
+
+export type UpdateIssuePayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateIssuePayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  issue?: Resolver<Maybe<ResolversTypes['Issue']>, ParentType, ContextType>;
+};
+
+export type UpdateLabelPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateLabelPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['Label']>, ParentType, ContextType>;
+};
+
+export type UpdateProjectCardPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateProjectCardPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  projectCard?: Resolver<Maybe<ResolversTypes['ProjectCard']>, ParentType, ContextType>;
+};
+
+export type UpdateProjectColumnPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateProjectColumnPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  projectColumn?: Resolver<Maybe<ResolversTypes['ProjectColumn']>, ParentType, ContextType>;
+};
+
+export type UpdateProjectPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateProjectPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType>;
+};
+
+export type UpdatePullRequestPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdatePullRequestPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequest?: Resolver<Maybe<ResolversTypes['PullRequest']>, ParentType, ContextType>;
+};
+
+export type UpdatePullRequestReviewCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdatePullRequestReviewCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReviewComment?: Resolver<
+    Maybe<ResolversTypes['PullRequestReviewComment']>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type UpdatePullRequestReviewPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdatePullRequestReviewPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  pullRequestReview?: Resolver<Maybe<ResolversTypes['PullRequestReview']>, ParentType, ContextType>;
+};
+
+export type UpdateSubscriptionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateSubscriptionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subscribable?: Resolver<Maybe<ResolversTypes['Subscribable']>, ParentType, ContextType>;
+};
+
+export type UpdateTeamDiscussionCommentPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateTeamDiscussionCommentPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamDiscussionComment?: Resolver<Maybe<ResolversTypes['TeamDiscussionComment']>, ParentType, ContextType>;
+};
+
+export type UpdateTeamDiscussionPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateTeamDiscussionPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamDiscussion?: Resolver<Maybe<ResolversTypes['TeamDiscussion']>, ParentType, ContextType>;
+};
+
+export type UpdateTopicsPayloadResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UpdateTopicsPayload']
+> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  invalidTopicNames?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType>;
+};
+
+export interface UriScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['URI'], any> {
+  name: 'URI';
+}
+
+export type UserResolvers<ContextType = AppContext, ParentType = ResolversTypes['User']> = {
+  avatarUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType, UserAvatarUrlArgs>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bioHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  commitComments?: Resolver<
+    ResolversTypes['CommitCommentConnection'],
+    ParentType,
+    ContextType,
+    UserCommitCommentsArgs
+  >;
+  company?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  companyHTML?: Resolver<ResolversTypes['HTML'], ParentType, ContextType>;
+  contributionsCollection?: Resolver<
+    ResolversTypes['ContributionsCollection'],
+    ParentType,
+    ContextType,
+    UserContributionsCollectionArgs
+  >;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  databaseId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  followers?: Resolver<ResolversTypes['FollowerConnection'], ParentType, ContextType, UserFollowersArgs>;
+  following?: Resolver<ResolversTypes['FollowingConnection'], ParentType, ContextType, UserFollowingArgs>;
+  gist?: Resolver<Maybe<ResolversTypes['Gist']>, ParentType, ContextType, UserGistArgs>;
+  gistComments?: Resolver<
+    ResolversTypes['GistCommentConnection'],
+    ParentType,
+    ContextType,
+    UserGistCommentsArgs
+  >;
+  gists?: Resolver<ResolversTypes['GistConnection'], ParentType, ContextType, UserGistsArgs>;
+  hovercard?: Resolver<ResolversTypes['Hovercard'], ParentType, ContextType, UserHovercardArgs>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isBountyHunter?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isCampusExpert?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isDeveloperProgramMember?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isEmployee?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isHireable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isSiteAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isViewer?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issueComments?: Resolver<
+    ResolversTypes['IssueCommentConnection'],
+    ParentType,
+    ContextType,
+    UserIssueCommentsArgs
+  >;
+  issues?: Resolver<ResolversTypes['IssueConnection'], ParentType, ContextType, UserIssuesArgs>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  organization?: Resolver<
+    Maybe<ResolversTypes['Organization']>,
+    ParentType,
+    ContextType,
+    UserOrganizationArgs
+  >;
+  organizations?: Resolver<
+    ResolversTypes['OrganizationConnection'],
+    ParentType,
+    ContextType,
+    UserOrganizationsArgs
+  >;
+  pinnedRepositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    UserPinnedRepositoriesArgs
+  >;
+  project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, UserProjectArgs>;
+  projects?: Resolver<ResolversTypes['ProjectConnection'], ParentType, ContextType, UserProjectsArgs>;
+  projectsResourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  projectsUrl?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  publicKeys?: Resolver<ResolversTypes['PublicKeyConnection'], ParentType, ContextType, UserPublicKeysArgs>;
+  pullRequests?: Resolver<
+    ResolversTypes['PullRequestConnection'],
+    ParentType,
+    ContextType,
+    UserPullRequestsArgs
+  >;
+  repositories?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    UserRepositoriesArgs
+  >;
+  repositoriesContributedTo?: Resolver<
+    ResolversTypes['RepositoryConnection'],
+    ParentType,
+    ContextType,
+    UserRepositoriesContributedToArgs
+  >;
+  repository?: Resolver<Maybe<ResolversTypes['Repository']>, ParentType, ContextType, UserRepositoryArgs>;
+  resourcePath?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  starredRepositories?: Resolver<
+    ResolversTypes['StarredRepositoryConnection'],
+    ParentType,
+    ContextType,
+    UserStarredRepositoriesArgs
+  >;
+  status?: Resolver<Maybe<ResolversTypes['UserStatus']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['URI'], ParentType, ContextType>;
+  viewerCanCreateProjects?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerCanFollow?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  viewerIsFollowing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  watching?: Resolver<ResolversTypes['RepositoryConnection'], ParentType, ContextType, UserWatchingArgs>;
+  websiteUrl?: Resolver<Maybe<ResolversTypes['URI']>, ParentType, ContextType>;
+};
+
+export type UserConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type UserContentEditResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserContentEdit']
+> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  deletedBy?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  diff?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  editedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  editor?: Resolver<Maybe<ResolversTypes['Actor']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+};
+
+export type UserContentEditConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserContentEditConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserContentEditEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserContentEdit']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type UserContentEditEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserContentEditEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['UserContentEdit']>, ParentType, ContextType>;
+};
+
+export type UserEdgeResolvers<ContextType = AppContext, ParentType = ResolversTypes['UserEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+};
+
+export type UserStatusResolvers<ContextType = AppContext, ParentType = ResolversTypes['UserStatus']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  emoji?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  indicatesLimitedAvailability?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export type UserStatusConnectionResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserStatusConnection']
+> = {
+  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserStatusEdge']>>>, ParentType, ContextType>;
+  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserStatus']>>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type UserStatusEdgeResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['UserStatusEdge']
+> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['UserStatus']>, ParentType, ContextType>;
+};
+
+export type ViewerHovercardContextResolvers<
+  ContextType = AppContext,
+  ParentType = ResolversTypes['ViewerHovercardContext']
+> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  octicon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+};
+
+export interface X509CertificateScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['X509Certificate'], any> {
+  name: 'X509Certificate';
+}
+
+export type Resolvers<ContextType = AppContext> = {
+  AcceptBusinessMemberInvitationPayload?: AcceptBusinessMemberInvitationPayloadResolvers<ContextType>;
+  AcceptTopicSuggestionPayload?: AcceptTopicSuggestionPayloadResolvers<ContextType>;
+  Actor?: ActorResolvers;
+  AddAssigneesToAssignablePayload?: AddAssigneesToAssignablePayloadResolvers<ContextType>;
+  AddCommentPayload?: AddCommentPayloadResolvers<ContextType>;
+  AddedToProjectEvent?: AddedToProjectEventResolvers<ContextType>;
+  AddLabelsToLabelablePayload?: AddLabelsToLabelablePayloadResolvers<ContextType>;
+  AddProjectCardPayload?: AddProjectCardPayloadResolvers<ContextType>;
+  AddProjectColumnPayload?: AddProjectColumnPayloadResolvers<ContextType>;
+  AddPullRequestReviewCommentPayload?: AddPullRequestReviewCommentPayloadResolvers<ContextType>;
+  AddPullRequestReviewPayload?: AddPullRequestReviewPayloadResolvers<ContextType>;
+  AddReactionPayload?: AddReactionPayloadResolvers<ContextType>;
+  AddStarPayload?: AddStarPayloadResolvers<ContextType>;
+  App?: AppResolvers<ContextType>;
+  Assignable?: AssignableResolvers;
+  AssignedEvent?: AssignedEventResolvers<ContextType>;
+  BaseRefChangedEvent?: BaseRefChangedEventResolvers<ContextType>;
+  BaseRefForcePushedEvent?: BaseRefForcePushedEventResolvers<ContextType>;
+  Blame?: BlameResolvers<ContextType>;
+  BlameRange?: BlameRangeResolvers<ContextType>;
+  Blob?: BlobResolvers<ContextType>;
+  Bot?: BotResolvers<ContextType>;
+  BranchProtectionRule?: BranchProtectionRuleResolvers<ContextType>;
+  BranchProtectionRuleConflict?: BranchProtectionRuleConflictResolvers<ContextType>;
+  BranchProtectionRuleConflictConnection?: BranchProtectionRuleConflictConnectionResolvers<ContextType>;
+  BranchProtectionRuleConflictEdge?: BranchProtectionRuleConflictEdgeResolvers<ContextType>;
+  BranchProtectionRuleConnection?: BranchProtectionRuleConnectionResolvers<ContextType>;
+  BranchProtectionRuleEdge?: BranchProtectionRuleEdgeResolvers<ContextType>;
+  Business?: BusinessResolvers<ContextType>;
+  BusinessAdminInfo?: BusinessAdminInfoResolvers<ContextType>;
+  BusinessBillingInfo?: BusinessBillingInfoResolvers<ContextType>;
+  BusinessIdentityProvider?: BusinessIdentityProviderResolvers<ContextType>;
+  BusinessMemberInvitation?: BusinessMemberInvitationResolvers<ContextType>;
+  BusinessMemberInvitationConnection?: BusinessMemberInvitationConnectionResolvers<ContextType>;
+  BusinessMemberInvitationEdge?: BusinessMemberInvitationEdgeResolvers<ContextType>;
+  BusinessPendingMemberInvitationConnection?: BusinessPendingMemberInvitationConnectionResolvers<ContextType>;
+  BusinessRepositoryInfo?: BusinessRepositoryInfoResolvers<ContextType>;
+  CancelBusinessAdminInvitationPayload?: CancelBusinessAdminInvitationPayloadResolvers<ContextType>;
+  CancelBusinessBillingManagerInvitationPayload?: CancelBusinessBillingManagerInvitationPayloadResolvers<
+    ContextType
+  >;
+  ChangeUserStatusPayload?: ChangeUserStatusPayloadResolvers<ContextType>;
+  CheckAnnotation?: CheckAnnotationResolvers<ContextType>;
+  CheckAnnotationConnection?: CheckAnnotationConnectionResolvers<ContextType>;
+  CheckAnnotationEdge?: CheckAnnotationEdgeResolvers<ContextType>;
+  CheckAnnotationPosition?: CheckAnnotationPositionResolvers<ContextType>;
+  CheckAnnotationSpan?: CheckAnnotationSpanResolvers<ContextType>;
+  CheckRun?: CheckRunResolvers<ContextType>;
+  CheckRunConnection?: CheckRunConnectionResolvers<ContextType>;
+  CheckRunEdge?: CheckRunEdgeResolvers<ContextType>;
+  CheckSuite?: CheckSuiteResolvers<ContextType>;
+  CheckSuiteConnection?: CheckSuiteConnectionResolvers<ContextType>;
+  CheckSuiteEdge?: CheckSuiteEdgeResolvers<ContextType>;
+  ClearLabelsFromLabelablePayload?: ClearLabelsFromLabelablePayloadResolvers<ContextType>;
+  Closable?: ClosableResolvers;
+  ClosedEvent?: ClosedEventResolvers<ContextType>;
+  CloseIssuePayload?: CloseIssuePayloadResolvers<ContextType>;
+  ClosePullRequestPayload?: ClosePullRequestPayloadResolvers<ContextType>;
+  Closer?: CloserResolvers;
+  CodeOfConduct?: CodeOfConductResolvers<ContextType>;
+  CollectionItemContent?: CollectionItemContentResolvers;
+  Comment?: CommentResolvers;
+  CommentDeletedEvent?: CommentDeletedEventResolvers<ContextType>;
+  Commit?: CommitResolvers<ContextType>;
+  CommitComment?: CommitCommentResolvers<ContextType>;
+  CommitCommentConnection?: CommitCommentConnectionResolvers<ContextType>;
+  CommitCommentEdge?: CommitCommentEdgeResolvers<ContextType>;
+  CommitCommentThread?: CommitCommentThreadResolvers<ContextType>;
+  CommitConnection?: CommitConnectionResolvers<ContextType>;
+  CommitContributionsByRepository?: CommitContributionsByRepositoryResolvers<ContextType>;
+  CommitEdge?: CommitEdgeResolvers<ContextType>;
+  CommitHistoryConnection?: CommitHistoryConnectionResolvers<ContextType>;
+  ContentAttachment?: ContentAttachmentResolvers<ContextType>;
+  ContentReference?: ContentReferenceResolvers<ContextType>;
+  Contribution?: ContributionResolvers;
+  ContributionCalendar?: ContributionCalendarResolvers<ContextType>;
+  ContributionCalendarDay?: ContributionCalendarDayResolvers<ContextType>;
+  ContributionCalendarMonth?: ContributionCalendarMonthResolvers<ContextType>;
+  ContributionCalendarWeek?: ContributionCalendarWeekResolvers<ContextType>;
+  ContributionsCollection?: ContributionsCollectionResolvers<ContextType>;
+  ConvertedNoteToIssueEvent?: ConvertedNoteToIssueEventResolvers<ContextType>;
+  ConvertProjectCardNoteToIssuePayload?: ConvertProjectCardNoteToIssuePayloadResolvers<ContextType>;
+  CreateBranchProtectionRulePayload?: CreateBranchProtectionRulePayloadResolvers<ContextType>;
+  CreateCheckRunPayload?: CreateCheckRunPayloadResolvers<ContextType>;
+  CreateCheckSuitePayload?: CreateCheckSuitePayloadResolvers<ContextType>;
+  CreateContentAttachmentPayload?: CreateContentAttachmentPayloadResolvers<ContextType>;
+  CreatedCommitContribution?: CreatedCommitContributionResolvers<ContextType>;
+  CreatedCommitContributionConnection?: CreatedCommitContributionConnectionResolvers<ContextType>;
+  CreatedCommitContributionEdge?: CreatedCommitContributionEdgeResolvers<ContextType>;
+  CreateDeploymentPayload?: CreateDeploymentPayloadResolvers<ContextType>;
+  CreateDeploymentStatusPayload?: CreateDeploymentStatusPayloadResolvers<ContextType>;
+  CreatedIssueContribution?: CreatedIssueContributionResolvers<ContextType>;
+  CreatedIssueContributionConnection?: CreatedIssueContributionConnectionResolvers<ContextType>;
+  CreatedIssueContributionEdge?: CreatedIssueContributionEdgeResolvers<ContextType>;
+  CreatedIssueOrRestrictedContribution?: CreatedIssueOrRestrictedContributionResolvers;
+  CreatedPullRequestContribution?: CreatedPullRequestContributionResolvers<ContextType>;
+  CreatedPullRequestContributionConnection?: CreatedPullRequestContributionConnectionResolvers<ContextType>;
+  CreatedPullRequestContributionEdge?: CreatedPullRequestContributionEdgeResolvers<ContextType>;
+  CreatedPullRequestOrRestrictedContribution?: CreatedPullRequestOrRestrictedContributionResolvers;
+  CreatedRepositoryContribution?: CreatedRepositoryContributionResolvers<ContextType>;
+  CreatedRepositoryOrRestrictedContribution?: CreatedRepositoryOrRestrictedContributionResolvers;
+  CreateIssuePayload?: CreateIssuePayloadResolvers<ContextType>;
+  CreateLabelPayload?: CreateLabelPayloadResolvers<ContextType>;
+  CreateProjectPayload?: CreateProjectPayloadResolvers<ContextType>;
+  CreatePullRequestPayload?: CreatePullRequestPayloadResolvers<ContextType>;
+  CreateTeamDiscussionCommentPayload?: CreateTeamDiscussionCommentPayloadResolvers<ContextType>;
+  CreateTeamDiscussionPayload?: CreateTeamDiscussionPayloadResolvers<ContextType>;
+  CrossReferencedEvent?: CrossReferencedEventResolvers<ContextType>;
+  Date?: GraphQLScalarType;
+  DateTime?: GraphQLScalarType;
+  DeclineTopicSuggestionPayload?: DeclineTopicSuggestionPayloadResolvers<ContextType>;
+  Deletable?: DeletableResolvers;
+  DeleteBranchProtectionRulePayload?: DeleteBranchProtectionRulePayloadResolvers<ContextType>;
+  DeleteIssueCommentPayload?: DeleteIssueCommentPayloadResolvers<ContextType>;
+  DeleteIssuePayload?: DeleteIssuePayloadResolvers<ContextType>;
+  DeleteLabelPayload?: DeleteLabelPayloadResolvers<ContextType>;
+  DeleteProjectCardPayload?: DeleteProjectCardPayloadResolvers<ContextType>;
+  DeleteProjectColumnPayload?: DeleteProjectColumnPayloadResolvers<ContextType>;
+  DeleteProjectPayload?: DeleteProjectPayloadResolvers<ContextType>;
+  DeletePullRequestReviewCommentPayload?: DeletePullRequestReviewCommentPayloadResolvers<ContextType>;
+  DeletePullRequestReviewPayload?: DeletePullRequestReviewPayloadResolvers<ContextType>;
+  DeleteTeamDiscussionCommentPayload?: DeleteTeamDiscussionCommentPayloadResolvers<ContextType>;
+  DeleteTeamDiscussionPayload?: DeleteTeamDiscussionPayloadResolvers<ContextType>;
+  DemilestonedEvent?: DemilestonedEventResolvers<ContextType>;
+  DependencyGraphDependency?: DependencyGraphDependencyResolvers<ContextType>;
+  DependencyGraphDependencyConnection?: DependencyGraphDependencyConnectionResolvers<ContextType>;
+  DependencyGraphDependencyEdge?: DependencyGraphDependencyEdgeResolvers<ContextType>;
+  DependencyGraphManifest?: DependencyGraphManifestResolvers<ContextType>;
+  DependencyGraphManifestConnection?: DependencyGraphManifestConnectionResolvers<ContextType>;
+  DependencyGraphManifestEdge?: DependencyGraphManifestEdgeResolvers<ContextType>;
+  DeployedEvent?: DeployedEventResolvers<ContextType>;
+  DeployKey?: DeployKeyResolvers<ContextType>;
+  DeployKeyConnection?: DeployKeyConnectionResolvers<ContextType>;
+  DeployKeyEdge?: DeployKeyEdgeResolvers<ContextType>;
+  Deployment?: DeploymentResolvers<ContextType>;
+  DeploymentConnection?: DeploymentConnectionResolvers<ContextType>;
+  DeploymentEdge?: DeploymentEdgeResolvers<ContextType>;
+  DeploymentEnvironmentChangedEvent?: DeploymentEnvironmentChangedEventResolvers<ContextType>;
+  DeploymentStatus?: DeploymentStatusResolvers<ContextType>;
+  DeploymentStatusConnection?: DeploymentStatusConnectionResolvers<ContextType>;
+  DeploymentStatusEdge?: DeploymentStatusEdgeResolvers<ContextType>;
+  DismissPullRequestReviewPayload?: DismissPullRequestReviewPayloadResolvers<ContextType>;
+  ExternalIdentity?: ExternalIdentityResolvers<ContextType>;
+  ExternalIdentityConnection?: ExternalIdentityConnectionResolvers<ContextType>;
+  ExternalIdentityEdge?: ExternalIdentityEdgeResolvers<ContextType>;
+  ExternalIdentitySamlAttributes?: ExternalIdentitySamlAttributesResolvers<ContextType>;
+  ExternalIdentityScimAttributes?: ExternalIdentityScimAttributesResolvers<ContextType>;
+  FollowerConnection?: FollowerConnectionResolvers<ContextType>;
+  FollowingConnection?: FollowingConnectionResolvers<ContextType>;
+  GenericHovercardContext?: GenericHovercardContextResolvers<ContextType>;
+  Gist?: GistResolvers<ContextType>;
+  GistComment?: GistCommentResolvers<ContextType>;
+  GistCommentConnection?: GistCommentConnectionResolvers<ContextType>;
+  GistCommentEdge?: GistCommentEdgeResolvers<ContextType>;
+  GistConnection?: GistConnectionResolvers<ContextType>;
+  GistEdge?: GistEdgeResolvers<ContextType>;
+  GistFile?: GistFileResolvers<ContextType>;
+  GitActor?: GitActorResolvers<ContextType>;
+  GitHubMetadata?: GitHubMetadataResolvers<ContextType>;
+  GitObject?: GitObjectResolvers;
+  GitObjectID?: GraphQLScalarType;
+  GitSignature?: GitSignatureResolvers;
+  GitSSHRemote?: GraphQLScalarType;
+  GitTimestamp?: GraphQLScalarType;
+  GpgSignature?: GpgSignatureResolvers<ContextType>;
+  HeadRefDeletedEvent?: HeadRefDeletedEventResolvers<ContextType>;
+  HeadRefForcePushedEvent?: HeadRefForcePushedEventResolvers<ContextType>;
+  HeadRefRestoredEvent?: HeadRefRestoredEventResolvers<ContextType>;
+  Hovercard?: HovercardResolvers<ContextType>;
+  HovercardContext?: HovercardContextResolvers;
+  HTML?: GraphQLScalarType;
+  ImportProjectPayload?: ImportProjectPayloadResolvers<ContextType>;
+  InviteBusinessAdminPayload?: InviteBusinessAdminPayloadResolvers<ContextType>;
+  InviteBusinessBillingManagerPayload?: InviteBusinessBillingManagerPayloadResolvers<ContextType>;
+  Issue?: IssueResolvers<ContextType>;
+  IssueComment?: IssueCommentResolvers<ContextType>;
+  IssueCommentConnection?: IssueCommentConnectionResolvers<ContextType>;
+  IssueCommentEdge?: IssueCommentEdgeResolvers<ContextType>;
+  IssueConnection?: IssueConnectionResolvers<ContextType>;
+  IssueEdge?: IssueEdgeResolvers<ContextType>;
+  IssueOrPullRequest?: IssueOrPullRequestResolvers;
+  IssueTimelineConnection?: IssueTimelineConnectionResolvers<ContextType>;
+  IssueTimelineItem?: IssueTimelineItemResolvers;
+  IssueTimelineItemEdge?: IssueTimelineItemEdgeResolvers<ContextType>;
+  IssueTimelineItems?: IssueTimelineItemsResolvers;
+  IssueTimelineItemsConnection?: IssueTimelineItemsConnectionResolvers<ContextType>;
+  IssueTimelineItemsEdge?: IssueTimelineItemsEdgeResolvers<ContextType>;
+  JoinedGitHubContribution?: JoinedGitHubContributionResolvers<ContextType>;
+  Label?: LabelResolvers<ContextType>;
+  Labelable?: LabelableResolvers;
+  LabelConnection?: LabelConnectionResolvers<ContextType>;
+  LabeledEvent?: LabeledEventResolvers<ContextType>;
+  LabelEdge?: LabelEdgeResolvers<ContextType>;
+  Language?: LanguageResolvers<ContextType>;
+  LanguageConnection?: LanguageConnectionResolvers<ContextType>;
+  LanguageEdge?: LanguageEdgeResolvers<ContextType>;
+  License?: LicenseResolvers<ContextType>;
+  LicenseRule?: LicenseRuleResolvers<ContextType>;
+  Lockable?: LockableResolvers;
+  LockedEvent?: LockedEventResolvers<ContextType>;
+  LockLockablePayload?: LockLockablePayloadResolvers<ContextType>;
+  MarketplaceCategory?: MarketplaceCategoryResolvers<ContextType>;
+  MarketplaceListing?: MarketplaceListingResolvers<ContextType>;
+  MarketplaceListingConnection?: MarketplaceListingConnectionResolvers<ContextType>;
+  MarketplaceListingEdge?: MarketplaceListingEdgeResolvers<ContextType>;
+  MarkPullRequestReadyForReviewPayload?: MarkPullRequestReadyForReviewPayloadResolvers<ContextType>;
+  MemberStatusable?: MemberStatusableResolvers;
+  MentionedEvent?: MentionedEventResolvers<ContextType>;
+  MergedEvent?: MergedEventResolvers<ContextType>;
+  MergePullRequestPayload?: MergePullRequestPayloadResolvers<ContextType>;
+  Milestone?: MilestoneResolvers<ContextType>;
+  MilestoneConnection?: MilestoneConnectionResolvers<ContextType>;
+  MilestonedEvent?: MilestonedEventResolvers<ContextType>;
+  MilestoneEdge?: MilestoneEdgeResolvers<ContextType>;
+  MilestoneItem?: MilestoneItemResolvers;
+  Minimizable?: MinimizableResolvers;
+  MinimizeCommentPayload?: MinimizeCommentPayloadResolvers<ContextType>;
+  MovedColumnsInProjectEvent?: MovedColumnsInProjectEventResolvers<ContextType>;
+  MoveProjectCardPayload?: MoveProjectCardPayloadResolvers<ContextType>;
+  MoveProjectColumnPayload?: MoveProjectColumnPayloadResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  Node?: NodeResolvers;
+  Organization?: OrganizationResolvers<ContextType>;
+  OrganizationConnection?: OrganizationConnectionResolvers<ContextType>;
+  OrganizationEdge?: OrganizationEdgeResolvers<ContextType>;
+  OrganizationIdentityProvider?: OrganizationIdentityProviderResolvers<ContextType>;
+  OrganizationInvitation?: OrganizationInvitationResolvers<ContextType>;
+  OrganizationInvitationConnection?: OrganizationInvitationConnectionResolvers<ContextType>;
+  OrganizationInvitationEdge?: OrganizationInvitationEdgeResolvers<ContextType>;
+  OrganizationMemberConnection?: OrganizationMemberConnectionResolvers<ContextType>;
+  OrganizationMemberEdge?: OrganizationMemberEdgeResolvers<ContextType>;
+  OrganizationsHovercardContext?: OrganizationsHovercardContextResolvers<ContextType>;
+  OrganizationTeamsHovercardContext?: OrganizationTeamsHovercardContextResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
+  PinIssuePayload?: PinIssuePayloadResolvers<ContextType>;
+  PinnedEvent?: PinnedEventResolvers<ContextType>;
+  PinnedIssue?: PinnedIssueResolvers<ContextType>;
+  PinnedIssueConnection?: PinnedIssueConnectionResolvers<ContextType>;
+  PinnedIssueEdge?: PinnedIssueEdgeResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
+  ProjectCard?: ProjectCardResolvers<ContextType>;
+  ProjectCardConnection?: ProjectCardConnectionResolvers<ContextType>;
+  ProjectCardEdge?: ProjectCardEdgeResolvers<ContextType>;
+  ProjectCardItem?: ProjectCardItemResolvers;
+  ProjectColumn?: ProjectColumnResolvers<ContextType>;
+  ProjectColumnConnection?: ProjectColumnConnectionResolvers<ContextType>;
+  ProjectColumnEdge?: ProjectColumnEdgeResolvers<ContextType>;
+  ProjectConnection?: ProjectConnectionResolvers<ContextType>;
+  ProjectEdge?: ProjectEdgeResolvers<ContextType>;
+  ProjectOwner?: ProjectOwnerResolvers;
+  ProtectedBranch?: ProtectedBranchResolvers<ContextType>;
+  ProtectedBranchConnection?: ProtectedBranchConnectionResolvers<ContextType>;
+  ProtectedBranchEdge?: ProtectedBranchEdgeResolvers<ContextType>;
+  PublicKey?: PublicKeyResolvers<ContextType>;
+  PublicKeyConnection?: PublicKeyConnectionResolvers<ContextType>;
+  PublicKeyEdge?: PublicKeyEdgeResolvers<ContextType>;
+  PullRequest?: PullRequestResolvers<ContextType>;
+  PullRequestChangedFile?: PullRequestChangedFileResolvers<ContextType>;
+  PullRequestChangedFileConnection?: PullRequestChangedFileConnectionResolvers<ContextType>;
+  PullRequestChangedFileEdge?: PullRequestChangedFileEdgeResolvers<ContextType>;
+  PullRequestCommit?: PullRequestCommitResolvers<ContextType>;
+  PullRequestCommitCommentThread?: PullRequestCommitCommentThreadResolvers<ContextType>;
+  PullRequestCommitConnection?: PullRequestCommitConnectionResolvers<ContextType>;
+  PullRequestCommitEdge?: PullRequestCommitEdgeResolvers<ContextType>;
+  PullRequestConnection?: PullRequestConnectionResolvers<ContextType>;
+  PullRequestEdge?: PullRequestEdgeResolvers<ContextType>;
+  PullRequestReview?: PullRequestReviewResolvers<ContextType>;
+  PullRequestReviewComment?: PullRequestReviewCommentResolvers<ContextType>;
+  PullRequestReviewCommentConnection?: PullRequestReviewCommentConnectionResolvers<ContextType>;
+  PullRequestReviewCommentEdge?: PullRequestReviewCommentEdgeResolvers<ContextType>;
+  PullRequestReviewConnection?: PullRequestReviewConnectionResolvers<ContextType>;
+  PullRequestReviewEdge?: PullRequestReviewEdgeResolvers<ContextType>;
+  PullRequestReviewThread?: PullRequestReviewThreadResolvers<ContextType>;
+  PullRequestReviewThreadConnection?: PullRequestReviewThreadConnectionResolvers<ContextType>;
+  PullRequestReviewThreadEdge?: PullRequestReviewThreadEdgeResolvers<ContextType>;
+  PullRequestRevisionMarker?: PullRequestRevisionMarkerResolvers<ContextType>;
+  PullRequestTimelineConnection?: PullRequestTimelineConnectionResolvers<ContextType>;
+  PullRequestTimelineItem?: PullRequestTimelineItemResolvers;
+  PullRequestTimelineItemEdge?: PullRequestTimelineItemEdgeResolvers<ContextType>;
+  PullRequestTimelineItems?: PullRequestTimelineItemsResolvers;
+  PullRequestTimelineItemsConnection?: PullRequestTimelineItemsConnectionResolvers<ContextType>;
+  PullRequestTimelineItemsEdge?: PullRequestTimelineItemsEdgeResolvers<ContextType>;
+  Push?: PushResolvers<ContextType>;
+  PushAllowance?: PushAllowanceResolvers<ContextType>;
+  PushAllowanceActor?: PushAllowanceActorResolvers;
+  PushAllowanceConnection?: PushAllowanceConnectionResolvers<ContextType>;
+  PushAllowanceEdge?: PushAllowanceEdgeResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  RateLimit?: RateLimitResolvers<ContextType>;
+  Reactable?: ReactableResolvers;
+  ReactingUserConnection?: ReactingUserConnectionResolvers<ContextType>;
+  ReactingUserEdge?: ReactingUserEdgeResolvers<ContextType>;
+  Reaction?: ReactionResolvers<ContextType>;
+  ReactionConnection?: ReactionConnectionResolvers<ContextType>;
+  ReactionEdge?: ReactionEdgeResolvers<ContextType>;
+  ReactionGroup?: ReactionGroupResolvers<ContextType>;
+  Ref?: RefResolvers<ContextType>;
+  RefConnection?: RefConnectionResolvers<ContextType>;
+  RefEdge?: RefEdgeResolvers<ContextType>;
+  ReferencedEvent?: ReferencedEventResolvers<ContextType>;
+  ReferencedSubject?: ReferencedSubjectResolvers;
+  RegenerateBusinessIdentityProviderRecoveryCodesPayload?: RegenerateBusinessIdentityProviderRecoveryCodesPayloadResolvers<
+    ContextType
+  >;
+  RegistryPackageOwner?: RegistryPackageOwnerResolvers;
+  RegistryPackageSearch?: RegistryPackageSearchResolvers;
+  Release?: ReleaseResolvers<ContextType>;
+  ReleaseAsset?: ReleaseAssetResolvers<ContextType>;
+  ReleaseAssetConnection?: ReleaseAssetConnectionResolvers<ContextType>;
+  ReleaseAssetEdge?: ReleaseAssetEdgeResolvers<ContextType>;
+  ReleaseConnection?: ReleaseConnectionResolvers<ContextType>;
+  ReleaseEdge?: ReleaseEdgeResolvers<ContextType>;
+  RemoveAssigneesFromAssignablePayload?: RemoveAssigneesFromAssignablePayloadResolvers<ContextType>;
+  RemoveBusinessAdminPayload?: RemoveBusinessAdminPayloadResolvers<ContextType>;
+  RemoveBusinessBillingManagerPayload?: RemoveBusinessBillingManagerPayloadResolvers<ContextType>;
+  RemoveBusinessIdentityProviderPayload?: RemoveBusinessIdentityProviderPayloadResolvers<ContextType>;
+  RemovedFromProjectEvent?: RemovedFromProjectEventResolvers<ContextType>;
+  RemoveLabelsFromLabelablePayload?: RemoveLabelsFromLabelablePayloadResolvers<ContextType>;
+  RemoveOutsideCollaboratorPayload?: RemoveOutsideCollaboratorPayloadResolvers<ContextType>;
+  RemoveReactionPayload?: RemoveReactionPayloadResolvers<ContextType>;
+  RemoveStarPayload?: RemoveStarPayloadResolvers<ContextType>;
+  RenamedTitleEvent?: RenamedTitleEventResolvers<ContextType>;
+  RenamedTitleSubject?: RenamedTitleSubjectResolvers;
+  ReopenedEvent?: ReopenedEventResolvers<ContextType>;
+  ReopenIssuePayload?: ReopenIssuePayloadResolvers<ContextType>;
+  ReopenPullRequestPayload?: ReopenPullRequestPayloadResolvers<ContextType>;
+  Repository?: RepositoryResolvers<ContextType>;
+  RepositoryCollaboratorConnection?: RepositoryCollaboratorConnectionResolvers<ContextType>;
+  RepositoryCollaboratorEdge?: RepositoryCollaboratorEdgeResolvers<ContextType>;
+  RepositoryConnection?: RepositoryConnectionResolvers<ContextType>;
+  RepositoryEdge?: RepositoryEdgeResolvers<ContextType>;
+  RepositoryInfo?: RepositoryInfoResolvers;
+  RepositoryInvitation?: RepositoryInvitationResolvers<ContextType>;
+  RepositoryNode?: RepositoryNodeResolvers;
+  RepositoryOwner?: RepositoryOwnerResolvers;
+  RepositoryTopic?: RepositoryTopicResolvers<ContextType>;
+  RepositoryTopicConnection?: RepositoryTopicConnectionResolvers<ContextType>;
+  RepositoryTopicEdge?: RepositoryTopicEdgeResolvers<ContextType>;
+  RepositoryVulnerabilityAlert?: RepositoryVulnerabilityAlertResolvers<ContextType>;
+  RepositoryVulnerabilityAlertConnection?: RepositoryVulnerabilityAlertConnectionResolvers<ContextType>;
+  RepositoryVulnerabilityAlertEdge?: RepositoryVulnerabilityAlertEdgeResolvers<ContextType>;
+  RequestedReviewer?: RequestedReviewerResolvers;
+  RequestReviewsPayload?: RequestReviewsPayloadResolvers<ContextType>;
+  RerequestCheckSuitePayload?: RerequestCheckSuitePayloadResolvers<ContextType>;
+  ResolveReviewThreadPayload?: ResolveReviewThreadPayloadResolvers<ContextType>;
+  RestrictedContribution?: RestrictedContributionResolvers<ContextType>;
+  ReviewDismissalAllowance?: ReviewDismissalAllowanceResolvers<ContextType>;
+  ReviewDismissalAllowanceActor?: ReviewDismissalAllowanceActorResolvers;
+  ReviewDismissalAllowanceConnection?: ReviewDismissalAllowanceConnectionResolvers<ContextType>;
+  ReviewDismissalAllowanceEdge?: ReviewDismissalAllowanceEdgeResolvers<ContextType>;
+  ReviewDismissedEvent?: ReviewDismissedEventResolvers<ContextType>;
+  ReviewRequest?: ReviewRequestResolvers<ContextType>;
+  ReviewRequestConnection?: ReviewRequestConnectionResolvers<ContextType>;
+  ReviewRequestedEvent?: ReviewRequestedEventResolvers<ContextType>;
+  ReviewRequestEdge?: ReviewRequestEdgeResolvers<ContextType>;
+  ReviewRequestRemovedEvent?: ReviewRequestRemovedEventResolvers<ContextType>;
+  ReviewStatusHovercardContext?: ReviewStatusHovercardContextResolvers<ContextType>;
+  SearchResultItem?: SearchResultItemResolvers;
+  SearchResultItemConnection?: SearchResultItemConnectionResolvers<ContextType>;
+  SearchResultItemEdge?: SearchResultItemEdgeResolvers<ContextType>;
+  SecurityAdvisory?: SecurityAdvisoryResolvers<ContextType>;
+  SecurityAdvisoryConnection?: SecurityAdvisoryConnectionResolvers<ContextType>;
+  SecurityAdvisoryEdge?: SecurityAdvisoryEdgeResolvers<ContextType>;
+  SecurityAdvisoryIdentifier?: SecurityAdvisoryIdentifierResolvers<ContextType>;
+  SecurityAdvisoryPackage?: SecurityAdvisoryPackageResolvers<ContextType>;
+  SecurityAdvisoryPackageVersion?: SecurityAdvisoryPackageVersionResolvers<ContextType>;
+  SecurityAdvisoryReference?: SecurityAdvisoryReferenceResolvers<ContextType>;
+  SecurityVulnerability?: SecurityVulnerabilityResolvers<ContextType>;
+  SecurityVulnerabilityConnection?: SecurityVulnerabilityConnectionResolvers<ContextType>;
+  SecurityVulnerabilityEdge?: SecurityVulnerabilityEdgeResolvers<ContextType>;
+  SetBusinessIdentityProviderPayload?: SetBusinessIdentityProviderPayloadResolvers<ContextType>;
+  SmimeSignature?: SmimeSignatureResolvers<ContextType>;
+  StargazerConnection?: StargazerConnectionResolvers<ContextType>;
+  StargazerEdge?: StargazerEdgeResolvers<ContextType>;
+  Starrable?: StarrableResolvers;
+  StarredRepositoryConnection?: StarredRepositoryConnectionResolvers<ContextType>;
+  StarredRepositoryEdge?: StarredRepositoryEdgeResolvers<ContextType>;
+  Status?: StatusResolvers<ContextType>;
+  StatusContext?: StatusContextResolvers<ContextType>;
+  SubmitPullRequestReviewPayload?: SubmitPullRequestReviewPayloadResolvers<ContextType>;
+  Subscribable?: SubscribableResolvers;
+  SubscribedEvent?: SubscribedEventResolvers<ContextType>;
+  SuggestedReviewer?: SuggestedReviewerResolvers<ContextType>;
+  Tag?: TagResolvers<ContextType>;
+  Team?: TeamResolvers<ContextType>;
+  TeamConnection?: TeamConnectionResolvers<ContextType>;
+  TeamDiscussion?: TeamDiscussionResolvers<ContextType>;
+  TeamDiscussionComment?: TeamDiscussionCommentResolvers<ContextType>;
+  TeamDiscussionCommentConnection?: TeamDiscussionCommentConnectionResolvers<ContextType>;
+  TeamDiscussionCommentEdge?: TeamDiscussionCommentEdgeResolvers<ContextType>;
+  TeamDiscussionConnection?: TeamDiscussionConnectionResolvers<ContextType>;
+  TeamDiscussionEdge?: TeamDiscussionEdgeResolvers<ContextType>;
+  TeamEdge?: TeamEdgeResolvers<ContextType>;
+  TeamMemberConnection?: TeamMemberConnectionResolvers<ContextType>;
+  TeamMemberEdge?: TeamMemberEdgeResolvers<ContextType>;
+  TeamRepositoryConnection?: TeamRepositoryConnectionResolvers<ContextType>;
+  TeamRepositoryEdge?: TeamRepositoryEdgeResolvers<ContextType>;
+  TextMatch?: TextMatchResolvers<ContextType>;
+  TextMatchHighlight?: TextMatchHighlightResolvers<ContextType>;
+  Topic?: TopicResolvers<ContextType>;
+  TopicConnection?: TopicConnectionResolvers<ContextType>;
+  TopicEdge?: TopicEdgeResolvers<ContextType>;
+  TransferredEvent?: TransferredEventResolvers<ContextType>;
+  Tree?: TreeResolvers<ContextType>;
+  TreeEntry?: TreeEntryResolvers<ContextType>;
+  UnassignedEvent?: UnassignedEventResolvers<ContextType>;
+  UniformResourceLocatable?: UniformResourceLocatableResolvers;
+  UnknownSignature?: UnknownSignatureResolvers<ContextType>;
+  UnlabeledEvent?: UnlabeledEventResolvers<ContextType>;
+  UnlockedEvent?: UnlockedEventResolvers<ContextType>;
+  UnlockLockablePayload?: UnlockLockablePayloadResolvers<ContextType>;
+  UnmarkIssueAsDuplicatePayload?: UnmarkIssueAsDuplicatePayloadResolvers<ContextType>;
+  UnminimizeCommentPayload?: UnminimizeCommentPayloadResolvers<ContextType>;
+  UnpinIssuePayload?: UnpinIssuePayloadResolvers<ContextType>;
+  UnpinnedEvent?: UnpinnedEventResolvers<ContextType>;
+  UnresolveReviewThreadPayload?: UnresolveReviewThreadPayloadResolvers<ContextType>;
+  UnsubscribedEvent?: UnsubscribedEventResolvers<ContextType>;
+  Updatable?: UpdatableResolvers;
+  UpdatableComment?: UpdatableCommentResolvers;
+  UpdateBranchProtectionRulePayload?: UpdateBranchProtectionRulePayloadResolvers<ContextType>;
+  UpdateBusinessAllowPrivateRepositoryForkingSettingPayload?: UpdateBusinessAllowPrivateRepositoryForkingSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessDefaultRepositoryPermissionSettingPayload?: UpdateBusinessDefaultRepositoryPermissionSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayload?: UpdateBusinessMembersCanChangeRepositoryVisibilitySettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanCreateRepositoriesSettingPayload?: UpdateBusinessMembersCanCreateRepositoriesSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanDeleteIssuesSettingPayload?: UpdateBusinessMembersCanDeleteIssuesSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanDeleteRepositoriesSettingPayload?: UpdateBusinessMembersCanDeleteRepositoriesSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanInviteCollaboratorsSettingPayload?: UpdateBusinessMembersCanInviteCollaboratorsSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayload?: UpdateBusinessMembersCanUpdateProtectedBranchesSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessOrganizationProjectsSettingPayload?: UpdateBusinessOrganizationProjectsSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessProfilePayload?: UpdateBusinessProfilePayloadResolvers<ContextType>;
+  UpdateBusinessRepositoryProjectsSettingPayload?: UpdateBusinessRepositoryProjectsSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessTeamDiscussionsSettingPayload?: UpdateBusinessTeamDiscussionsSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateBusinessTwoFactorAuthenticationRequiredSettingPayload?: UpdateBusinessTwoFactorAuthenticationRequiredSettingPayloadResolvers<
+    ContextType
+  >;
+  UpdateCheckRunPayload?: UpdateCheckRunPayloadResolvers<ContextType>;
+  UpdateCheckSuitePreferencesPayload?: UpdateCheckSuitePreferencesPayloadResolvers<ContextType>;
+  UpdateIssueCommentPayload?: UpdateIssueCommentPayloadResolvers<ContextType>;
+  UpdateIssuePayload?: UpdateIssuePayloadResolvers<ContextType>;
+  UpdateLabelPayload?: UpdateLabelPayloadResolvers<ContextType>;
+  UpdateProjectCardPayload?: UpdateProjectCardPayloadResolvers<ContextType>;
+  UpdateProjectColumnPayload?: UpdateProjectColumnPayloadResolvers<ContextType>;
+  UpdateProjectPayload?: UpdateProjectPayloadResolvers<ContextType>;
+  UpdatePullRequestPayload?: UpdatePullRequestPayloadResolvers<ContextType>;
+  UpdatePullRequestReviewCommentPayload?: UpdatePullRequestReviewCommentPayloadResolvers<ContextType>;
+  UpdatePullRequestReviewPayload?: UpdatePullRequestReviewPayloadResolvers<ContextType>;
+  UpdateSubscriptionPayload?: UpdateSubscriptionPayloadResolvers<ContextType>;
+  UpdateTeamDiscussionCommentPayload?: UpdateTeamDiscussionCommentPayloadResolvers<ContextType>;
+  UpdateTeamDiscussionPayload?: UpdateTeamDiscussionPayloadResolvers<ContextType>;
+  UpdateTopicsPayload?: UpdateTopicsPayloadResolvers<ContextType>;
+  URI?: GraphQLScalarType;
+  User?: UserResolvers<ContextType>;
+  UserConnection?: UserConnectionResolvers<ContextType>;
+  UserContentEdit?: UserContentEditResolvers<ContextType>;
+  UserContentEditConnection?: UserContentEditConnectionResolvers<ContextType>;
+  UserContentEditEdge?: UserContentEditEdgeResolvers<ContextType>;
+  UserEdge?: UserEdgeResolvers<ContextType>;
+  UserStatus?: UserStatusResolvers<ContextType>;
+  UserStatusConnection?: UserStatusConnectionResolvers<ContextType>;
+  UserStatusEdge?: UserStatusEdgeResolvers<ContextType>;
+  ViewerHovercardContext?: ViewerHovercardContextResolvers<ContextType>;
+  X509Certificate?: GraphQLScalarType;
+};
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+ */
+export type IResolvers<ContextType = AppContext> = Resolvers<ContextType>;
+export type DirectiveResolvers<ContextType = AppContext> = {
+  possibleTypes?: PossibleTypesDirectiveResolver<any, any, ContextType>;
+  preview?: PreviewDirectiveResolver<any, any, ContextType>;
+};
+
+/**
+ * @deprecated
+ * Use "DirectiveResolvers" root object instead. If you wish to get "IDirectiveResolvers", add "typesPrefix: I" to your config.
+ */
+export type IDirectiveResolvers<ContextType = AppContext> = DirectiveResolvers<ContextType>;
