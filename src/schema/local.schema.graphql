@@ -2,3 +2,7 @@ extend type Query {
   isLoggedIn: Boolean!
   token: String
 }
+
+extend type Mutation {
+  login(token: String!): String!
+}

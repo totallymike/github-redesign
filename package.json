@@ -12,6 +12,7 @@
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "classnames": "^2.2.6",
+    "formik": "^1.5.4",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "jss": "^10.0.0-alpha.12",
@@ -23,6 +24,8 @@
     "react-router5": "^7.1.0",
     "react-scripts": "3.0.0",
     "router5": "^7.0.2",
+    "router5-plugin-browser": "^7.0.2",
+    "router5-plugin-logger": "^7.0.2",
     "typescript": "3.4.5"
   },
   "scripts": {

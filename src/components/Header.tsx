@@ -1,6 +1,7 @@
 // import cn from 'classnames';
 import React from 'react';
 import withStyles, { WithStyles } from 'react-jss';
+import { Link } from 'react-router5';
 import { HeaderComponent } from '../generated/graphql';
 import { ReactComponent as Logo } from '../images/octocat.svg';
 import { Theme } from '../styles/theme';
@@ -65,9 +66,9 @@ const headerComponent: React.FunctionComponent<Props> = ({ classes }) => (
             <div className="d-flex flex-justify-between flex-auto">
               <ul className="d-flex px-2 flex-items-center text-bold list-style-none">
                 <li>
-                  <a className={classes.headerNavLink} href="/pulls">
+                  <Link className={classes.headerNavLink} routeName="pulls">
                     Pull Requests
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a className={classes.headerNavLink} href="/issues">
