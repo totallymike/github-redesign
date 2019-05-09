@@ -1,8 +1,8 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'graphql.macro';
-import { Header } from './Header';
 import { LoggedOut } from './LoggedOut';
+import { LoggedIn } from './LoggedIn';
 
 export const ROOT_QUERY = gql`
   query RootQuery {
@@ -27,10 +27,7 @@ export const Main: React.FunctionComponent = () => {
         }
 
         return (
-          <React.Fragment>
-            <Header />
-            <div className="App" />
-          </React.Fragment>
+          <LoggedIn />
         );
       }}
     </Query>
