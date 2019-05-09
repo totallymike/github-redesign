@@ -11328,16 +11328,60 @@ export type LoginMutationVariables = {
 };
 
 export type LoginMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'login'>;
+
+export type OwnerFragment = { __typename?: 'Repository' } & {
+  owner: { __typename?: 'Organization' | 'User' } & Pick<RepositoryOwner, 'login'>;
+};
+
+export type EdgesFragment = { __typename?: 'RepositoryEdge' } & {
+  node: Maybe<{ __typename?: 'Repository' } & Pick<Repository, 'name'> & OwnerFragment>;
+};
+
+export type ReposQueryVariables = {
+  first: Scalars['Int'];
+};
+
+export type ReposQuery = { __typename?: 'Query' } & {
+  viewer: { __typename?: 'User' } & {
+    repositories: { __typename: 'RepositoryConnection' } & {
+      edges: Maybe<
+        Array<Maybe<{ __typename: 'RepositoryEdge' } & Pick<RepositoryEdge, 'cursor'> & EdgesFragment>>
+      >;
+    };
+  };
+};
 export type HeaderVariables = HeaderQueryVariables;
 export type HeaderViewer = HeaderQuery['viewer'];
 export const HeaderHOC = withHeader;
 export type LoginVariables = LoginMutationVariables;
 export const LoginHOC = withLogin;
+export type OwnerOwner = OwnerFragment['owner'];
+export type EdgesNode = OwnerFragment;
+export type ReposVariables = ReposQueryVariables;
+export type ReposViewer = ReposQuery['viewer'];
+export type ReposRepositories = ReposQuery['viewer']['repositories'];
+export type ReposEdges = EdgesFragment;
+export const ReposHOC = withRepos;
 import { gql } from 'graphql.macro';
 import * as React from 'react';
 import * as ReactApollo from 'react-apollo';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
+export const OwnerFragmentDoc = gql`
+  fragment Owner on Repository {
+    owner {
+      login
+    }
+  }
+`;
+export const EdgesFragmentDoc = gql`
+  fragment Edges on RepositoryEdge {
+    node {
+      name
+      ...Owner
+    }
+  }
+  ${OwnerFragmentDoc}
+`;
 export const HeaderDocument = gql`
   query Header {
     viewer {
@@ -11405,6 +11449,46 @@ export function withLogin<TProps, TChildProps = {}>(
     LoginDocument,
     {
       alias: 'withLogin',
+      ...operationOptions,
+    }
+  );
+}
+export const ReposDocument = gql`
+  query Repos($first: Int!) {
+    viewer {
+      repositories(first: $first, orderBy: { field: UPDATED_AT, direction: DESC }) {
+        __typename
+        edges {
+          __typename
+          cursor
+          ...Edges
+        }
+      }
+    }
+  }
+  ${EdgesFragmentDoc}
+`;
+
+export const ReposComponent = (
+  props: Omit<Omit<ReactApollo.QueryProps<ReposQuery, ReposQueryVariables>, 'query'>, 'variables'> & {
+    variables: ReposQueryVariables;
+  }
+) => <ReactApollo.Query<ReposQuery, ReposQueryVariables> query={ReposDocument} {...props} />;
+
+export type ReposProps<TChildProps = {}> = Partial<ReactApollo.DataProps<ReposQuery, ReposQueryVariables>> &
+  TChildProps;
+export function withRepos<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    ReposQuery,
+    ReposQueryVariables,
+    ReposProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<TProps, ReposQuery, ReposQueryVariables, ReposProps<TChildProps>>(
+    ReposDocument,
+    {
+      alias: 'withRepos',
       ...operationOptions,
     }
   );

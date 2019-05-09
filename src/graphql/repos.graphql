@@ -1,0 +1,26 @@
+# These fragments are here to work around some codegen thing
+fragment Owner on Repository {
+  owner {
+    login
+  }
+}
+
+fragment Edges on RepositoryEdge {
+  node {
+    name
+    ...Owner
+  }
+}
+
+query Repos($first: Int!) {
+  viewer {
+    repositories(first: $first, orderBy: { field: UPDATED_AT, direction: DESC }) {
+      __typename
+      edges {
+        __typename
+        cursor
+        ...Edges
+      }
+    }
+  }
+}
