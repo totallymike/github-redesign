@@ -5408,6 +5408,7 @@ export type Mutation = {
   updateTeamDiscussionComment?: Maybe<UpdateTeamDiscussionCommentPayload>;
   /** Replaces the repository's topics with the given topics. */
   updateTopics?: Maybe<UpdateTopicsPayload>;
+  login: Scalars['String'];
 };
 
 /** The root query for implementing GraphQL mutations. */
@@ -5923,6 +5924,11 @@ export type MutationUpdateTeamDiscussionCommentArgs = {
 /** The root query for implementing GraphQL mutations. */
 export type MutationUpdateTopicsArgs = {
   input: UpdateTopicsInput;
+};
+
+/** The root query for implementing GraphQL mutations. */
+export type MutationLoginArgs = {
+  token: Scalars['String'];
 };
 
 /** An object with an ID. */
@@ -16434,6 +16440,7 @@ export type MutationResolvers<ContextType = AppContext, ParentType = ResolversTy
     ContextType,
     MutationUpdateTopicsArgs
   >;
+  login?: Resolver<ResolversTypes['String'], ParentType, ContextType, MutationLoginArgs>;
 };
 
 export type NodeResolvers<ContextType = AppContext, ParentType = ResolversTypes['Node']> = {

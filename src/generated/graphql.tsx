@@ -5408,6 +5408,7 @@ export type Mutation = {
   updateTeamDiscussionComment?: Maybe<UpdateTeamDiscussionCommentPayload>;
   /** Replaces the repository's topics with the given topics. */
   updateTopics?: Maybe<UpdateTopicsPayload>;
+  login: Scalars['String'];
 };
 
 /** The root query for implementing GraphQL mutations. */
@@ -5923,6 +5924,11 @@ export type MutationUpdateTeamDiscussionCommentArgs = {
 /** The root query for implementing GraphQL mutations. */
 export type MutationUpdateTopicsArgs = {
   input: UpdateTopicsInput;
+};
+
+/** The root query for implementing GraphQL mutations. */
+export type MutationLoginArgs = {
+  token: Scalars['String'];
 };
 
 /** An object with an ID. */
@@ -12127,9 +12133,17 @@ export type HeaderQueryVariables = {};
 export type HeaderQuery = { __typename: 'Query' } & Pick<Query, 'isLoggedIn'> & {
     viewer: { __typename?: 'User' } & Pick<User, 'avatarUrl' | 'login'>;
   };
+
+export type LoginMutationVariables = {
+  token: Scalars['String'];
+};
+
+export type LoginMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'login'>;
 export type HeaderVariables = HeaderQueryVariables;
 export type HeaderViewer = HeaderQuery['viewer'];
 export const HeaderHOC = withHeader;
+export type LoginVariables = LoginMutationVariables;
+export const LoginHOC = withLogin;
 import { gql } from 'graphql.macro';
 import * as React from 'react';
 import * as ReactApollo from 'react-apollo';
@@ -12168,6 +12182,40 @@ export function withHeader<TProps, TChildProps = {}>(
     HeaderDocument,
     {
       alias: 'withHeader',
+      ...operationOptions,
+    }
+  );
+}
+export const LoginDocument = gql`
+  mutation Login($token: String!) {
+    login(token: $token) @client
+  }
+`;
+export type LoginMutationFn = ReactApollo.MutationFn<LoginMutation, LoginMutationVariables>;
+
+export const LoginComponent = (
+  props: Omit<
+    Omit<ReactApollo.MutationProps<LoginMutation, LoginMutationVariables>, 'mutation'>,
+    'variables'
+  > & { variables?: LoginMutationVariables }
+) => <ReactApollo.Mutation<LoginMutation, LoginMutationVariables> mutation={LoginDocument} {...props} />;
+
+export type LoginProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<LoginMutation, LoginMutationVariables>
+> &
+  TChildProps;
+export function withLogin<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    LoginMutation,
+    LoginMutationVariables,
+    LoginProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<TProps, LoginMutation, LoginMutationVariables, LoginProps<TChildProps>>(
+    LoginDocument,
+    {
+      alias: 'withLogin',
       ...operationOptions,
     }
   );
