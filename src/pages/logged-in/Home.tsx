@@ -1,6 +1,7 @@
 import React from 'react';
-import { ReposComponent } from '../../generated/graphql';
+import { Option, Vector } from 'prelude-ts';
 import { Link } from 'react-router5';
+import { ReposComponent } from '../../generated/graphql';
 
 export const Home = () => {
   return (
@@ -24,15 +25,19 @@ export const Home = () => {
           } = data;
 
           if (edges) {
+            const repos = Vector
+              .ofIterable(edges)
+              .mapOption(edge => {
+                return Option.ofNullable(edge && edge.node);
+              });
             return (
               <ul>
                 {
-                  edges
-                    .filter(edge => edge && edge.node)
-                    .map(edge => {
+                  repos
+                    .map(repo => {
                       // These types are defined as nullable because...they are.
                       // So we cheat because we know they exist.
-                      const { id, name, owner } = edge!.node!;
+                      const { id, name, owner } = repo;
                       const routeParams = {
                         owner: owner.login,
                         repository: name,
