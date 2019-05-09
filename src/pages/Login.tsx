@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormikProps, Form, Field, Formik } from 'formik';
 import { LoginComponent } from '../generated/graphql';
+import { useRouter, useRoute } from 'react-router5';
 
 interface FormValues {
   token: string;
@@ -9,6 +10,8 @@ interface FormValues {
 interface Props extends FormikProps<FormValues> {}
 
 const LoginForm: React.FunctionComponent = (props) => {
+  const router = useRouter();
+  const { route: currentRoute } = useRoute();
   return (
     <LoginComponent>
       {(mutate, { loading, error }) => {
@@ -23,7 +26,15 @@ const LoginForm: React.FunctionComponent = (props) => {
           <Formik
             initialValues={{ token: '' }}
             onSubmit={({ token }, actions) => {
-              mutate({ variables: { token }})
+              mutate({ variables: { token }}).then(() => {
+                // If `return_to` is set, navigate to it after logging in.
+                if (currentRoute.params.return_to) {
+                  const nextRoute = router.matchPath(currentRoute.params.return_to);
+                  if (nextRoute) {
+                    router.navigate(nextRoute.name, nextRoute.params);
+                  }
+                }
+              })
             }}
           >
             {({ touched, errors, isSubmitting }) => (

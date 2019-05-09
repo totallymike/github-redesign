@@ -3,7 +3,7 @@ import cn from 'classnames';
 import withStyles, { WithStyles } from 'react-jss';
 import { Theme } from '../styles/theme';
 import { ReactComponent as Logo } from '../images/octocat.svg';
-import { Link } from 'react-router5';
+import { Link, Route } from 'react-router5';
 
 const styles = (theme: Theme) => ({
   header: {
@@ -31,21 +31,31 @@ const styles = (theme: Theme) => ({
 interface Props extends WithStyles<ReturnType<typeof styles>> {}
 
 const loggedOutHeaderComponent: React.FunctionComponent<Props> = ({ classes }) => (
-  <header className={classes.header}>
-    <div className="container-lg d-flex px-3">
-      <div className="d-flex flex-justify-between flex-items-center">
-        <Link className="mr-4" routeName="home">
-          <Logo className="octicon octicon-mark-github text-white" />
-        </Link>
-      </div>
-      <div className="d-flex flex-justify-between flex-items-center flex-auto">
-        <nav className="mt-0"></nav>
-        <div className="d-flex flex-items-center px-0 text-center text-left">
-          <Link className={cn(classes.headerMenuLink, 'no-underline', 'mr-3')} routeName="login">Sign in</Link>
+  <Route>
+    {({ route }) => (
+      <header className={classes.header}>
+        <div className="container-lg d-flex px-3">
+          <div className="d-flex flex-justify-between flex-items-center">
+            <Link className="mr-4" routeName="home">
+              <Logo className="octicon octicon-mark-github text-white" />
+            </Link>
+          </div>
+          <div className="d-flex flex-justify-between flex-items-center flex-auto">
+            <nav className="mt-0"></nav>
+            <div className="d-flex flex-items-center px-0 text-center text-left">
+              <Link
+                className={cn(classes.headerMenuLink, 'no-underline', 'mr-3')}
+                routeName="login"
+                routeParams={{ return_to: route.path }}
+              >
+                Sign in
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </header>
+      </header>
+    )}
+  </Route>
 )
 
 export const LoggedOutHeader = withStyles(styles)(loggedOutHeaderComponent);

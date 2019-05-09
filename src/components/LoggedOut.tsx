@@ -25,9 +25,12 @@ const LoggedOutComponent: FunctionComponent<Props> = ({ route }) => {
     )
   }
 
+  const loginParams = {
+    return_to: route.path,
+  };
   return (
     <div className="container">
-      <Link routeName="login">Log in</Link>
+      <Link routeName="login" routeParams={loginParams}>Log in</Link>
     </div>
   );
 }
