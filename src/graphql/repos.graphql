@@ -7,6 +7,7 @@ fragment Owner on Repository {
 
 fragment Edges on RepositoryEdge {
   node {
+    id
     name
     ...Owner
   }

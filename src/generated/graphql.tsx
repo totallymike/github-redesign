@@ -11334,7 +11334,7 @@ export type OwnerFragment = { __typename?: 'Repository' } & {
 };
 
 export type EdgesFragment = { __typename?: 'RepositoryEdge' } & {
-  node: Maybe<{ __typename?: 'Repository' } & Pick<Repository, 'name'> & OwnerFragment>;
+  node: Maybe<{ __typename?: 'Repository' } & Pick<Repository, 'id' | 'name'> & OwnerFragment>;
 };
 
 export type ReposQueryVariables = {
@@ -11376,6 +11376,7 @@ export const OwnerFragmentDoc = gql`
 export const EdgesFragmentDoc = gql`
   fragment Edges on RepositoryEdge {
     node {
+      id
       name
       ...Owner
     }
