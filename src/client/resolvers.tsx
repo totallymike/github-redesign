@@ -1,5 +1,4 @@
-// For now the following must be a separate file.
-import { Resolvers } from '../generated/resolvers';
+import { Resolvers } from 'apollo-client';
 import { gql } from 'graphql.macro';
 
 const query = gql`
@@ -19,6 +18,7 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     login: (_, { token }, { cache }) => {
+      localStorage.setItem('token', token);
       cache.writeQuery({ query , data: { token, isLoggedIn: true } });
       return token;
     }
